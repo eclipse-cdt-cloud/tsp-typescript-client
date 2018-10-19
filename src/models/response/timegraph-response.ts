@@ -16,8 +16,7 @@
 
 import { EntryHeader } from '../tree';
 import { GenericEntryResponse } from './entry-response';
-import { TimeGraphEntry, TimeGraphRow } from '../timegraph';
-import { GenericResponse } from './responses';
+import { TimeGraphEntry } from '../timegraph';
 
 /**
  * Time graph specific entry response extends the GenericEntryResponse.

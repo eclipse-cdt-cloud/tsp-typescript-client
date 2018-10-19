@@ -1,0 +1,27 @@
+{
+  "name": "tsp-typescript-client",
+  "version": "0.0.0",
+  "description": "Trace Server Protocol client written in TypeScript",
+  "author": "Ericsson and others",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "tsp",
+    "trace server protocol",
+    "tracing",
+    "trace"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theia-ide/tsp-typescript-client"
+  },
+  "bugs": {
+    "url": "https://github.com/theia-ide/tsp-typescript-client/issues"
+  },
+  "homepage": "https://github.com/theia-ide/tsp-typescript-client",
+  "files": [
+    "lib"
+  ]
+}

@@ -37,7 +37,7 @@ export class RestClient {
      * @param parameters Query parameters. The string should be in this format: key1=value1&key2=value2
      */
     public static async get(url: string, parameters?: string): Promise<any> {
-        const getUrl = parameters.length > 0 ? url + '?' + parameters : url;
+        const getUrl = parameters !== undefined && parameters.length > 0 ? url + '?' + parameters : url;
         return this.performRequest('get', getUrl);
     }
 
@@ -65,7 +65,7 @@ export class RestClient {
      * @param parameters Query parameters. The string should be in this format: key1=value1&key2=value2
      */
     public static async delete(url: string, parameters?: string): Promise<any> {
-        const deleteUrl = parameters.length > 0 ? url + '?' + parameters : url;
+        const deleteUrl = parameters !== undefined && parameters.length > 0 ? url + '?' + parameters : url;
         return this.performRequest('delete', deleteUrl);
     }
 }
