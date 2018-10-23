@@ -31,7 +31,7 @@ export interface BasicEntry {
     /**
      * Array of entry header
      */
-    name: EntryHeader[];
+    name: string[];
 }
 
 /**

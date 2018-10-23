@@ -14,7 +14,7 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { EntryHeader } from '../tree';
+import { EntryHeader } from '../entry';
 import { GenericEntryResponse } from './entry-response';
 import { TimeGraphEntry } from '../timegraph';
 

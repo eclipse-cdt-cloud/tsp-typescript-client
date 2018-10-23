@@ -16,6 +16,17 @@
 
 import { XYModel, Axis } from '../xy';
 import { GenericResponse } from './responses';
+import { BasicEntry, EntryHeader } from '../entry';
+import { GenericEntryResponse } from './entry-response';
+
+
+/**
+ * XY specific entry response extends the GenericEntryResponse.
+ * Type T is a BasicEntry and Type U is an EntryHeader
+ */
+export interface XYEntryResponse<T extends BasicEntry, U extends EntryHeader> extends GenericEntryResponse<T> {
+    headers: U[];
+}
 
 /**
  * XY specific model response.

@@ -15,6 +15,7 @@
  ********************************************************************************/
 
 import { OutputDescriptor } from '../output-descriptor';
+import { ResponseStatus } from './responses';
 
 /**
  * Generic entry/tree response
@@ -34,4 +35,14 @@ export interface GenericEntryResponse<T> {
      * Number of entries in the model
      */
     size: number;
+
+    /**
+     * Response status as described by ResponseStatus
+     */
+    status: ResponseStatus;
+
+    /**
+     * Message associated with the response
+     */
+    statusMessage: string;
 }

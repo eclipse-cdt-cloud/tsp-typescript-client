@@ -16,9 +16,9 @@
 
 import { Query } from '../models/query';
 import { GenericEntryResponse } from '../models/response/entry-response';
-import { BasicEntry, EntryHeader } from '../models/tree';
+import { BasicEntry, EntryHeader } from '../models/entry';
 import { GenericResponse } from '../models/response/responses';
-import { XYModelResponse } from '../models/response/xy-response';
+import { XYModelResponse, XYEntryResponse } from '../models/response/xy-response';
 import { XYModel } from '../models/xy';
 import { TimeGraphEntryResponse } from '../models/response/timegraph-response';
 import { TimeGraphEntry, TimeGraphRow, TimeGraphArrow } from '../models/timegraph';
@@ -147,9 +147,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic entry response with entries of type T
      */
-    public async fetchXYTree<T extends BasicEntry>(expUUID: string, outputID: string, parameters: Query): Promise<GenericEntryResponse<T>> {
+    public async fetchXYTree<T extends BasicEntry, U extends EntryHeader>(expUUID: string, outputID: string, parameters: Query): Promise<XYEntryResponse<T, U>> {
         const url = '${this.baseUrl}/experiments/${expUUID}/outputs/XY/${outputID}/tree';
-        return await RestClient.post(url, parameters) as GenericEntryResponse<T>;
+        return await RestClient.post(url, parameters) as XYEntryResponse<T, U>;
     }
 
     /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { BasicEntry } from './tree';
+import { BasicEntry } from './entry';
 
 /**
  * Entry in a time graph
