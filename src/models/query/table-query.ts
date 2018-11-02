@@ -14,19 +14,14 @@
  * limitations under the License.
  ********************************************************************************/
 
-/**
- * Describes the parameter used in a request. A query contains all the parameters that need to be pass for a specific output.
- * Parameters can be found in the output descriptor. It also contains a list of filters to be applied on a specific output.
- * The output response will contain only elements that pass these filters.
- */
-export interface Query {
-    /**
-     * Map of parameters used for the query
-     */
-    parameters: Map<string, any>;
+export class TableQuery {
+    private columnsId: number[];
+    private index: number;
+    private count: number;
 
-    /**
-     * Array of filter Ids to apply
-     */
-    filters: number[];
+    constructor(columnsId: number[], index: number, count: number) {
+        this.columnsId = columnsId;
+        this.index = index;
+        this.count = count;
+    }
 }

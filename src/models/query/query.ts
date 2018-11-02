@@ -14,24 +14,24 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { XYModel, Axis } from '../xy';
-import { GenericResponse } from './responses';
-import { BasicEntry, EntryHeader } from '../entry';
-import { GenericEntryResponse } from './entry-response';
-
 /**
- * XY specific entry response extends the GenericEntryResponse.
- * Type T is a BasicEntry and Type U is an EntryHeader
+ * Describes the parameter used in a request. A query contains all the parameters that need to be pass for a specific output.
+ * Parameters can be found in the output descriptor. It also contains a list of filters to be applied on a specific output.
+ * The output response will contain only elements that pass these filters.
  */
-export interface XYEntryResponse<T extends BasicEntry, U extends EntryHeader> extends GenericEntryResponse<T> {
-    headers: U[];
-}
+export class Query {
+    /**
+     * Map of parameters used for the query
+     */
+    private parameters: object;
 
-/**
- * XY specific model response.
- * Type T is a XYModel
- */
-export interface XYModelResponse<T extends XYModel> extends GenericResponse<T> {
-    xAxis: Axis;
-    yAxis: Axis;
+    /**
+     * Array of filter Ids to apply
+     */
+    private filters: number[];
+
+    constructor(parameters: object, filters: number[]) {
+        this.parameters = parameters;
+        this.filters = filters;
+    }
 }

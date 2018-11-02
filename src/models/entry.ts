@@ -29,7 +29,7 @@ export interface BasicEntry {
     parentId: number;
 
     /**
-     * Array of entry header
+     * Array of string that represant the content of each column
      */
     name: string[];
 }

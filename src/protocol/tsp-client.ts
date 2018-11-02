@@ -14,7 +14,7 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { Query } from '../models/query';
+import { Query } from '../models/query/query';
 import { GenericEntryResponse } from '../models/response/entry-response';
 import { BasicEntry, EntryHeader } from '../models/entry';
 import { GenericResponse } from '../models/response/responses';
@@ -38,7 +38,7 @@ export class TspClient {
      * Constructor
      * @param baseUrl Base URL of the server (ex. https://localhost:8080/tsp/api)
      */
-    public TspClient(baseUrl: string) {
+    public constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
 

@@ -14,24 +14,27 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { XYModel, Axis } from '../xy';
-import { GenericResponse } from './responses';
-import { BasicEntry, EntryHeader } from '../entry';
-import { GenericEntryResponse } from './entry-response';
+export class TimeQuery {
+    private timesRequested: number[];
 
-/**
- * XY specific entry response extends the GenericEntryResponse.
- * Type T is a BasicEntry and Type U is an EntryHeader
- */
-export interface XYEntryResponse<T extends BasicEntry, U extends EntryHeader> extends GenericEntryResponse<T> {
-    headers: U[];
-}
+    constructor(start: number, end: number, nb: number) {
+        this.timesRequested = this.splitRangeIntoEqualParts(start, end, nb);
+    }
 
-/**
- * XY specific model response.
- * Type T is a XYModel
- */
-export interface XYModelResponse<T extends XYModel> extends GenericResponse<T> {
-    xAxis: Axis;
-    yAxis: Axis;
+    private splitRangeIntoEqualParts(start: number, end: number, nb: number): number[] {
+        let result: number[] = new Array(nb);
+        if (nb === 1) {
+            if (start === end) {
+                result[0] = start;
+                return result;
+            }
+        }
+
+        const stepSize: number = Math.abs(end - start) / (nb - 1);
+        for (let i = 0; i < nb; i++) {
+            result[i] = Math.min(start, end) + Math.round(i * stepSize);
+        }
+        result[result.length - 1] = Math.max(start, end);
+        return result;
+    }
 }

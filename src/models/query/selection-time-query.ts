@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ********************************************************************************/
+import { TimeQuery } from './time-query';
 
-import { XYModel, Axis } from '../xy';
-import { GenericResponse } from './responses';
-import { BasicEntry, EntryHeader } from '../entry';
-import { GenericEntryResponse } from './entry-response';
+export class SelectionTimeQuery extends TimeQuery {
+    private items: number[];
 
-/**
- * XY specific entry response extends the GenericEntryResponse.
- * Type T is a BasicEntry and Type U is an EntryHeader
- */
-export interface XYEntryResponse<T extends BasicEntry, U extends EntryHeader> extends GenericEntryResponse<T> {
-    headers: U[];
-}
-
-/**
- * XY specific model response.
- * Type T is a XYModel
- */
-export interface XYModelResponse<T extends XYModel> extends GenericResponse<T> {
-    xAxis: Axis;
-    yAxis: Axis;
+    constructor(start: number, end: number, n: number, items: number[]) {
+        super(start, end, n);
+        this.items = items;
+    }
 }
