@@ -27,6 +27,7 @@ import { Trace } from '../models/trace';
 import { RestClient } from './rest-client';
 import { Experiment } from '../models/experiment';
 import { OutputDescriptor } from '../models/output-descriptor';
+import { URLSearchParams } from 'url';
 
 /**
  * Trace Server Protocol client

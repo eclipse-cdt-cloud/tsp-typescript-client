@@ -14,6 +14,8 @@
  * limitations under the License.
  ********************************************************************************/
 
+import fetch from 'node-fetch';
+
 /**
  * Rest client helper to make request.
  * Errors are thrown when the request response is not 200.
