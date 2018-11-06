@@ -18,8 +18,8 @@ import { TimeQuery } from './time-query';
 export class SelectionTimeQuery extends TimeQuery {
     private items: number[];
 
-    constructor(start: number, end: number, n: number, items: number[]) {
-        super(start, end, n);
+    constructor(timeRequested: number[], items: number[]) {
+        super(timeRequested);
         this.items = items;
     }
 }

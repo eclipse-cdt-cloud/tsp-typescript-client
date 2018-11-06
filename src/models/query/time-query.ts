@@ -17,12 +17,16 @@
 export class TimeQuery {
     private timesRequested: number[];
 
-    constructor(start: number, end: number, nb: number) {
-        this.timesRequested = this.splitRangeIntoEqualParts(start, end, nb);
+    constructor(timeRequested: number[]) {
+        this.timesRequested = timeRequested;
     }
 
-    private splitRangeIntoEqualParts(start: number, end: number, nb: number): number[] {
-        let result: number[] = new Array(nb);
+    // constructor(start: number, end: number, nb: number) {
+    //     this.timesRequested = this.splitRangeIntoEqualParts(start, end, nb);
+    // }
+
+    public static splitRangeIntoEqualParts(start: number, end: number, nb: number): number[] {
+        const result: number[] = new Array(nb);
         if (nb === 1) {
             if (start === end) {
                 result[0] = start;

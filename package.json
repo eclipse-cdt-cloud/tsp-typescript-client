@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "description": "Trace Server Protocol client written in TypeScript",
   "author": "Ericsson and others",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
@@ -26,6 +28,7 @@
   ],
   "devDependencies": {
     "@types/node": "^10.12.2",
+    "@types/node-fetch": "^2.1.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-language-service": "^0.9.9",
@@ -33,5 +36,8 @@
   },
   "dependencies": {
     "node-fetch": "^2.2.1"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }

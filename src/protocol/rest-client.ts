@@ -22,9 +22,14 @@ import fetch from 'node-fetch';
  */
 export class RestClient {
     private static async performRequest(verb: string, url: string, body?: any) {
+        const jsonBody: string = JSON.stringify(body);
         const response = await fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             method: verb,
-            body: body
+            body: jsonBody
         });
 
         if (!response.ok) {
