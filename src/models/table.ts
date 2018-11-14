@@ -74,14 +74,18 @@ export interface Cell {
     tags: number;
 }
 
+export interface ColumnsModel {
+    columns: ColumnHeaderEntry[];
+}
+
 /**
  * Model of a table
  */
-export interface Table {
+export interface TableModel {
     /**
      * Index of the first returned line
      */
-    lowIndex: number;
+    index: number;
 
     /**
      * Number of lines
@@ -91,7 +95,7 @@ export interface Table {
     /**
      * Columns of the table represented by their respective Id
      */
-    columnId: number[];
+    columnIds: number[];
 
     /**
      * Lines

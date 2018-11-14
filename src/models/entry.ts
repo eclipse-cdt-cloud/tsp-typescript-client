@@ -43,3 +43,8 @@ export interface EntryHeader {
      */
     name: string
 }
+
+export interface EntryModel<T extends BasicEntry, U extends EntryHeader> {
+    headers: U[];
+    entries: T[];
+}

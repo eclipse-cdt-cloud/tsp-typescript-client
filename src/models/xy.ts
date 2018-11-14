@@ -24,6 +24,16 @@ export interface XYModel {
     title: string;
 
     /**
+     * Description of the X axis
+     */
+    xAxis: Axis;
+
+    /**
+     * Description of the Y axis
+     */
+    yAxis: Axis;
+
+    /**
      * Indicate if all the Y values are using the same X axis
      */
     commonXAxis: boolean;

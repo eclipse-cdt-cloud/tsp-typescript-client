@@ -36,6 +36,10 @@ export interface TimeGraphEntry extends BasicEntry {
     hasRowModel: boolean;
 }
 
+export interface TimeGraphModel {
+    rows: TimeGraphRow[];
+}
+
 /**
  * Time graph row described by an array of states for a specific entry
  */
