@@ -17,7 +17,7 @@
 /**
  * Basic entry interface
  */
-export interface BasicEntry {
+export interface Entry {
     /**
      * Unique Id for the entry
      */
@@ -44,7 +44,17 @@ export interface EntryHeader {
     name: string
 }
 
-export interface EntryModel<T extends BasicEntry, U extends EntryHeader> {
+/**
+ * Entry model that will be returned by the server
+ */
+export interface EntryModel<T extends Entry, U extends EntryHeader> {
+    /**
+     * Array of entry header
+     */
     headers: U[];
+
+    /**
+     * Array of entry
+     */
     entries: T[];
 }

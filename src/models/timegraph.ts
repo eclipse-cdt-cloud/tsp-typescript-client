@@ -14,12 +14,12 @@
  * limitations under the License.
  ********************************************************************************/
 
-import { BasicEntry } from './entry';
+import { Entry } from './entry';
 
 /**
  * Entry in a time graph
  */
-export interface TimeGraphEntry extends BasicEntry {
+export interface TimeGraphEntry extends Entry {
     /**
      * Start time of the entry
      */
@@ -36,6 +36,9 @@ export interface TimeGraphEntry extends BasicEntry {
     hasRowModel: boolean;
 }
 
+/**
+ * Time Graph model that will be returned by the server
+ */
 export interface TimeGraphModel {
     rows: TimeGraphRow[];
 }
@@ -85,9 +88,9 @@ export interface TimeGraphState {
     tags: number;
 
     /**
-     * Optional class to refer to the css in order to format the state
+     * Optional information on the style to format this state
      */
-    cssClass: string;
+    style: string;
 }
 
 /**
@@ -120,7 +123,7 @@ export interface TimeGraphArrow {
     value: number;
 
     /**
-     * Optional class to refer to the css in order to format the arrow
+     * Optional information on the style to format this arrow
      */
-    cssClass: string;
+    style: string;
 }

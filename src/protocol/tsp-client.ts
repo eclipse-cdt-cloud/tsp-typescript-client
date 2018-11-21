@@ -23,7 +23,7 @@ import { Trace } from '../models/trace';
 import { RestClient } from './rest-client';
 import { Experiment } from '../models/experiment';
 import { OutputDescriptor } from '../models/output-descriptor';
-import { EntryModel, BasicEntry, EntryHeader } from '../models/entry';
+import { EntryModel, Entry, EntryHeader } from '../models/entry';
 // import { URLSearchParams } from 'url';
 
 /**
@@ -47,6 +47,15 @@ export class TspClient {
     public async fetchTraces(): Promise<Trace[]> {
         const url = this.baseUrl + '/traces';
         return await RestClient.get(url) as Trace[];
+    }
+
+    /**
+     * Fetch a specific trace information
+     * @param traceUUID Trace UUID to fetch
+     */
+    public async fetchTrace(traceUUID: string): Promise<Trace> {
+        const url = this.baseUrl + '/traces/' + traceUUID;
+        return await RestClient.get(url) as Trace;
     }
 
     /**
@@ -89,7 +98,7 @@ export class TspClient {
     }
 
     /**
-     * Fetch a specif experiment
+     * Fetch a specific experiment information
      * @param expUUID Experiment UUID to fetch
      * @returns The experiment
      */
@@ -146,7 +155,7 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic entry response with entries of type T
      */
-    public async fetchXYTree<M extends BasicEntry, H extends EntryHeader>(expUUID: string,
+    public async fetchXYTree<M extends Entry, H extends EntryHeader>(expUUID: string,
             outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
         return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;
@@ -194,7 +203,7 @@ export class TspClient {
      * @param parameters Query object
      * @returns Time graph entry response with entries of type T and headers of type U
      */
-    public async fetchTimeGraphTree<M extends BasicEntry, H extends EntryHeader>(expUUID: string,
+    public async fetchTimeGraphTree<M extends Entry, H extends EntryHeader>(expUUID: string,
             outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tree';
         return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;
@@ -254,7 +263,7 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic entry response with entries of type T
      */
-    public async fetchTableColumns<M extends BasicEntry, H extends EntryHeader>(expUUID: string,
+    public async fetchTableColumns<M extends Entry, H extends EntryHeader>(expUUID: string,
             outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/columns';
         return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;

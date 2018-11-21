@@ -15,13 +15,8 @@
  ********************************************************************************/
 
 export * from './models/query/query';
-export * from './models/query/selection-time-query';
-export * from './models/query/table-query';
-export * from './models/query/time-query';
-export * from './models/response/entry-response';
+export * from './models/query/query-helper';
 export * from './models/response/responses';
-export * from './models/response/timegraph-response';
-export * from './models/response/xy-response';
 export * from './models/bookmark';
 export * from './models/entry';
 export * from './models/experiment';

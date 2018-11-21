@@ -33,7 +33,7 @@ export class RestClient {
         });
 
         if (!response.ok) {
-            throw Error(response.statusText);
+            throw Error(response.status.toString());
         }
         return response.json();
     }

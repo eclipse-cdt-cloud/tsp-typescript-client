@@ -24,16 +24,6 @@ export interface XYModel {
     title: string;
 
     /**
-     * Description of the X axis
-     */
-    xAxis: Axis;
-
-    /**
-     * Description of the Y axis
-     */
-    yAxis: Axis;
-
-    /**
      * Indicate if all the Y values are using the same X axis
      */
     commonXAxis: boolean;
@@ -41,7 +31,7 @@ export interface XYModel {
     /**
      * Array of XY series
      */
-    series: XYSeries[];
+    series: { [key: string]: XYSeries }; // Map<string, XYSeries>;
 }
 
 /**
@@ -57,6 +47,16 @@ export interface XYSeries {
      * Ìd of the series
      */
     seriesId: string;
+
+    /**
+     * Description of the X axis
+     */
+    xAxis: Axis;
+
+    /**
+     * Description of the Y axis
+     */
+    yAxis: Axis;
 
     /**
      * Series' X values

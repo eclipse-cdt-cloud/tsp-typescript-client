@@ -28,10 +28,17 @@ export class Query {
     /**
      * Array of filter Ids to apply
      */
-    private filters: number[];
+    private filters: number[] = new Array<number>();
 
-    constructor(parameters: object, filters: number[]) {
+    /**
+     * Constructor
+     * @param parameters Object use to send parameters to the server
+     * @param filters Optional array of filter IDs to apply
+     */
+    constructor(parameters: object, filters?: number[]) {
         this.parameters = parameters;
-        this.filters = filters;
+        if (filters) {
+            this.filters = filters;
+        }
     }
 }
