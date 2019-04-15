@@ -1,19 +1,3 @@
-/********************************************************************************
- * Copyright (C) 2018 Ericsson and others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ********************************************************************************/
-
 import { Query } from '../models/query/query';
 import { GenericResponse } from '../models/response/responses';
 import { XYModel } from '../models/xy';
@@ -24,7 +8,7 @@ import { RestClient } from './rest-client';
 import { Experiment } from '../models/experiment';
 import { OutputDescriptor } from '../models/output-descriptor';
 import { EntryModel, Entry, EntryHeader } from '../models/entry';
-// import { URLSearchParams } from 'url';
+import { TspClientResponse } from './tsp-client-response';
 
 /**
  * Trace Server Protocol client
@@ -44,18 +28,18 @@ export class TspClient {
      * Fetch all available traces on the server
      * @returns List of Trace
      */
-    public async fetchTraces(): Promise<Trace[]> {
+    public async fetchTraces(): Promise<TspClientResponse<Trace[]>> {
         const url = this.baseUrl + '/traces';
-        return await RestClient.get(url) as Trace[];
+        return RestClient.get<Trace[]>(url);
     }
 
     /**
      * Fetch a specific trace information
      * @param traceUUID Trace UUID to fetch
      */
-    public async fetchTrace(traceUUID: string): Promise<Trace> {
+    public async fetchTrace(traceUUID: string): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces/' + traceUUID;
-        return await RestClient.get(url) as Trace;
+        return RestClient.get<Trace>(url);
     }
 
     /**
@@ -63,9 +47,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns The opened trace
      */
-    public async openTrace(parameters: Query): Promise<Trace> {
+    public async openTrace(parameters: Query): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces';
-        return await RestClient.post(url, parameters) as Trace;
+        return RestClient.post<Trace>(url, parameters);
     }
 
     /**
@@ -75,7 +59,7 @@ export class TspClient {
      * @param removeCache Remove all cache for this trace
      * @returns The deleted trace
      */
-    public async deleteTrace(traceUUID: string, deleteTrace?: boolean, removeCache?: boolean): Promise<Trace> {
+    public async deleteTrace(traceUUID: string, deleteTrace?: boolean, removeCache?: boolean): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces/' + traceUUID;
         // TODO: renable when we figure how to use URLSearchParams
         // const deleteParameters: URLSearchParams = new URLSearchParams();
@@ -85,16 +69,16 @@ export class TspClient {
         // if (removeCache !== undefined) {
         //     deleteParameters.set('removeCache', removeCache.toString());
         // }
-        return await RestClient.delete(url /*, deleteParameters.toString()*/) as Trace;
+        return await RestClient.delete<Trace>(url /*, deleteParameters.toString()*/);
     }
 
     /**
      * Fetch all available experiments on the server
      * @returns List of Experiment
      */
-    public async fetchExperiments(): Promise<Experiment[]> {
+    public async fetchExperiments(): Promise<TspClientResponse<Experiment[]>> {
         const url = this.baseUrl + '/experiments';
-        return await RestClient.get(url) as Experiment[];
+        return await RestClient.get<Experiment[]>(url);
     }
 
     /**
@@ -102,9 +86,9 @@ export class TspClient {
      * @param expUUID Experiment UUID to fetch
      * @returns The experiment
      */
-    public async fetchExperiment(expUUID: string): Promise<Experiment> {
+    public async fetchExperiment(expUUID: string): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return await RestClient.get(url) as Experiment;
+        return await RestClient.get<Experiment>(url);
     }
 
     /**
@@ -112,9 +96,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns The created experiment
      */
-    public async createExperiment(parameters: Query): Promise<Experiment> {
+    public async createExperiment(parameters: Query): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments';
-        return await RestClient.post(url, parameters) as Experiment;
+        return await RestClient.post<Experiment>(url, parameters);
     }
 
     /**
@@ -123,9 +107,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns The updated experiment
      */
-    public async updateExperiment(expUUID: string, parameters: Query): Promise<Experiment> {
+    public async updateExperiment(expUUID: string, parameters: Query): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return await RestClient.put(url, parameters) as Experiment;
+        return await RestClient.put<Experiment>(url, parameters);
     }
 
     /**
@@ -133,9 +117,9 @@ export class TspClient {
      * @param expUUID Experiment UUID to delete
      * @returns The deleted experiment
      */
-    public async deleteExperiment(expUUID: string): Promise<Experiment> {
+    public async deleteExperiment(expUUID: string): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return await RestClient.delete(url) as Experiment;
+        return await RestClient.delete<Experiment>(url);
     }
 
     /**
@@ -143,9 +127,9 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @returns List of OutputDescriptor
      */
-    public async experimentOutputs(expUUID: string): Promise<OutputDescriptor[]> {
+    public async experimentOutputs(expUUID: string): Promise<TspClientResponse<OutputDescriptor[]>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs';
-        return await RestClient.get(url) as OutputDescriptor[];
+        return await RestClient.get<OutputDescriptor[]>(url);
     }
 
     /**
@@ -156,9 +140,9 @@ export class TspClient {
      * @returns Generic entry response with entries of type T
      */
     public async fetchXYTree<M extends Entry, H extends EntryHeader>(expUUID: string,
-            outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
-        return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;
+        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters)
     }
 
     /**
@@ -168,9 +152,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns XY model response with the model of type T
      */
-    public async fetchXY<T extends XYModel>(expUUID: string, outputID: string, parameters: Query): Promise<GenericResponse<T>> {
+    public async fetchXY<T extends XYModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/xy';
-        return await RestClient.post(url, parameters) as GenericResponse<T>;
+        return await RestClient.post<GenericResponse<T>>(url, parameters);
     }
 
     /**
@@ -182,7 +166,7 @@ export class TspClient {
      * @param seriesID Optional series ID
      * @returns Map of key=name of the property and value=string value associated
      */
-    public async fetchXYToolTip(expUUID: string, outputID: string, xValue: number, yValue?: number, seriesID?: string): Promise<Map<string, string>> {
+    public async fetchXYToolTip(expUUID: string, outputID: string, xValue: number, yValue?: number, seriesID?: string): Promise<TspClientResponse<Map<string, string>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tooltip';
         // TODO: renable when we figure how to use URLSearchParams
         // const xyTooltipParameters: URLSearchParams = new URLSearchParams();
@@ -193,7 +177,7 @@ export class TspClient {
         // if (seriesID !== undefined) {
         //     xyTooltipParameters.set('seriesID', seriesID);
         // }
-        return await RestClient.get(url /*, xyTooltipParameters.toString()*/) as Map<string, string>;
+        return await RestClient.get<Map<string, string>>(url /*, xyTooltipParameters.toString()*/);
     }
 
     /**
@@ -204,9 +188,9 @@ export class TspClient {
      * @returns Time graph entry response with entries of type T and headers of type U
      */
     public async fetchTimeGraphTree<M extends Entry, H extends EntryHeader>(expUUID: string,
-            outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tree';
-        return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;
+        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
     }
 
     /**
@@ -216,9 +200,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic response with the model of type T
      */
-    public async fetchTimeGraphStates<T extends TimeGraphModel>(expUUID: string, outputID: string, parameters: Query): Promise<GenericResponse<T>> {
+    public async fetchTimeGraphStates<T extends TimeGraphModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/states';
-        return await RestClient.post(url, parameters) as GenericResponse<T>;
+        return await RestClient.post<GenericResponse<T>>(url, parameters);
     }
 
     /**
@@ -228,9 +212,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic response with the model of type T
      */
-    public async fetchTimeGraphArrows<T extends TimeGraphArrow>(expUUID: string, outputID: string, parameters: Query): Promise<GenericResponse<T>> {
+    public async fetchTimeGraphArrows<T extends TimeGraphArrow>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/arrows';
-        return await RestClient.post(url, parameters) as GenericResponse<T>;
+        return await RestClient.post<GenericResponse<T>>(url, parameters);
     }
 
     /**
@@ -242,7 +226,7 @@ export class TspClient {
      * @param targetID Optional target ID in case the tooltip is for an arrow
      * @returns Map of key=name of the property and value=string value associated
      */
-    public async fetchTimeGraphToolTip(expUUID: string, outputID: string, time: number, entryID?: string, targetID?: string): Promise<Map<string, string>> {
+    public async fetchTimeGraphToolTip(expUUID: string, outputID: string, time: number, entryID?: string, targetID?: string): Promise<TspClientResponse<Map<string, string>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tooltip';
         // TODO: renable when we figure how to use URLSearchParams
         // const statesTooltipParameters: URLSearchParams = new URLSearchParams();
@@ -253,7 +237,7 @@ export class TspClient {
         // if (targetID !== undefined) {
         //     statesTooltipParameters.set('targetID', targetID.toString());
         // }
-        return await RestClient.get(url /*, statesTooltipParameters.toString()*/) as Map<string, string>;
+        return await RestClient.get<Map<string, string>>(url /*, statesTooltipParameters.toString()*/);
     }
 
     /**
@@ -264,9 +248,9 @@ export class TspClient {
      * @returns Generic entry response with entries of type T
      */
     public async fetchTableColumns<M extends Entry, H extends EntryHeader>(expUUID: string,
-            outputID: string, parameters: Query): Promise<GenericResponse<EntryModel<M, H>>> {
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/columns';
-        return await RestClient.post(url, parameters) as GenericResponse<EntryModel<M, H>>;
+        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
     }
 
     /**
@@ -276,8 +260,8 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic response with the model of type T
      */
-    public async fetchTableLines<T extends TableModel>(expUUID: string, outputID: string, parameters: Query): Promise<GenericResponse<T>> {
+    public async fetchTableLines<T extends TableModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/lines';
-        return await RestClient.post(url, parameters) as GenericResponse<T>;
+        return await RestClient.post<GenericResponse<T>>(url, parameters);
     }
 }

@@ -8,10 +8,10 @@
       ],
       "curly": true,
       "eofline": true,
-      "file-header": [
-        true,
-        "Copyright"
-      ],
+      // "file-header": [
+      //   true,
+      //   "Copyright"
+      // ],
       "forin": true,
       "indent": {
         "options": [
