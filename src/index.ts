@@ -12,3 +12,4 @@ export * from './models/trace';
 export * from './models/xy';
 export * from './protocol/tsp-client';
 export * from './protocol/rest-client';
+export * from './protocol/tsp-client-response';

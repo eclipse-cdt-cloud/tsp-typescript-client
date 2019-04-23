@@ -40,6 +40,9 @@ export class TspClientResponse<T> {
         return this.statusMessage;
     }
 
+    /**
+     * Check if the status code is 200
+     */
     public isOk(): boolean {
         // TODO Use a constant
         return this.statusCode === 200;

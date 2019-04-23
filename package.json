@@ -1,6 +1,6 @@
 {
   "name": "tsp-typescript-client",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Trace Server Protocol client written in TypeScript",
   "author": "Ericsson and others",
   "main": "lib/index.js",
@@ -38,6 +38,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "publish:next": "yarn publish --tag next"
+    "publish:next": "yarn publish --new-version \"$(semver $npm_package_version -i minor)-next.$(git rev-parse --short HEAD)\" --tag next"
   }
 }
