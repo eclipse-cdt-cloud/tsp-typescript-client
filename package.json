@@ -37,6 +37,7 @@
     "node-fetch": "^2.2.1"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "publish:next": "yarn publish --tag next"
   }
 }

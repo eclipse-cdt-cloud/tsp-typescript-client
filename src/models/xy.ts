@@ -15,7 +15,7 @@ export interface XYModel {
     /**
      * Array of XY series
      */
-    series: { [key: string]: XYSeries }; // Map<string, XYSeries>;
+    series: { [key: string]: XYSeries };
 }
 
 /**
@@ -25,12 +25,12 @@ export interface XYSeries {
     /**
      * Name of the series
      */
-    seriesName: string;
+    name: string;
 
     /**
      * Ìd of the series
      */
-    seriesId: string;
+    id: string;
 
     /**
      * Description of the X axis

@@ -5,6 +5,11 @@ import { Entry } from './entry';
  */
 export interface TimeGraphEntry extends Entry {
     /**
+     * Type of the entry
+     */
+    type: string;
+
+    /**
      * Start time of the entry
      */
     startTime: number;
@@ -54,7 +59,7 @@ export interface TimeGraphState {
     /**
      * End time of the state
      */
-    endTime: number;
+    duration: number;
 
     /**
      * Label to apply to the state

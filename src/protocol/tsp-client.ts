@@ -142,7 +142,7 @@ export class TspClient {
     public async fetchXYTree<M extends Entry, H extends EntryHeader>(expUUID: string,
         outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
-        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters)
+        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
     }
 
     /**

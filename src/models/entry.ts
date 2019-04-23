@@ -15,7 +15,12 @@ export interface Entry {
     /**
      * Array of string that represant the content of each column
      */
-    name: string[];
+    labels: string[];
+
+    /**
+     * Style key used to search for a The style map can be obtained by using the style endpoint.
+     */
+    styleKey?: string;
 }
 
 /**

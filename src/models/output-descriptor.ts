@@ -21,7 +21,7 @@ export interface OutputDescriptor {
      * Type of data returned by this output.
      * Serve as a hint to determine what kind of view should be use for this output (ex. XY, Time Graph, Table, etc..)
      */
-    responseType: string;
+    type: string;
 
     /**
      * Map of query parameters that the provider accept
