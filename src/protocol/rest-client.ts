@@ -24,10 +24,14 @@ export class RestClient {
      * Perform GET
      * T is the expected type of the json object returned by this request
      * @param url URL to query without query parameters
-     * @param parameters Query parameters. The string should be in this format: key1=value1&key2=value2
+     * @param parameters Query parameters. Map keys and values are use to build the final URL
      */
-    public static async get<T>(url: string, parameters?: string): Promise<TspClientResponse<T>> {
-        const getUrl = parameters !== undefined && parameters.length > 0 ? url + '?' + parameters : url;
+    public static async get<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
+        const getUrl = url;
+        if (parameters) {
+            const urlParameters = this.encodeURLParameters(parameters);
+            getUrl.concat(urlParameters);
+        }
         return this.performRequest<T>('get', getUrl);
     }
 
@@ -55,10 +59,26 @@ export class RestClient {
      * Perform DELETE
      * T is the expected type of the json object returned by this request
      * @param url URL to query without query parameters
-     * @param parameters Query parameters. The string should be in this format: key1=value1&key2=value2
+     * @param parameters Query parameters. Map keys and values are use to build the final URL
      */
-    public static async delete<T>(url: string, parameters?: string): Promise<TspClientResponse<T>> {
-        const deleteUrl = parameters !== undefined && parameters.length > 0 ? url + '?' + parameters : url;
+    public static async delete<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
+        const deleteUrl = url;
+        if (parameters) {
+            const urlParameters = this.encodeURLParameters(parameters);
+            deleteUrl.concat(urlParameters);
+        }
         return this.performRequest<T>('delete', deleteUrl);
+    }
+
+    private static encodeURLParameters(parameters: Map<string, string>): string {
+        if (parameters.size) {
+            const urlParameters: string = '?';
+            const parametersArray: string[] = [];
+            parameters.forEach((value, key) => {
+                parametersArray.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+            });
+            return urlParameters.concat(parametersArray.join('&'));
+        }
+        return '';
     }
 }

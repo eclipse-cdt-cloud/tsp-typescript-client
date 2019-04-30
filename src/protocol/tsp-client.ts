@@ -61,15 +61,14 @@ export class TspClient {
      */
     public async deleteTrace(traceUUID: string, deleteTrace?: boolean, removeCache?: boolean): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces/' + traceUUID;
-        // TODO: renable when we figure how to use URLSearchParams
-        // const deleteParameters: URLSearchParams = new URLSearchParams();
-        // if (deleteTrace !== undefined) {
-        //     deleteParameters.set('deleteTrace', deleteTrace.toString());
-        // }
-        // if (removeCache !== undefined) {
-        //     deleteParameters.set('removeCache', removeCache.toString());
-        // }
-        return await RestClient.delete<Trace>(url /*, deleteParameters.toString()*/);
+        const deleteParameters: Map<string, string> = new Map();
+        if (deleteTrace) {
+            deleteParameters.set('deleteTrace', deleteTrace.toString());
+        }
+        if (removeCache) {
+            deleteParameters.set('removeCache', removeCache.toString());
+        }
+        return await RestClient.delete<Trace>(url, deleteParameters);
     }
 
     /**
@@ -166,18 +165,19 @@ export class TspClient {
      * @param seriesID Optional series ID
      * @returns Map of key=name of the property and value=string value associated
      */
-    public async fetchXYToolTip(expUUID: string, outputID: string, xValue: number, yValue?: number, seriesID?: string): Promise<TspClientResponse<Map<string, string>>> {
+    public async fetchXYToolTip(expUUID: string, outputID: string, xValue: number,
+        yValue?: number, seriesID?: string): Promise<TspClientResponse<GenericResponse<{ [key: string]: string }>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tooltip';
-        // TODO: renable when we figure how to use URLSearchParams
-        // const xyTooltipParameters: URLSearchParams = new URLSearchParams();
-        // xyTooltipParameters.set('xValue', xValue.toString());
-        // if (yValue !== undefined) {
-        //     xyTooltipParameters.set('yValue', yValue.toString());
-        // }
-        // if (seriesID !== undefined) {
-        //     xyTooltipParameters.set('seriesID', seriesID);
-        // }
-        return await RestClient.get<Map<string, string>>(url /*, xyTooltipParameters.toString()*/);
+
+        const parametersMap: Map<string, string> = new Map();
+        parametersMap.set('xValue', xValue.toString());
+        if (yValue) {
+            parametersMap.set('yValue', yValue.toString());
+        }
+        if (seriesID) {
+            parametersMap.set('seriesId', seriesID);
+        }
+        return await RestClient.get<GenericResponse<{ [key: string]: string }>>(url, parametersMap);
     }
 
     /**
@@ -226,18 +226,18 @@ export class TspClient {
      * @param targetID Optional target ID in case the tooltip is for an arrow
      * @returns Map of key=name of the property and value=string value associated
      */
-    public async fetchTimeGraphToolTip(expUUID: string, outputID: string, time: number, entryID?: string, targetID?: string): Promise<TspClientResponse<Map<string, string>>> {
+    public async fetchTimeGraphToolTip(expUUID: string, outputID: string, time: number,
+        entryID?: string, targetID?: string): Promise<TspClientResponse<GenericResponse<{ [key: string]: string }>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tooltip';
-        // TODO: renable when we figure how to use URLSearchParams
-        // const statesTooltipParameters: URLSearchParams = new URLSearchParams();
-        // statesTooltipParameters.set('time', time.toString());
-        // if (entryID !== undefined) {
-        //     statesTooltipParameters.set('entryID', entryID.toString());
-        // }
-        // if (targetID !== undefined) {
-        //     statesTooltipParameters.set('targetID', targetID.toString());
-        // }
-        return await RestClient.get<Map<string, string>>(url /*, statesTooltipParameters.toString()*/);
+        const parametersMap: Map<string, string> = new Map();
+        parametersMap.set('time', time.toString());
+        if (entryID) {
+            parametersMap.set('entryId', entryID);
+        }
+        if (targetID) {
+            parametersMap.set('targetId', targetID);
+        }
+        return await RestClient.get<GenericResponse<{ [key: string]: string }>>(url, parametersMap);
     }
 
     /**

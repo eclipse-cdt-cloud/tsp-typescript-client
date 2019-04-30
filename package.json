@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Trace Server Protocol client written in TypeScript",
   "author": "Ericsson and others",
+  "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "publishConfig": {
