@@ -27,15 +27,15 @@
     "lib"
   ],
   "devDependencies": {
-    "@types/node": "^10.12.2",
-    "@types/node-fetch": "^2.1.2",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
+    "@types/node": "^11.13.8",
+    "@types/node-fetch": "^2.3.3",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "^3.1.6"
+    "typescript": "latest"
   },
   "dependencies": {
-    "node-fetch": "^2.2.1"
+    "node-fetch": "^2.5.0"
   },
   "scripts": {
     "build": "tsc",

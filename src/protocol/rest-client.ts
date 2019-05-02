@@ -27,10 +27,10 @@ export class RestClient {
      * @param parameters Query parameters. Map keys and values are use to build the final URL
      */
     public static async get<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
-        const getUrl = url;
+        let getUrl = url;
         if (parameters) {
             const urlParameters = this.encodeURLParameters(parameters);
-            getUrl.concat(urlParameters);
+            getUrl = getUrl.concat(urlParameters);
         }
         return this.performRequest<T>('get', getUrl);
     }
@@ -62,10 +62,10 @@ export class RestClient {
      * @param parameters Query parameters. Map keys and values are use to build the final URL
      */
     public static async delete<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
-        const deleteUrl = url;
+        let deleteUrl = url;
         if (parameters) {
             const urlParameters = this.encodeURLParameters(parameters);
-            deleteUrl.concat(urlParameters);
+            deleteUrl = deleteUrl.concat(urlParameters);
         }
         return this.performRequest<T>('delete', deleteUrl);
     }
