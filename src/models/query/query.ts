@@ -10,19 +10,11 @@ export class Query {
     private parameters: object;
 
     /**
-     * Array of filter Ids to apply
-     */
-    private filters: number[] = new Array<number>();
-
-    /**
      * Constructor
      * @param parameters Object use to send parameters to the server
      * @param filters Optional array of filter IDs to apply
      */
-    constructor(parameters: object, filters?: number[]) {
+    constructor(parameters: object) {
         this.parameters = parameters;
-        if (filters) {
-            this.filters = filters;
-        }
     }
 }

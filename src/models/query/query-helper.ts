@@ -7,27 +7,27 @@ export class QueryHelper {
     /**
      * Time requested key
      */
-    public static TIME_REQUESTED: string = 'timeRequested';
+    public static readonly REQUESTED_TIME_KEY: string = 'requested_times_key';
 
     /**
      * Selected items key
      */
-    public static SELECTED_ITEMS: string = 'items';
+    public static readonly REQUESTED_ITEMS_KEY: string = 'requested_items_key';
 
     /**
      * Starting index key
      */
-    public static INDEX: string = 'index';
+    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index_key';
 
     /**
      * Key for the number of element to return
      */
-    public static COUNT: string = 'count';
+    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'requested_table_count_key';
 
     /**
      * Table column IDs key
      */
-    public static SELECTED_COLUMNS = 'columnId';
+    public static readonly REQUESTED_COLUMN_IDS_KEY = 'requested_table_column_ids_key';
 
     /**
      * Build a simple time query
@@ -35,11 +35,11 @@ export class QueryHelper {
      * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
-    public static timeQuery(timeRequested: number[], filters?: number[], additionalProperties?: { [key: string]: any }): Query {
+    public static timeQuery(timeRequested: number[], additionalProperties?: { [key: string]: any }): Query {
         const timeObj = {
-            [this.TIME_REQUESTED]: timeRequested
+            [this.REQUESTED_TIME_KEY]: timeRequested
         };
-        return new Query({ ...timeObj, ...additionalProperties }, filters);
+        return new Query({ ...timeObj, ...additionalProperties });
     }
 
     /**
@@ -49,13 +49,13 @@ export class QueryHelper {
      * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
-    public static selectionTimeQuery(timeRequested: number[], items: number[], filters?: number[], additionalProperties?: { [key: string]: any }): Query {
+    public static selectionTimeQuery(timeRequested: number[], items: number[], additionalProperties?: { [key: string]: any }): Query {
         const selectionTimeObj = {
-            [this.TIME_REQUESTED]: timeRequested,
-            [this.SELECTED_ITEMS]: items
+            [this.REQUESTED_TIME_KEY]: timeRequested,
+            [this.REQUESTED_ITEMS_KEY]: items
         };
 
-        return new Query({ ...selectionTimeObj, ...additionalProperties }, filters);
+        return new Query({ ...selectionTimeObj, ...additionalProperties });
     }
 
     /**
@@ -66,14 +66,14 @@ export class QueryHelper {
      * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
-    public static tableQuery(columnsId: number[], index: number, count: number, filters?: number[], additionalProperties?: { [key: string]: any }) {
+    public static tableQuery(columnsId: number[], index: number, count: number, additionalProperties?: { [key: string]: any }) {
         const tableObj = {
-            [this.INDEX]: index,
-            [this.COUNT]: count,
-            [this.SELECTED_COLUMNS]: columnsId
+            [this.REQUESTED_TABLE_INDEX_KEY]: index,
+            [this.REQUESTED_TABLE_COUNT_KEY]: count,
+            [this.REQUESTED_COLUMN_IDS_KEY]: columnsId
         };
 
-        return new Query({ ...tableObj, ...additionalProperties }, filters);
+        return new Query({ ...tableObj, ...additionalProperties });
     }
 
     /**
