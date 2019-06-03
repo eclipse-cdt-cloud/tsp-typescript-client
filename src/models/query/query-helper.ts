@@ -7,32 +7,31 @@ export class QueryHelper {
     /**
      * Time requested key
      */
-    public static readonly REQUESTED_TIME_KEY: string = 'requested_times_key';
+    public static readonly REQUESTED_TIME_KEY: string = 'requested_times';
 
     /**
      * Selected items key
      */
-    public static readonly REQUESTED_ITEMS_KEY: string = 'requested_items_key';
+    public static readonly REQUESTED_ITEMS_KEY: string = 'requested_items';
 
     /**
      * Starting index key
      */
-    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index_key';
+    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index';
 
     /**
      * Key for the number of element to return
      */
-    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'requested_table_count_key';
+    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'requested_table_count';
 
     /**
      * Table column IDs key
      */
-    public static readonly REQUESTED_COLUMN_IDS_KEY = 'requested_table_column_ids_key';
+    public static readonly REQUESTED_COLUMN_IDS_KEY = 'requested_table_column_ids';
 
     /**
      * Build a simple time query
      * @param timeRequested Array of requested times
-     * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
     public static timeQuery(timeRequested: number[], additionalProperties?: { [key: string]: any }): Query {
@@ -46,7 +45,6 @@ export class QueryHelper {
      * Build a simple time query with selected items
      * @param timeRequested Array of requested times
      * @param items Array of item IDs
-     * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
     public static selectionTimeQuery(timeRequested: number[], items: number[], additionalProperties?: { [key: string]: any }): Query {
@@ -63,7 +61,6 @@ export class QueryHelper {
      * @param columnsId Desired columns
      * @param index Starting index to query
      * @param count Number of lines
-     * @param filters Array of filter IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
     public static tableQuery(columnsId: number[], index: number, count: number, additionalProperties?: { [key: string]: any }) {

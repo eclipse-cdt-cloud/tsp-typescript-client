@@ -12,7 +12,6 @@ export class Query {
     /**
      * Constructor
      * @param parameters Object use to send parameters to the server
-     * @param filters Optional array of filter IDs to apply
      */
     constructor(parameters: object) {
         this.parameters = parameters;
