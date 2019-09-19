@@ -1,4 +1,5 @@
 import { Entry } from './entry';
+import { OutputElementStyle } from './styles';
 
 /**
  * Entry in a time graph
@@ -79,7 +80,7 @@ export interface TimeGraphState {
     /**
      * Optional information on the style to format this state
      */
-    style: string;
+    style?: OutputElementStyle;
 }
 
 /**
@@ -114,5 +115,5 @@ export interface TimeGraphArrow {
     /**
      * Optional information on the style to format this arrow
      */
-    style: string;
+    style?: OutputElementStyle;
 }

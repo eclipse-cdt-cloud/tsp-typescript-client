@@ -30,6 +30,14 @@ export class QueryHelper {
     public static readonly REQUESTED_COLUMN_IDS_KEY = 'requested_table_column_ids';
 
     /**
+     * Build a simple query
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     */
+    public static query(additionalProperties?: { [key: string]: any }): Query {
+        return new Query({ ...additionalProperties });
+    }
+
+    /**
      * Build a simple time query
      * @param timeRequested Array of requested times
      * @param additionalProperties Use this optional parameter to add custom properties to your query

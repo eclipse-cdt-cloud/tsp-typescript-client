@@ -1,3 +1,5 @@
+import { OutputElementStyle } from './styles';
+
 /**
  * Basic entry interface
  */
@@ -20,7 +22,7 @@ export interface Entry {
     /**
      * Style key used to search for a The style map can be obtained by using the style endpoint.
      */
-    styleKey?: string;
+    style?: OutputElementStyle;
 }
 
 /**

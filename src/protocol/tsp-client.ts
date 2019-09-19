@@ -9,6 +9,7 @@ import { Experiment } from '../models/experiment';
 import { OutputDescriptor } from '../models/output-descriptor';
 import { EntryModel, Entry, EntryHeader } from '../models/entry';
 import { TspClientResponse } from './tsp-client-response';
+import { OutputStyleModel } from '../models/styles';
 
 /**
  * Trace Server Protocol client
@@ -262,6 +263,18 @@ export class TspClient {
      */
     public async fetchTableLines<T extends TableModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/lines';
+        return await RestClient.post<GenericResponse<T>>(url, parameters);
+    }
+
+    /**
+     * Fetch output styles
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic response with the model of type T
+     */
+    public async fetchStyles<T extends OutputStyleModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/style';
         return await RestClient.post<GenericResponse<T>>(url, parameters);
     }
 }

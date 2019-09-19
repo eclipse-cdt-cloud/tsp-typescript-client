@@ -10,6 +10,7 @@ export * from './models/table';
 export * from './models/timegraph';
 export * from './models/trace';
 export * from './models/xy';
+export * from './models/styles';
 export * from './protocol/tsp-client';
 export * from './protocol/rest-client';
 export * from './protocol/tsp-client-response';
