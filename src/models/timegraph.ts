@@ -6,24 +6,14 @@ import { OutputElementStyle } from './styles';
  */
 export interface TimeGraphEntry extends Entry {
     /**
-     * Type of the entry
-     */
-    type: string;
-
-    /**
      * Start time of the entry
      */
-    startTime: number;
+    start: number;
 
     /**
      * End time of the entry
      */
-    endTime: number;
-
-    /**
-     * Indicate if the entry will have row data
-     */
-    hasRowModel: boolean;
+    end: number;
 }
 
 /**
@@ -55,27 +45,22 @@ export interface TimeGraphState {
     /**
      * Start time of the state
      */
-    startTime: number;
+    start: number;
 
     /**
      * End time of the state
      */
-    duration: number;
+    end: number;
 
     /**
      * Label to apply to the state
      */
-    label: string;
-
-    /**
-     * Values associated to the state
-     */
-    value: number;
+    label?: string;
 
     /**
      * Tags for the state, used when the state pass a filter
      */
-    tags: number;
+    tags?: number;
 
     /**
      * Optional information on the style to format this state
@@ -95,22 +80,17 @@ export interface TimeGraphArrow {
     /**
      * Destination entry Id for the arrow
      */
-    destinationId: number;
+    targetId: number;
 
     /**
      * Start time of the arrow
      */
-    startTime: number;
+    start: number;
 
     /**
      * Duration of the arrow
      */
-    duration: number;
-
-    /**
-     * Value associated to the arrow
-     */
-    value: number;
+    end: number;
 
     /**
      * Optional information on the style to format this arrow

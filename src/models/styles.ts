@@ -13,7 +13,7 @@ export interface OutputElementStyle {
     /**
      * Style values to override or define properties
      */
-    styleValues: { [key: string]: any };
+    values: { [key: string]: any };
 }
 
 /**

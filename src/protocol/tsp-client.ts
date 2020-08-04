@@ -1,8 +1,8 @@
 import { Query } from '../models/query/query';
 import { GenericResponse } from '../models/response/responses';
 import { XYModel } from '../models/xy';
-import { TimeGraphArrow, TimeGraphModel } from '../models/timegraph';
-import { TableModel } from '../models/table';
+import { TimeGraphEntry, TimeGraphArrow, TimeGraphModel } from '../models/timegraph';
+import { TableModel, ColumnHeaderEntry } from '../models/table';
 import { Trace } from '../models/trace';
 import { RestClient } from './rest-client';
 import { Experiment } from '../models/experiment';
@@ -137,12 +137,12 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic entry response with entries of type T
+     * @returns Generic entry response with entries
      */
-    public async fetchXYTree<M extends Entry, H extends EntryHeader>(expUUID: string,
-        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
+    public async fetchXYTree(expUUID: string,
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<Entry>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
-        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
+        return await RestClient.post<GenericResponse<EntryModel<Entry>>>(url, parameters);
     }
 
     /**
@@ -150,11 +150,11 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns XY model response with the model of type T
+     * @returns XY model response with the model
      */
-    public async fetchXY<T extends XYModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+    public async fetchXY(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<XYModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/xy';
-        return await RestClient.post<GenericResponse<T>>(url, parameters);
+        return await RestClient.post<GenericResponse<XYModel>>(url, parameters);
     }
 
     /**
@@ -186,12 +186,12 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Time graph entry response with entries of type T and headers of type U
+     * @returns Time graph entry response with entries of type TimeGraphEntry
      */
-    public async fetchTimeGraphTree<M extends Entry, H extends EntryHeader>(expUUID: string,
-        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
+    public async fetchTimeGraphTree(expUUID: string,
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tree';
-        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
+        return await RestClient.post<GenericResponse<EntryModel<TimeGraphEntry>>>(url, parameters);
     }
 
     /**
@@ -199,11 +199,11 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic response with the model of type T
+     * @returns Generic response with the model
      */
-    public async fetchTimeGraphStates<T extends TimeGraphModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+    public async fetchTimeGraphStates(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TimeGraphModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/states';
-        return await RestClient.post<GenericResponse<T>>(url, parameters);
+        return await RestClient.post<GenericResponse<TimeGraphModel>>(url, parameters);
     }
 
     /**
@@ -211,11 +211,11 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic response with the model of type T
+     * @returns Generic response with the model
      */
-    public async fetchTimeGraphArrows<T extends TimeGraphArrow>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+    public async fetchTimeGraphArrows(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TimeGraphArrow>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/arrows';
-        return await RestClient.post<GenericResponse<T>>(url, parameters);
+        return await RestClient.post<GenericResponse<TimeGraphArrow>>(url, parameters);
     }
 
     /**
@@ -246,12 +246,12 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic entry response with entries of type T
+     * @returns Generic entry response with columns headers as model
      */
-    public async fetchTableColumns<M extends Entry, H extends EntryHeader>(expUUID: string,
-        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<EntryModel<M, H>>>> {
+    public async fetchTableColumns(expUUID: string,
+        outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<ColumnHeaderEntry[]>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/columns';
-        return await RestClient.post<GenericResponse<EntryModel<M, H>>>(url, parameters);
+        return await RestClient.post<GenericResponse<ColumnHeaderEntry[]>>(url, parameters);
     }
 
     /**
@@ -259,11 +259,11 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic response with the model of type T
+     * @returns Generic response with the model
      */
-    public async fetchTableLines<T extends TableModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+    public async fetchTableLines(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TableModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/lines';
-        return await RestClient.post<GenericResponse<T>>(url, parameters);
+        return await RestClient.post<GenericResponse<TableModel>>(url, parameters);
     }
 
     /**
@@ -271,10 +271,10 @@ export class TspClient {
      * @param expUUID Experiment UUID
      * @param outputID Output ID
      * @param parameters Query object
-     * @returns Generic response with the model of type T
+     * @returns Generic response with the model
      */
-    public async fetchStyles<T extends OutputStyleModel>(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<T>>> {
+    public async fetchStyles(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<OutputStyleModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/style';
-        return await RestClient.post<GenericResponse<T>>(url, parameters);
+        return await RestClient.post<GenericResponse<OutputStyleModel>>(url, parameters);
     }
 }
