@@ -15,12 +15,12 @@ export interface ColumnHeaderEntry {
     /**
      * Description of the column
      */
-    columnDescription: string;
+    description: string;
 
     /**
      * Hint on the Type of data associated to the column
      */
-    columnType: string;
+    type: string;
 }
 
 /**
@@ -58,10 +58,6 @@ export interface Cell {
     tags: number;
 }
 
-export interface ColumnsModel {
-    columns: ColumnHeaderEntry[];
-}
-
 /**
  * Model of a table
  */
@@ -69,7 +65,7 @@ export interface TableModel {
     /**
      * Index of the first returned line
      */
-    index: number;
+    lowIndex: number;
 
     /**
      * Number of lines
