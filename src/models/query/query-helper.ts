@@ -17,17 +17,17 @@ export class QueryHelper {
     /**
      * Starting index key
      */
-    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index';
+    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'lowIndex';
 
     /**
      * Key for the number of element to return
      */
-    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'requested_table_count';
+    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'size';
 
     /**
      * Table column IDs key
      */
-    public static readonly REQUESTED_COLUMN_IDS_KEY = 'requested_table_column_ids';
+    public static readonly REQUESTED_COLUMN_IDS_KEY = 'columnIds';
 
     /**
      * Build a simple query

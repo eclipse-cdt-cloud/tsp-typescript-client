@@ -15,7 +15,7 @@ export interface XYModel {
     /**
      * Array of XY series
      */
-    series: { [key: string]: XYSeries };
+    series: XYSeries[];
 }
 
 /**
@@ -25,22 +25,22 @@ export interface XYSeries {
     /**
      * Name of the series
      */
-    name: string;
+    seriesName: string;
 
     /**
      * Ìd of the series
      */
-    id: string;
+    seriesId: number;
 
     /**
      * Description of the X axis
      */
-    xAxis: Axis;
+    xAxis: XYAxis;
 
     /**
      * Description of the Y axis
      */
-    yAxis: Axis;
+    yAxis: XYAxis;
 
     /**
      * Series' X values
@@ -61,14 +61,19 @@ export interface XYSeries {
 /**
  * Description of an axis for XY chart
  */
-export interface Axis {
+export interface XYAxis {
     /**
      * Label of the axis
      */
     label: string;
 
     /**
-     * Type of units used for the axis
+     * The units used for the axis, to be appended to the numbers
      */
     unit: string;
+
+    /**
+     * Type of data for this axis, to give hint on number formatting
+     */
+    dataType: string;
 }
