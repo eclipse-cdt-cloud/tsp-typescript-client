@@ -2,6 +2,7 @@ import { Query } from '../models/query/query';
 import { GenericResponse } from '../models/response/responses';
 import { XYModel } from '../models/xy';
 import { TimeGraphEntry, TimeGraphArrow, TimeGraphModel } from '../models/timegraph';
+import { AnnotationCategoriesModel, AnnotationModel } from '../models/annotation';
 import { TableModel, ColumnHeaderEntry } from '../models/table';
 import { Trace } from '../models/trace';
 import { RestClient } from './rest-client';
@@ -216,6 +217,29 @@ export class TspClient {
     public async fetchTimeGraphArrows(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TimeGraphArrow>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/arrows';
         return await RestClient.post<GenericResponse<TimeGraphArrow>>(url, parameters);
+    }
+
+    /**
+     * Fetch annotations categories.
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @returns Generic response with the model
+     */
+    public async fetchAnnotationsCategories(expUUID: string, outputID: string): Promise<TspClientResponse<GenericResponse<AnnotationCategoriesModel>>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/annotations';
+        return await RestClient.get<GenericResponse<AnnotationCategoriesModel>>(url);
+    }
+
+    /**
+     * Fetch annotations.
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic response with the model
+     */
+    public async fetchAnnotations(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<AnnotationModel>>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/annotations';
+        return await RestClient.post<GenericResponse<AnnotationModel>>(url, parameters);
     }
 
     /**
