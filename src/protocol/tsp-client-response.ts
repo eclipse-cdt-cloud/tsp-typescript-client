@@ -1,28 +1,34 @@
 /**
  * Trace Server Protocol response.
- * The response includes the response model from the server, the status code of the HTTP response and the message attached to this response.
+ * The response includes the response model from the server if available,
+ * the status code and message of the HTTP response, and the plain text attached to this response.
  */
 export class TspClientResponse<T> {
-    private readonly responseModel: T;
+    private readonly responseModel: T | undefined;
     private readonly statusCode: number;
     private readonly statusMessage: string;
+    private readonly text: string;
 
     /**
      * Constructor
-     * @param responseModel Model of type T from the server
+     * @param text Plain text of the response from the server
      * @param statusCode Status code from the HTTP response
      * @param statusMessage Status message from the HTTP response
      */
-    constructor(responseModel: T, statusCode: number, statusMessage: string) {
-        this.responseModel = responseModel;
+    constructor(text: string, statusCode: number, statusMessage: string) {
+        this.text = text;
         this.statusCode = statusCode;
         this.statusMessage = statusMessage;
+        try {
+            this.responseModel = JSON.parse(text) as T;
+        } catch (error) {
+        }
     }
 
     /**
-     * Get the model from the server
+     * Get the model from the server, or undefined
      */
-    public getModel(): T {
+    public getModel(): T | undefined {
         return this.responseModel;
     }
 
@@ -34,10 +40,17 @@ export class TspClientResponse<T> {
     }
 
     /**
-     * Get the HTTP status code
+     * Get the HTTP status message
      */
     public getStatusMessage(): string {
         return this.statusMessage;
+    }
+
+    /**
+     * Get the plain text of the response from the server
+     */
+    public getText(): string {
+        return this.text;
     }
 
     /**
