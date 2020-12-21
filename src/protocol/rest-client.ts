@@ -3,7 +3,8 @@ import { TspClientResponse } from './tsp-client-response';
 
 /**
  * Rest client helper to make request.
- * Errors are thrown when the request response is not 200.
+ * The request response status code indicates if the request is successful.
+ * The json object in the response may be undefined when an error occurs.
  */
 export class RestClient {
     private static async performRequest<T>(verb: string, url: string, body?: any): Promise<TspClientResponse<T>> {
@@ -14,10 +15,9 @@ export class RestClient {
                 'Content-Type': 'application/json'
             },
             method: verb,
-            body: jsonBody
-        });
-        const json = await response.json() as T;
-        return new TspClientResponse(json, response.status, response.statusText);
+            body: jsonBody});
+        const text = await response.text();
+        return new TspClientResponse(text, response.status, response.statusText);
     }
 
     /**
