@@ -7,7 +7,7 @@ export class QueryHelper {
     /**
      * Time requested key
      */
-    public static readonly REQUESTED_TIME_KEY: string = 'requested_times';
+    public static readonly REQUESTED_TIMES_KEY: string = 'requested_times';
 
     /**
      * Selected items key
@@ -17,17 +17,17 @@ export class QueryHelper {
     /**
      * Starting index key
      */
-    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'lowIndex';
+    public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index';
 
     /**
      * Key for the number of element to return
      */
-    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'size';
+    public static readonly REQUESTED_TABLE_COUNT_KEY: string = 'requested_table_count';
 
     /**
      * Table column IDs key
      */
-    public static readonly REQUESTED_COLUMN_IDS_KEY = 'columnIds';
+    public static readonly REQUESTED_TABLE_COLUMN_IDS_KEY = 'requested_table_column_ids';
 
     /**
      * Build a simple query
@@ -44,7 +44,7 @@ export class QueryHelper {
      */
     public static timeQuery(timeRequested: number[], additionalProperties?: { [key: string]: any }): Query {
         const timeObj = {
-            [this.REQUESTED_TIME_KEY]: timeRequested
+            [this.REQUESTED_TIMES_KEY]: timeRequested
         };
         return new Query({ ...timeObj, ...additionalProperties });
     }
@@ -57,7 +57,7 @@ export class QueryHelper {
      */
     public static selectionTimeQuery(timeRequested: number[], items: number[], additionalProperties?: { [key: string]: any }): Query {
         const selectionTimeObj = {
-            [this.REQUESTED_TIME_KEY]: timeRequested,
+            [this.REQUESTED_TIMES_KEY]: timeRequested,
             [this.REQUESTED_ITEMS_KEY]: items
         };
 
@@ -75,7 +75,7 @@ export class QueryHelper {
         const tableObj = {
             [this.REQUESTED_TABLE_INDEX_KEY]: index,
             [this.REQUESTED_TABLE_COUNT_KEY]: count,
-            [this.REQUESTED_COLUMN_IDS_KEY]: columnsId
+            [this.REQUESTED_TABLE_COLUMN_IDS_KEY]: columnsId
         };
 
         return new Query({ ...tableObj, ...additionalProperties });
