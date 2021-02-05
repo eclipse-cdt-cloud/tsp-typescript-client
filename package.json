@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/theia-ide/tsp-typescript-client",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "devDependencies": {
     "@types/node": "^11.13.8",
