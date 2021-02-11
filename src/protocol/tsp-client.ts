@@ -11,6 +11,7 @@ import { OutputDescriptor } from '../models/output-descriptor';
 import { EntryModel, Entry, EntryHeader } from '../models/entry';
 import { TspClientResponse } from './tsp-client-response';
 import { OutputStyleModel } from '../models/styles';
+import { HealthStatus } from '../models/health';
 
 /**
  * Trace Server Protocol client
@@ -300,5 +301,14 @@ export class TspClient {
     public async fetchStyles(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<OutputStyleModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/style';
         return await RestClient.post<GenericResponse<OutputStyleModel>>(url, parameters);
+    }
+
+    /**
+     * Check the health status of the server
+     * @returns The Health Status
+     */
+    public async checkHealth(): Promise<TspClientResponse<HealthStatus>> {
+        const url = this.baseUrl + '/health';
+        return RestClient.get<HealthStatus>(url);
     }
 }
