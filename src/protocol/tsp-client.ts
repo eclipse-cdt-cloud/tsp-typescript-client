@@ -215,9 +215,9 @@ export class TspClient {
      * @param parameters Query object
      * @returns Generic response with the model
      */
-    public async fetchTimeGraphArrows(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TimeGraphArrow>>> {
+    public async fetchTimeGraphArrows(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<TimeGraphArrow[]>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/arrows';
-        return await RestClient.post<GenericResponse<TimeGraphArrow>>(url, parameters);
+        return await RestClient.post<GenericResponse<TimeGraphArrow[]>>(url, parameters);
     }
 
     /**
