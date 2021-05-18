@@ -15,6 +15,11 @@ export class QueryHelper {
     public static readonly REQUESTED_ITEMS_KEY: string = 'requested_items';
 
     /**
+     * Selected items key
+     */
+     public static readonly REQUESTED_ELEMENT_KEY: string = 'requested_element';
+
+    /**
      * Starting index key
      */
     public static readonly REQUESTED_TABLE_INDEX_KEY: string = 'requested_table_index';
