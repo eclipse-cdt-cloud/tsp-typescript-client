@@ -244,26 +244,15 @@ export class TspClient {
     }
 
     /**
-     * Fetch Time Graph tooltip for states and arrows
+     * Fetch tooltip for a Time Graph element.
      * @param expUUID Experiment UUID
      * @param outputID Output ID
-     * @param time X value
-     * @param entryID Entry ID to identify precisely the states
-     * @param targetID Optional target ID in case the tooltip is for an arrow
+     * @param parameters Query object
      * @returns Map of key=name of the property and value=string value associated
      */
-    public async fetchTimeGraphToolTip(expUUID: string, outputID: string, time: number,
-        entryID?: string, targetID?: string): Promise<TspClientResponse<GenericResponse<{ [key: string]: string }>>> {
+     public async fetchTimeGraphTooltip(expUUID: string, outputID: string, parameters: Query): Promise<TspClientResponse<GenericResponse<{ [key: string]: string }>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tooltip';
-        const parametersMap: Map<string, string> = new Map();
-        parametersMap.set('time', time.toString());
-        if (entryID) {
-            parametersMap.set('entryId', entryID);
-        }
-        if (targetID) {
-            parametersMap.set('targetId', targetID);
-        }
-        return await RestClient.get<GenericResponse<{ [key: string]: string }>>(url, parametersMap);
+        return await RestClient.post<GenericResponse<{ [key: string]: string }>>(url, parameters);
     }
 
     /**
