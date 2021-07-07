@@ -12,6 +12,7 @@ import { EntryModel, Entry, EntryHeader } from '../models/entry';
 import { TspClientResponse } from './tsp-client-response';
 import { OutputStyleModel } from '../models/styles';
 import { HealthStatus } from '../models/health';
+import { MarkerSet } from '../models/markerset';
 
 /**
  * Trace Server Protocol client
@@ -221,14 +222,30 @@ export class TspClient {
     }
 
     /**
+     * Fetch marker sets.
+     * @returns Generic response with the model
+     */
+     public async fetchMarkerSets(expUUID: string): Promise<TspClientResponse<GenericResponse<MarkerSet[]>>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/markerSets';
+        let parametersMap: Map<string, string> | undefined = undefined;
+        return await RestClient.get<GenericResponse<MarkerSet[]>>(url);
+    }
+
+    /**
      * Fetch annotations categories.
      * @param expUUID Experiment UUID
      * @param outputID Output ID
+     * @param markerSetId Marker Set ID
      * @returns Generic response with the model
      */
-    public async fetchAnnotationsCategories(expUUID: string, outputID: string): Promise<TspClientResponse<GenericResponse<AnnotationCategoriesModel>>> {
+    public async fetchAnnotationsCategories(expUUID: string, outputID: string, markerSetId?: string): Promise<TspClientResponse<GenericResponse<AnnotationCategoriesModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/annotations';
-        return await RestClient.get<GenericResponse<AnnotationCategoriesModel>>(url);
+        let parametersMap: Map<string, string> | undefined = undefined;
+        if (markerSetId) {
+            parametersMap = new Map();
+            parametersMap.set('markerSetId', markerSetId);
+        }
+        return await RestClient.get<GenericResponse<AnnotationCategoriesModel>>(url, parametersMap);
     }
 
     /**
