@@ -1,5 +1,5 @@
 /**
- * Model of a XY chart, contain at least one XY series
+ * Model of a XY chart, contains at least one XY series
  */
 export interface XYModel {
     /**
@@ -53,7 +53,7 @@ export interface XYSeries {
     yValues: number[];
 
     /**
-     * Array of tags for each XY values, used when a value pass a filter
+     * Array of tags for each XY value, used when a value passes a filter
      */
     tags: number[];
 }
