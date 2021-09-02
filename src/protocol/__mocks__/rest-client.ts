@@ -17,8 +17,8 @@ const output: OutputDescriptor = {
     ['key1', 'value1'],
     ['key2', 'value2']
   ]),
-  start: 1,
-  end: 10,
+  start: BigInt(1),
+  end: BigInt(10),
   final: false,
   compatibleProviders: ['One', 'Two']
 };
@@ -44,7 +44,9 @@ export class RestClient {
             params = params.slice(0, params.indexOf('/'));
             let ar = [output];
             ar[0].id = params;
-            client = new TspClientResponse(JSON.stringify(ar), response.status, response.statusText);
+            const replacer = (_key, value) => (typeof value === 'bigint') ? value.toString() + 'n' : value;
+            const reviver = (_key, value) => (typeof value === 'string' && value.match(/(-?\d+)n/)) ? BigInt(value.slice(0, -1)) : value;
+            client = new TspClientResponse(JSON.stringify(ar, replacer), response.status, response.statusText, reviver);
           } else {
             client = new TspClientResponse(params, response.status, response.statusText);
           }

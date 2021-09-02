@@ -92,12 +92,14 @@ describe('Tsp client tests', () => {
         ['key1', 'value1'],
         ['key2', 'value2']
       ]),
-      start: 1,
-      end: 10,
+      start: BigInt(1),
+      end: BigInt(10),
       final: false,
       compatibleProviders: ['One', 'Two']
     };
-    const input = new TspClientResponse(JSON.stringify([output]), 200, 'Success');
+    const replacer = (_key, value) => (typeof value === 'bigint') ? value.toString() + 'n' : value;
+    const reviver = (_key, value) => (typeof value === 'string' && value.match(/(-?\d+)n/)) ? BigInt(value.slice(0, -1)) : value;
+    const input = new TspClientResponse(JSON.stringify([output], replacer), 200, 'Success', reviver);
     const response = await client.experimentOutputs(expUUID);
 
     expect(response).toEqual(input);

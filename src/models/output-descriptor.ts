@@ -31,12 +31,12 @@ export interface OutputDescriptor {
     /**
      * Start time
      */
-    start: number;
+    start: bigint;
 
     /**
      * End time
      */
-    end: number;
+    end: bigint;
 
     /**
      * Indicate if the start, end times and current model are final,

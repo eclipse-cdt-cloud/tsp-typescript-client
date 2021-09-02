@@ -26,12 +26,12 @@ export interface Annotation {
     /**
      * Time of the annotation
      */
-    time: number;
+    time: bigint;
 
     /**
      * Duration of the annotation
      */
-    duration: number;
+    duration: bigint;
 
     /**
      * Entry Id of the annotation

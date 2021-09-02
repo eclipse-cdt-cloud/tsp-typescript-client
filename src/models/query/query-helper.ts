@@ -44,25 +44,25 @@ export class QueryHelper {
 
     /**
      * Build a simple time query
-     * @param timeRequested Array of requested times
+     * @param requestedTimes Array of requested times
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
-    public static timeQuery(timeRequested: number[], additionalProperties?: { [key: string]: any }): Query {
+    public static timeQuery(requestedTimes: bigint[], additionalProperties?: { [key: string]: any }): Query {
         const timeObj = {
-            [this.REQUESTED_TIMES_KEY]: timeRequested
+            [this.REQUESTED_TIMES_KEY]: requestedTimes
         };
         return new Query({ ...timeObj, ...additionalProperties });
     }
 
     /**
      * Build a simple time query with selected items
-     * @param timeRequested Array of requested times
+     * @param requestedTimes Array of requested times
      * @param items Array of item IDs
      * @param additionalProperties Use this optional parameter to add custom properties to your query
      */
-    public static selectionTimeQuery(timeRequested: number[], items: number[], additionalProperties?: { [key: string]: any }): Query {
+    public static selectionTimeQuery(requestedTimes: bigint[], items: number[], additionalProperties?: { [key: string]: any }): Query {
         const selectionTimeObj = {
-            [this.REQUESTED_TIMES_KEY]: timeRequested,
+            [this.REQUESTED_TIMES_KEY]: requestedTimes,
             [this.REQUESTED_ITEMS_KEY]: items
         };
 
@@ -90,22 +90,27 @@ export class QueryHelper {
      * Split the range into equal parts
      * @param start Start time
      * @param end End time
-     * @param nb Number of element or resolution
+     * @param nb Number of elements
      */
-    public static splitRangeIntoEqualParts(start: number, end: number, nb: number): number[] {
-        const result: number[] = new Array(nb);
+    public static splitRangeIntoEqualParts(start: bigint, end: bigint, nb: number): bigint[] {
+        if (nb <= 0) {
+            return [];
+        }
         if (nb === 1) {
-            if (start === end) {
-                result[0] = start;
-                return result;
-            }
+            return [start];
         }
-
-        const stepSize: number = Math.abs(end - start) / (nb - 1);
+        if (start > end) {
+            const tmp = end;
+            end = start;
+            start = tmp;
+        }
+        
+        const result: bigint[] = new Array(nb);
+        const stepSize: number = Number(end - start) / (nb - 1);
         for (let i = 0; i < nb; i++) {
-            result[i] = Math.min(start, end) + Math.round(i * stepSize);
+            result[i] = start + BigInt(Math.floor(i * stepSize));
         }
-        result[result.length - 1] = Math.max(start, end);
+        result[result.length - 1] = end;
         return result;
     }
 }

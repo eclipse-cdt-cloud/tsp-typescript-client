@@ -8,12 +8,12 @@ export interface TimeGraphEntry extends Entry {
     /**
      * Start time of the entry
      */
-    start: number;
+    start: bigint;
 
     /**
      * End time of the entry
      */
-    end: number;
+    end: bigint;
 }
 
 /**
@@ -45,12 +45,12 @@ export interface TimeGraphState {
     /**
      * Start time of the state
      */
-    start: number;
+    start: bigint;
 
     /**
      * End time of the state
      */
-    end: number;
+    end: bigint;
 
     /**
      * Label to apply to the state
@@ -85,12 +85,12 @@ export interface TimeGraphArrow {
     /**
      * Start time of the arrow
      */
-    start: number;
+    start: bigint;
 
     /**
      * Duration of the arrow
      */
-    end: number;
+    end: bigint;
 
     /**
      * Optional information on the style to format this arrow
