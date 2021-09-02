@@ -15,12 +15,12 @@ export interface Filter {
     /**
      * Start time of the filter
      */
-    startTime: number;
+    startTime: bigint;
 
     /**
      * End time of the filter
      */
-    endTime: number;
+    endTime: bigint;
 
     /**
      * Expression from the filtering language

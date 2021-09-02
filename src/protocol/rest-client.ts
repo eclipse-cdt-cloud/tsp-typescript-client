@@ -7,8 +7,25 @@ import { TspClientResponse } from './tsp-client-response';
  * The json object in the response may be undefined when an error occurs.
  */
 export class RestClient {
+    private static readonly BIGINT_FIELDS = ['start', 'end', 'time', 'duration', 'startTime', 'endTime'];
+
     private static async performRequest<T>(verb: string, url: string, body?: any): Promise<TspClientResponse<T>> {
-        const jsonBody: string = JSON.stringify(body);
+        /*
+         * To avoid loss of precision, bigint values are replaced by quoted strings before
+         * serialization and then replaced by an unquoted number in the JSON request.
+         *
+         * In JSON responses, large numbers are replaced by quoted strings before parsing,
+         * and then replaced by either a bigint or number value depending on the field.
+         * Finally for bigint fields, small numbers are replaced by their bigint value.
+         */
+
+        // 1234567890123456789n => "1234567890123456789n"
+        const replacer = (key, value) => (typeof value === 'bigint') ? value.toString() + 'n' : value;
+        let jsonBody: string = JSON.stringify(body, replacer);
+        if (jsonBody) {
+            // {"key":"1234567890123456789n"} => {"key":1234567890123456789}
+            jsonBody = jsonBody.replace(/"(-?\d+)n"/g, '$1');
+        }
         const response = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -17,8 +34,31 @@ export class RestClient {
             method: verb,
             body: jsonBody
         });
-        const text = await response.text();
-        return new TspClientResponse(text, response.status, response.statusText);
+        let text = await response.text();
+
+        if (text) {
+            // {key1:123,key2:1234567890123456789} => {key1:123,key2:"1234567890123456789n"}
+            text = text.replace(/:(-?\d{16,})([,}])/g, ':\"$1n\"$2');
+        }
+        const reviver = (key, value) => {
+            if (typeof value === 'string') {
+                const matchArray = value.match(/(-?\d{16,})n/);
+                if (matchArray) {
+                    if (RestClient.BIGINT_FIELDS.includes(key)) {
+                        // "1234567890123456789n" => 1234567890123456789n
+                        return BigInt(matchArray[1]);
+                    } else {
+                        // "1234567890123456789n" => 1234567890123456900
+                        return Number(matchArray[1]);
+                    }
+                }
+            } else if (typeof value === 'number' && RestClient.BIGINT_FIELDS.includes(key)) {
+                // 123 => 123n
+                return BigInt(value);
+            }
+            return value;
+        };
+        return new TspClientResponse(text, response.status, response.statusText, reviver);
     }
 
     /**

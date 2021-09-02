@@ -15,12 +15,12 @@ export interface Bookmark {
     /**
      * Start time for the bookmark
      */
-    startTime: number;
+    startTime: bigint;
 
     /**
      * End time for the bookmark
      */
-    endTime: number;
+    endTime: bigint;
 
     /**
      * Type of the bookmark

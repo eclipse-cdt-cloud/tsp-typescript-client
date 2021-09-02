@@ -13,7 +13,7 @@ describe('Query helper tests', () => {
   });
 
   it('Should build a simple time query', () => {
-    const array = [1, 2, 3];
+    const array = [BigInt(1), BigInt(2), BigInt(3)];
     const query = new Query({ [QueryHelper.REQUESTED_TIMES_KEY]: array });
     const test = QueryHelper.timeQuery(array);
 
@@ -21,7 +21,7 @@ describe('Query helper tests', () => {
   });
 
   it('Should build a simple time query with selected items', () => {
-    const times = [1, 2, 3];
+    const times = [BigInt(1), BigInt(2), BigInt(3)];
     const items = [4, 5, 6];
     const query = new Query({
       [QueryHelper.REQUESTED_TIMES_KEY]: times,
@@ -47,10 +47,10 @@ describe('Query helper tests', () => {
   });
 
   it('Should split the range into equal parts', () => {
-    const start = 10;
-    const end = 20;
+    const start = BigInt(10);
+    const end = BigInt(20);
     const parts = 3;
-    const array = [10, 15, 20];
+    const array = [BigInt(10), BigInt(15), BigInt(20)];
     const test = QueryHelper.splitRangeIntoEqualParts(start, end, parts);
 
     expect(test).toEqual(array);

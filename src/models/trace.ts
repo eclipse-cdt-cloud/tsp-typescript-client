@@ -15,12 +15,12 @@ export interface Trace {
     /**
      * Trace's start time
      */
-    start: number;
+    start: bigint;
 
     /**
      * Trace's end time
      */
-    end: number;
+    end: bigint;
 
     /**
      * URI of the trace

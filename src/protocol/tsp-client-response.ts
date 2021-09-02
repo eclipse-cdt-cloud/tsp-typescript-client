@@ -14,13 +14,14 @@ export class TspClientResponse<T> {
      * @param text Plain text of the response from the server
      * @param statusCode Status code from the HTTP response
      * @param statusMessage Status message from the HTTP response
+     * @param reviver Optional JSON parse reviver
      */
-    constructor(text: string, statusCode: number, statusMessage: string) {
+    constructor(text: string, statusCode: number, statusMessage: string, reviver?: ((this: any, key: string, value: any) => any)) {
         this.text = text;
         this.statusCode = statusCode;
         this.statusMessage = statusMessage;
         try {
-            this.responseModel = JSON.parse(text) as T;
+            this.responseModel = JSON.parse(text, reviver) as T;
         } catch (error) {
         }
     }

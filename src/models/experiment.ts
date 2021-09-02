@@ -17,12 +17,12 @@ export interface Experiment {
     /**
      * Experiment's start time
      */
-    start: number;
+    start: bigint;
 
     /**
      * Experiment's end time
      */
-    end: number;
+    end: bigint;
 
     /**
      * Current number of events
