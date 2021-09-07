@@ -25,7 +25,8 @@ export interface Entry {
     hasData?: boolean;
 
     /**
-     * Style key used to search for a The style map can be obtained by using the style endpoint.
+     * Style key used to search for a style.
+     * The style map can be obtained by using the style endpoint.
      */
     style?: OutputElementStyle;
 }
