@@ -8,7 +8,9 @@
     "^.+\\.tsx?$": "ts-jest"
   },
   "testEnvironment": "jsdom",
-  "testPathIgnorePatterns": ["/lib/"],
+  "testPathIgnorePatterns": [
+    "/lib/"
+  ],
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "moduleFileExtensions": [
     "ts",
