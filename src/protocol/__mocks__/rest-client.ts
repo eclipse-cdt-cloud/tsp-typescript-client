@@ -24,6 +24,14 @@ const output: OutputDescriptor = {
 };
 
 export class RestClient {
+  /**
+   * Perform request
+   * Mocks the request call without calling the real backend.
+   * @param verb RestAPI verb
+   * @param url URL to query
+   * @param body Query object as defined by the Query interface
+   * @return A TspClientResponse object
+   */
   private static async performRequest<T>(verb: string, url: string, body?: any): Promise<TspClientResponse<T>> {
     return new Promise((resolve, reject) => {
       let client: TspClientResponse<T> = new TspClientResponse(response.text, response.status, response.statusText);
@@ -62,6 +70,13 @@ export class RestClient {
     });
   }
 
+  /**
+   * Perform GET
+   * T is the expected type of the json object returned by this request
+   * @param url URL to query without query parameters
+   * @param parameters Query parameters. Mapped keys and values are used to build the final URL
+   * @return A TspClientResponse object
+   */
   public static async get<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
     let getUrl = url;
     if (parameters) {
@@ -71,14 +86,35 @@ export class RestClient {
     return this.performRequest<T>('get', getUrl);
   }
 
+  /**
+   * Perform POST
+   * T is the expected type of the json object returned by this request
+   * @param url URL to query
+   * @param body Query object as defined by the Query interface
+   * @return A TspClientResponse object
+   */
   public static async post<T>(url: string, body?: any): Promise<TspClientResponse<T>> {
     return this.performRequest<T>('post', url, body);
   }
 
+  /**
+   * Perform PUT
+   * T is the expected type of the json object returned by this request
+   * @param url URL to query
+   * @param body Query object as defined by the Query interface
+   * @return A TspClientResponse object
+   */
   public static async put<T>(url: string, body?: any): Promise<TspClientResponse<T>> {
     return this.performRequest<T>('put', url, body);
   }
 
+  /**
+   * Perform DELETE
+   * T is the expected type of the json object returned by this request
+   * @param url URL to query without query parameters
+   * @param parameters Query parameters. Mapped keys and values are use to build the final URL
+   * @return A TspClientResponse object
+   */
   public static async delete<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
     let deleteUrl = url;
     if (parameters) {
@@ -88,6 +124,11 @@ export class RestClient {
     return this.performRequest<T>('delete', deleteUrl);
   }
 
+  /**
+   * Encode URL parameters
+   * @param parameters Query parameters. Mapped keys and values are used to build the final URL
+   * @return Encoded string
+   */
   private static encodeURLParameters(parameters: Map<string, string>): string {
     if (parameters.size) {
       const urlParameters: string = '?';
@@ -100,6 +141,11 @@ export class RestClient {
     return '';
   }
 
+  /**
+    * Extract parameters
+    * @param url URL string
+    * @return String containing the parameters extracted from the url
+    */
   public static extractParameters(url: string): string {
     const topic = url.includes('traces') ? 'traces' : 'experiments';
     const ar = url.split(topic + '/');
