@@ -15,7 +15,8 @@ export class RestClient {
                 'Content-Type': 'application/json'
             },
             method: verb,
-            body: jsonBody});
+            body: jsonBody
+        });
         const text = await response.text();
         return new TspClientResponse(text, response.status, response.statusText);
     }
@@ -24,7 +25,7 @@ export class RestClient {
      * Perform GET
      * T is the expected type of the json object returned by this request
      * @param url URL to query without query parameters
-     * @param parameters Query parameters. Map keys and values are used to build the final URL
+     * @param parameters Query parameters. Mapped keys and values are used to build the final URL
      */
     public static async get<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
         let getUrl = url;
@@ -59,7 +60,7 @@ export class RestClient {
      * Perform DELETE
      * T is the expected type of the json object returned by this request
      * @param url URL to query without query parameters
-     * @param parameters Query parameters. Map keys and values are used to build the final URL
+     * @param parameters Query parameters. Mapped keys and values are used to build the final URL
      */
     public static async delete<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<T>> {
         let deleteUrl = url;

@@ -25,3 +25,11 @@ To keep tests running do:
 ```shell
 yarn test --verbose --watch
 ```
+
+### Test coverage
+
+The following command prints a coverage report to the terminal. As of now it covers all typescript files of the project, including those that are not supposed to have tests.
+
+```shell
+yarn test --coverage --collectCoverageFrom='src/**/*.ts'
+```
