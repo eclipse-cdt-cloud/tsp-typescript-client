@@ -1,6 +1,6 @@
 # LC_COLLATE=C sort
 /*.log
 /.DS_Store
-/coverage/
-/lib/
-/node_modules/
+coverage
+lib
+node_modules

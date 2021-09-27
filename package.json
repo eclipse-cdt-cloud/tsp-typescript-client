@@ -1,14 +1,7 @@
 {
-  "name": "tsp-typescript-client",
   "version": "0.3.0",
-  "description": "Trace Server Protocol client written in TypeScript",
-  "author": "Ericsson and others",
+  "private": "true",
   "license": "MIT",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "tsp",
     "trace server protocol",
@@ -28,23 +21,21 @@
     "src"
   ],
   "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "@types/node": "^11.13.8",
-    "@types/node-fetch": "^2.3.3",
-    "jest": "^27.1.0",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^8.1.0",
-    "tslint": "^5.16.0",
-    "tslint-language-service": "^0.9.9",
+    "lerna": "4.0.0",
     "typescript": "latest"
   },
   "dependencies": {
     "node-fetch": "^2.5.0"
   },
+  "workspaces": [
+    "tsp-typescript-client"
+],
   "scripts": {
     "prepare": "yarn build",
-    "build": "tsc",
-    "publish:next": "yarn publish --new-version \"$(semver $npm_package_version -i minor)-next.$(git rev-parse --short HEAD)\" --tag next --no-git-tag-version --no-commit-hooks",
-    "test": "jest  --config jest.config.json"
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "test": "lerna run test --",
+    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --exact --no-git-tag-version --no-push",
+    "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary minor --preid=next.$(git rev-parse --short HEAD) --dist-tag=next --no-git-tag-version --no-push --yes"
   }
 }
