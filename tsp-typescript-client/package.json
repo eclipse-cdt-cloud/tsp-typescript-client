@@ -1,0 +1,33 @@
+{
+  "name": "tsp-typescript-client",
+  "version": "0.3.0",
+  "description": "Trace Server Protocol client written in TypeScript",
+  "author": "Ericsson and others",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^11.13.8",
+    "@types/node-fetch": "^2.3.3",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-language-service": "^0.9.9",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "node-fetch": "^2.5.0",
+    "rimraf": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "test": "jest  --config jest.config.json"
+  }
+}
