@@ -1,4 +1,12 @@
+import { array, assertNumber, createNormalizer } from '../protocol/serialization';
 import { Trace } from './trace';
+
+export const Experiment = createNormalizer<Experiment>({
+    end: BigInt,
+    nbEvents: assertNumber,
+    start: BigInt,
+    traces: array(Trace),
+});
 
 /**
  * Model of an experiment that contain one or more traces

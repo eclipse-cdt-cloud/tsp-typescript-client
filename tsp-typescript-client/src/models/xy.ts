@@ -1,22 +1,11 @@
-/**
- * Model of a XY chart, contains at least one XY series
- */
-export interface XYModel {
-    /**
-     * Title of the model
-     */
-    title: string;
+import { array, assertNumber, createNormalizer } from '../protocol/serialization';
 
-    /**
-     * Indicate if all the Y values are using the same X axis
-     */
-    commonXAxis: boolean;
-
-    /**
-     * Array of XY series
-     */
-    series: XYSeries[];
-}
+export const XYSeries = createNormalizer<XYSeries>({
+    seriesId: assertNumber,
+    xValues: array(Number), // lossy conversion if too big
+    yValues: array(assertNumber),
+    tags: array(assertNumber),
+});
 
 /**
  * Represent a XY series and its values
@@ -55,7 +44,31 @@ export interface XYSeries {
     /**
      * Array of tags for each XY value, used when a value passes a filter
      */
-    tags: number[];
+    tags?: number[];
+}
+
+export const XYModel = createNormalizer<XYModel>({
+    series: array(XYSeries),
+});
+
+/**
+ * Model of a XY chart, contains at least one XY series
+ */
+export interface XYModel {
+    /**
+     * Title of the model
+     */
+    title: string;
+
+    /**
+     * Indicate if all the Y values are using the same X axis
+     */
+    commonXAxis: boolean;
+
+    /**
+     * Array of XY series
+     */
+    series: XYSeries[];
 }
 
 /**

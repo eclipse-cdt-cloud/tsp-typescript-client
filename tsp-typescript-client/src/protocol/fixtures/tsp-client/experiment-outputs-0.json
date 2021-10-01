@@ -1,0 +1,26 @@
+[
+	{
+		"id": "xy.output.id",
+		"name": "Output name",
+		"description": "Output description",
+		"type": "TREE_TIME_XY"
+	},
+	{
+		"id": "eventtable.output.id",
+		"name": "Output name",
+		"description": "Output description",
+		"type": "TABLE"
+	},
+	{
+		"id": "data.output.id",
+		"name": "Output name",
+		"description": "Output description",
+		"type": "DATA_TREE"
+	},
+	{
+		"id": "timegraph.output.id",
+		"name": "Output name",
+		"description": "Output description",
+		"type": "TIME_GRAPH"
+	}
+]

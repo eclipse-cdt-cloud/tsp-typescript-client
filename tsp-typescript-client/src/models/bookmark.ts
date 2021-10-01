@@ -1,3 +1,10 @@
+import { createNormalizer } from '../protocol/serialization';
+
+export const Bookmark = createNormalizer<Bookmark>({
+    endTime: BigInt,
+    startTime: BigInt,
+});
+
 /**
  * Model for bookmark
  */

@@ -4,9 +4,11 @@
  * The output response will contain only elements that pass these filters.
  */
 export class Query {
+
     /**
      * Map of parameters used for the query
      */
+    // @ts-expect-error TS doesn't like unused private fields.
     private parameters: object;
 
     /**

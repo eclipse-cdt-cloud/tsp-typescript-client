@@ -1,0 +1,18 @@
+{
+	"model": [
+		{
+			"start": 1111111111111111111,
+			"end": 2222222222222222222,
+			"sourceId": 1111,
+			"targetId": 2222,
+			"style": {
+				"parentKey": "Style key",
+				"values": {
+
+				}
+			}
+		}
+	],
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

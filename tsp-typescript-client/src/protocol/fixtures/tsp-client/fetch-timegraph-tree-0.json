@@ -1,0 +1,22 @@
+{
+	"model": {
+		"entries": [
+			{
+				"id": 1234,
+				"parentId": -1,
+				"style": null,
+				"labels": [
+					"entry name"
+				],
+				"start": 1234567890123456789,
+				"end": 9876543210987654321,
+				"hasData": true
+			}
+		],
+		"headers": [
+
+		]
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

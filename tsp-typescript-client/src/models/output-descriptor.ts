@@ -1,3 +1,11 @@
+import { createNormalizer } from '../protocol/serialization';
+
+export const OutputDescriptor = createNormalizer<OutputDescriptor>({
+    end: BigInt,
+    queryParameters: undefined,
+    start: BigInt,
+});
+
 /**
  * Descriptor of a specific output provider
  */
@@ -26,26 +34,26 @@ export interface OutputDescriptor {
     /**
      * Map of query parameters that the provider accept
      */
-    queryParameters: Map<string, any>;
+    queryParameters?: Record<string, any>;
 
     /**
      * Start time
      */
-    start: bigint;
+    start?: bigint;
 
     /**
      * End time
      */
-    end: bigint;
+    end?: bigint;
 
     /**
      * Indicate if the start, end times and current model are final,
      * or if they will need to be refreshed later to represent a more up to date version
      */
-    final: boolean;
+    final?: boolean;
 
     /**
      * List of compatible outputs that can be used in the same view (ex. as overlay)
      */
-    compatibleProviders: string[];
+    compatibleProviders?: string[];
 }

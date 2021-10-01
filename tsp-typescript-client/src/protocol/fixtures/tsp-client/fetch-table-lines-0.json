@@ -1,0 +1,43 @@
+{
+	"model": {
+		"size": 999999,
+		"lowIndex": 0,
+		"columnIds": [
+			0,
+			1,
+			2
+		],
+		"lines": [
+			{
+				"index": 0,
+				"cells": [
+					{
+						"content": "kernel"
+					},
+					{
+						"content": "1111111111.111 111 111"
+					},
+					{
+						"content": "Message 1"
+					}
+				]
+			},
+			{
+				"index": 0,
+				"cells": [
+					{
+						"content": "kernel"
+					},
+					{
+						"content": "2222222222.222 222 222"
+					},
+					{
+						"content": "Message 2"
+					}
+				]
+			}
+		]
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

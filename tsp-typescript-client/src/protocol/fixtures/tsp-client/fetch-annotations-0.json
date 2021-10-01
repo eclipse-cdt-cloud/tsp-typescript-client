@@ -1,0 +1,24 @@
+{
+	"model": {
+		"annotations": {
+			"Annotation category": [
+				{
+					"time": 1111111111111111111,
+					"duration": 1111111,
+					"entryId": -1,
+					"type": "CHART",
+					"label": "label",
+					"style": {
+						"parentKey": "Style key",
+						"values": {
+							"color": "#FF0000",
+							"opacity": 0.2
+						}
+					}
+				}
+			]
+		}
+	},
+	"statusMessage": "Running",
+	"status": "RUNNING"
+}

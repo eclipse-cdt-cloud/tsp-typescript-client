@@ -1,3 +1,4 @@
+import { array, assertNumber, createNormalizer, record } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
 
 export enum Type {
@@ -9,9 +10,12 @@ export interface AnnotationCategoriesModel {
     annotationCategories: string[];
 }
 
-export interface AnnotationModel {
-    annotations: { [category: string]: Annotation[] };
-}
+export const Annotation = createNormalizer<Annotation>({
+    duration: BigInt,
+    entryId: assertNumber,
+    time: BigInt,
+    style: OutputElementStyle,
+});
 
 /**
  * Model for annotation
@@ -47,4 +51,12 @@ export interface Annotation {
      * Style of the annotation
      */
     style?: OutputElementStyle;
+}
+
+export const AnnotationModel = createNormalizer<AnnotationModel>({
+    annotations: record(array(Annotation)),
+});
+
+export interface AnnotationModel {
+    annotations: { [category: string]: Annotation[] };
 }

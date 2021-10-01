@@ -1,4 +1,13 @@
+import { array, assertNumber, createNormalizer, Normalizer } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
+
+export const Entry = createNormalizer<Entry>({
+    id: assertNumber,
+    parentId: assertNumber,
+    style: {
+        values: undefined,
+    },
+});
 
 /**
  * Basic entry interface
@@ -43,6 +52,12 @@ export interface EntryHeader {
      * The description of this header field
      */
     tooltip: string
+}
+
+export function EntryModel<T extends Entry>(normalizer: Normalizer<T>): Normalizer<EntryModel<T>> {
+    return createNormalizer<EntryModel<any>>({
+        entries: array(normalizer),
+    });
 }
 
 /**
