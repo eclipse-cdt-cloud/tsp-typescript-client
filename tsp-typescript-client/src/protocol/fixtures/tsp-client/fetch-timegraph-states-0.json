@@ -1,0 +1,37 @@
+{
+	"model": {
+		"rows": [
+			{
+				"entryId": 1234,
+				"states": [
+					{
+						"start": 1111111111111111111,
+						"end": 1111111111111111111
+					},
+					{
+						"start": 2222222222222222222,
+						"end": 2222222222222222222,
+						"style": {
+							"parentKey": "Style key",
+							"values": {
+
+							}
+						}
+					},
+					{
+						"start": 3333333333333333333,
+						"end": 3333333333333333333,
+						"style": {
+							"parentKey": "Style key",
+							"values": {
+								"background-color": "#646464"
+							}
+						}
+					}
+				]
+			}
+		]
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

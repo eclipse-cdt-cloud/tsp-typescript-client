@@ -1,0 +1,18 @@
+{
+	"model": {
+		"styles": {
+			"Style key": {
+				"parentKey": null,
+				"values": {
+					"style-name": "Style name",
+					"background-color": "#646464",
+					"height": 0.33,
+					"opacity": 1.0,
+					"style-group": "Group name"
+				}
+			}
+		}
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

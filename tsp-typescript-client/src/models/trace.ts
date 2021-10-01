@@ -1,3 +1,11 @@
+import { assertNumber, createNormalizer } from '../protocol/serialization';
+
+export const Trace = createNormalizer<Trace>({
+    end: BigInt,
+    nbEvents: assertNumber,
+    start: BigInt,
+});
+
 /**
  * Model of a single trace
  */

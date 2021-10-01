@@ -4,27 +4,20 @@
  * the status code and message of the HTTP response, and the plain text attached to this response.
  */
 export class TspClientResponse<T> {
-    private readonly responseModel: T | undefined;
-    private readonly statusCode: number;
-    private readonly statusMessage: string;
-    private readonly text: string;
 
     /**
      * Constructor
      * @param text Plain text of the response from the server
      * @param statusCode Status code from the HTTP response
      * @param statusMessage Status message from the HTTP response
-     * @param reviver Optional JSON parse reviver
+     * @param responseModel Optional parsed value from `text` (usually from JSON).
      */
-    constructor(text: string, statusCode: number, statusMessage: string, reviver?: ((this: any, key: string, value: any) => any)) {
-        this.text = text;
-        this.statusCode = statusCode;
-        this.statusMessage = statusMessage;
-        try {
-            this.responseModel = JSON.parse(text, reviver) as T;
-        } catch (error) {
-        }
-    }
+    constructor(
+        private readonly text: string,
+        private readonly statusCode: number,
+        private readonly statusMessage: string,
+        private readonly responseModel?: T,
+    ) {}
 
     /**
      * Get the model from the server, or undefined

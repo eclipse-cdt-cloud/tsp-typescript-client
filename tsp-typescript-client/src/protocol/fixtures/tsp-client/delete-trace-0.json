@@ -1,0 +1,9 @@
+{
+	"name": "kernel",
+	"path": "/path/kernel",
+	"UUID": "11111111-1111-1111-1111-111111111111",
+	"nbEvents": 0,
+	"start": 0,
+	"end": 0,
+	"indexingStatus": "CLOSED"
+}

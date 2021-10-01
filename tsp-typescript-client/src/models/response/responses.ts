@@ -1,4 +1,4 @@
-import { OutputDescriptor } from '../output-descriptor';
+import { Deserialized, createNormalizer, Normalizer } from '../../protocol/serialization';
 
 /**
  * Response status
@@ -24,6 +24,14 @@ export enum ResponseStatus {
     CANCELLED = 'CANCELLED'
 }
 
+export function GenericResponse<T>(): Normalizer<GenericResponse<Deserialized<T>>>;
+export function GenericResponse<T>(normalizer: Normalizer<T>): Normalizer<GenericResponse<T>>;
+export function GenericResponse<T>(normalizer?: Normalizer<T>): Normalizer<GenericResponse<T>> | Normalizer<GenericResponse<Deserialized<T>>> {
+    return createNormalizer<GenericResponse<any>>({
+        model: normalizer,
+    });
+}
+
 /**
  * Generic response that contains a model
  */
@@ -32,11 +40,6 @@ export interface GenericResponse<T> {
      * Model of type T
      */
     model: T;
-
-    /**
-     * Output descriptor
-     */
-    output: OutputDescriptor;
 
     /**
      * Response status as described by ResponseStatus

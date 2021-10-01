@@ -1,0 +1,24 @@
+{
+	"model": [
+		{
+			"name": "Trace",
+			"id": 0,
+			"type": null,
+			"description": null
+		},
+		{
+			"name": "Timestamp",
+			"id": 1,
+			"type": null,
+			"description": null
+		},
+		{
+			"name": "Content",
+			"id": 2,
+			"type": null,
+			"description": null
+		}
+	],
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

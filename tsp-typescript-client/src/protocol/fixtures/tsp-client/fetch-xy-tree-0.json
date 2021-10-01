@@ -1,0 +1,38 @@
+{
+	"model": {
+		"entries": [
+			{
+				"id": 111,
+				"parentId": -1,
+				"style": null,
+				"labels": [
+					"process",
+					"123",
+					"100.000 %",
+					"10.000 s"
+				],
+				"hasData": true
+			}
+		],
+		"headers": [
+			{
+				"name": "Process",
+				"tooltip": ""
+			},
+			{
+				"name": "TID",
+				"tooltip": ""
+			},
+			{
+				"name": "%",
+				"tooltip": ""
+			},
+			{
+				"name": "Time",
+				"tooltip": ""
+			}
+		]
+	},
+	"statusMessage": "Running",
+	"status": "RUNNING"
+}
