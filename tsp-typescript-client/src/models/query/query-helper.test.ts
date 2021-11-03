@@ -55,4 +55,14 @@ describe('Query helper tests', () => {
 
     expect(test).toEqual(array);
   });
+
+  it('Should split the range into equal parts without duplicates', () => {
+    const start = BigInt('1234567890123456781');
+    const end = BigInt('1234567890123456785');
+    const parts = 20;
+    const array = [BigInt('1234567890123456781'), BigInt('1234567890123456782'), BigInt('1234567890123456783'), BigInt('1234567890123456784'), BigInt('1234567890123456785')];
+    const test = QueryHelper.splitRangeIntoEqualParts(start, end, parts);
+
+    expect(test).toEqual(array);
+  });
 });
