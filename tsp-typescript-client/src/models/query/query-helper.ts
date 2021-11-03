@@ -104,9 +104,9 @@ export class QueryHelper {
             end = start;
             start = tmp;
         }
-        
+        nb = Math.min(nb, Number(end - start + BigInt(1)));
         const result: bigint[] = new Array(nb);
-        const stepSize: number = Number(end - start) / (nb - 1);
+        const stepSize: number = Math.max(1, Number(end - start) / (nb - 1));
         for (let i = 0; i < nb; i++) {
             result[i] = start + BigInt(Math.floor(i * stepSize));
         }
