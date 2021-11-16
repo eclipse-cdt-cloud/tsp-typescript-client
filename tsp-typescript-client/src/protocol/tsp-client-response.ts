@@ -32,6 +32,15 @@ export class TspClientResponse<T> {
     public getModel(): T | undefined {
         return this.responseModel;
     }
+    
+    /**
+     * Get the model from the server, or throw custom Error
+     */
+    public tryGetModel(cb: (msg: string, code?: number) => T): T {
+        if (!this.isOk()) return cb(this.text, this.statusCode);
+        if (!this.responseModel) return cb(`Response model is ${this.responseModel}`);
+        return this.responseModel;
+    }
 
     /**
      * Get the HTTP status code
