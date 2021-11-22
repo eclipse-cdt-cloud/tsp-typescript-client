@@ -20,8 +20,22 @@ export class RestClient {
          */
 
         // 1234567890123456789n => "1234567890123456789n"
-        const replacer = (key, value) => (typeof value === 'bigint') ? value.toString() + 'n' : value;
-        let jsonBody: string = JSON.stringify(body, replacer);
+        /*
+         * A custom BigInt.prototype.toJSON can be implemented by users,
+         * which will take precedence over the replacer. Meaning the
+         * value passed in the replacer is the result of toJSON but NOT
+         * the original BigInt. As a workaround, we force our implementation
+         * instead of using replacer.
+         */
+        // @ts-expect-error not declare toJSON to avoid poluting user's type
+        const toJSON = BigInt.prototype.toJSON;
+        // @ts-expect-error not declare toJSON to avoid poluting user's type
+        BigInt.prototype.toJSON = function () {
+            return this.toString() + 'n';
+        };
+        let jsonBody: string = JSON.stringify(body);
+        // @ts-expect-error not declare toJSON to avoid poluting user's type
+        BigInt.prototype.toJSON = toJSON;
         if (jsonBody) {
             // {"key":"1234567890123456789n"} => {"key":1234567890123456789}
             jsonBody = jsonBody.replace(/"(-?\d+)n"/g, '$1');
