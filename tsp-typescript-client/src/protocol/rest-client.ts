@@ -118,11 +118,10 @@ export class RestClient {
 
     protected static encodeURLParameters(parameters: Map<string, string>): string {
         if (parameters.size) {
-            let query = '?';
-            for (const [key, value] of parameters) {
-                query += `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-            }
-            return query;
+            return '?' + Array.from(
+                parameters,
+                ([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+            ).join('&');
         }
         return '';
     }
