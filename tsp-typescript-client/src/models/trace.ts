@@ -1,10 +1,11 @@
-import { assertNumber, createNormalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber, bigint } from '../protocol/serialization';
 
-export const Trace = createNormalizer<Trace>({
-    end: BigInt,
+export const TraceSchema: Schema = {
+    end: bigint,
     nbEvents: assertNumber,
-    start: BigInt,
-});
+    start: bigint,
+};
 
 /**
  * Model of a single trace

@@ -1,13 +1,11 @@
-import { array, assertNumber, createNormalizer, Normalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
 
-export const Entry = createNormalizer<Entry>({
+export const EntrySchema: Schema = {
     id: assertNumber,
     parentId: assertNumber,
-    style: {
-        values: undefined,
-    },
-});
+};
 
 /**
  * Basic entry interface
@@ -54,11 +52,7 @@ export interface EntryHeader {
     tooltip: string
 }
 
-export function EntryModel<T extends Entry>(normalizer: Normalizer<T>): Normalizer<EntryModel<T>> {
-    return createNormalizer<EntryModel<any>>({
-        entries: array(normalizer),
-    });
-}
+export const EntryModelSchema = (schema: Schema): Schema => ({ entries: [schema] });
 
 /**
  * Entry model that will be returned by the server

@@ -1,4 +1,4 @@
-import { Deserialized, createNormalizer, Normalizer } from '../../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
 
 /**
  * Response status
@@ -24,13 +24,7 @@ export enum ResponseStatus {
     CANCELLED = 'CANCELLED'
 }
 
-export function GenericResponse<T>(): Normalizer<GenericResponse<Deserialized<T>>>;
-export function GenericResponse<T>(normalizer: Normalizer<T>): Normalizer<GenericResponse<T>>;
-export function GenericResponse<T>(normalizer?: Normalizer<T>): Normalizer<GenericResponse<T>> | Normalizer<GenericResponse<Deserialized<T>>> {
-    return createNormalizer<GenericResponse<any>>({
-        model: normalizer,
-    });
-}
+export const GenericResponseSchema = (schema: Schema): Schema => ({ model: schema });
 
 /**
  * Generic response that contains a model

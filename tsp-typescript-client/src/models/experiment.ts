@@ -1,12 +1,13 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
-import { Trace } from './trace';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber, bigint } from '../protocol/serialization';
+import { TraceSchema, Trace } from './trace';
 
-export const Experiment = createNormalizer<Experiment>({
-    end: BigInt,
+export const ExperimentSchema: Schema = {
+    end: bigint,
     nbEvents: assertNumber,
-    start: BigInt,
-    traces: array(Trace),
-});
+    start: bigint,
+    traces: [TraceSchema],
+};
 
 /**
  * Model of an experiment that contain one or more traces

@@ -1,10 +1,10 @@
-import { createNormalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { bigint } from '../protocol/serialization';
 
-export const OutputDescriptor = createNormalizer<OutputDescriptor>({
-    end: BigInt,
-    queryParameters: undefined,
-    start: BigInt,
-});
+export const OutputDescriptorSchema: Schema = {
+    end: bigint,
+    start: bigint,
+};
 
 /**
  * Descriptor of a specific output provider
