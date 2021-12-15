@@ -11,7 +11,7 @@ export interface AnnotationCategoriesModel {
     annotationCategories: string[];
 }
 
-export const AnnotationSchema: Schema = {
+export const AnnotationSchema: Schema<AnnotationModel> = {
     annotations: {
         [Symbol.for(`any`)]: [{
             duration: bigint,

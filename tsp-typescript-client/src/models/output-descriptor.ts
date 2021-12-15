@@ -1,7 +1,7 @@
 import { Schema } from 'when-json-met-bigint';
 import { bigint } from '../protocol/serialization';
 
-export const OutputDescriptorSchema: Schema = {
+export const OutputDescriptorSchema: Schema<OutputDescriptor> = {
     end: bigint,
     start: bigint,
 };

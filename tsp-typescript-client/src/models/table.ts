@@ -1,7 +1,7 @@
 import { Schema } from 'when-json-met-bigint';
 import { assertNumber } from '../protocol/serialization';
 
-export const ColumnHeaderEntrySchema: Schema = {
+export const ColumnHeaderEntrySchema: Schema<ColumnHeaderEntry> = {
     id: assertNumber,
 };
 
@@ -30,7 +30,7 @@ export interface ColumnHeaderEntry {
     type: string;
 }
 
-export const CellSchema: Schema = {
+export const CellSchema: Schema<Cell> = {
     tags: assertNumber,
 };
 
@@ -49,7 +49,7 @@ export interface Cell {
     tags?: number;
 }
 
-export const LineSchema = {
+export const LineSchema: Schema<Line> = {
     cells: [CellSchema],
     index: assertNumber,
     tags: assertNumber,
@@ -75,7 +75,7 @@ export interface Line {
     tags?: number;
 }
 
-export const TableModelSchema = {
+export const TableModelSchema: Schema<TableModel> = {
     columnIds: [assertNumber],
     lines: [LineSchema],
     lowIndex: assertNumber,

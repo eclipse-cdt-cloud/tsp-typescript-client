@@ -24,7 +24,7 @@ export enum ResponseStatus {
     CANCELLED = 'CANCELLED'
 }
 
-export const GenericResponseSchema = (schema: Schema): Schema => ({ model: schema });
+export const GenericResponseSchema = <T>(schema: Schema<T>): Schema<GenericResponse<T>> => ({ model: schema });
 
 /**
  * Generic response that contains a model

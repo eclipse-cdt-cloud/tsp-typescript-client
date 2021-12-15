@@ -3,7 +3,7 @@ import { assertNumber, bigint } from '../protocol/serialization';
 import { Entry } from './entry';
 import { OutputElementStyle } from './styles';
 
-export const TimeGraphEntrySchema: Schema = {
+export const TimeGraphEntrySchema: Schema<TimeGraphEntry> = {
     end: bigint,
     id: assertNumber,
     parentId: assertNumber,
@@ -25,7 +25,7 @@ export interface TimeGraphEntry extends Entry {
     end: bigint;
 }
 
-const TimeGraphStateSchema: Schema = {
+const TimeGraphStateSchema: Schema<TimeGraphState> = {
     end: bigint,
     start: bigint,
     tags: assertNumber,
@@ -61,7 +61,7 @@ export interface TimeGraphState {
     style?: OutputElementStyle;
 }
 
-export const TimeGraphRowSchema: Schema = {
+export const TimeGraphRowSchema: Schema<TimeGraphRow> = {
     entryId: assertNumber,
     states: [TimeGraphStateSchema],
 };
@@ -81,7 +81,7 @@ export interface TimeGraphRow {
     states: TimeGraphState[];
 }
 
-export const TimeGraphModelSchema: Schema = {
+export const TimeGraphModelSchema: Schema<TimeGraphModel> = {
     rows: [TimeGraphRowSchema],
 };
 
@@ -92,7 +92,7 @@ export interface TimeGraphModel {
     rows: TimeGraphRow[];
 }
 
-export const TimeGraphArrowSchema: Schema = {
+export const TimeGraphArrowSchema: Schema<TimeGraphArrow> = {
     end: bigint,
     sourceId: assertNumber,
     start: bigint,

@@ -2,7 +2,7 @@ import { Schema } from 'when-json-met-bigint';
 import { assertNumber } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
 
-export const EntrySchema: Schema = {
+export const EntrySchema: Schema<Entry> = {
     id: assertNumber,
     parentId: assertNumber,
 };
@@ -52,7 +52,7 @@ export interface EntryHeader {
     tooltip: string
 }
 
-export const EntryModelSchema = (schema: Schema): Schema => ({ entries: [schema] });
+export const EntryModelSchema = <T extends Entry>(schema: Schema<T>): Schema<EntryModel<T>> => ({ entries: [schema] });
 
 /**
  * Entry model that will be returned by the server

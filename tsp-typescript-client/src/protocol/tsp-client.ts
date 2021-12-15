@@ -164,7 +164,6 @@ export class TspClient {
         parameters: Query,
     ): Promise<TspClientResponse<GenericResponse<XYModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/xy';
-        console.log(JSON.stringify(GenericResponseSchema(XYModelSchema))); 
         return RestClient.post(url, parameters, GenericResponseSchema(XYModelSchema));
     }
 

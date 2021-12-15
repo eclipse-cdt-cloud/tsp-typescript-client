@@ -1,7 +1,7 @@
 import { Schema } from 'when-json-met-bigint';
 import { bigint } from '../protocol/serialization';
 
-export const BookmarkSchema: Schema = {
+export const BookmarkSchema: Schema<Bookmark> = {
     endTime: bigint,
     startTime: bigint,
 };

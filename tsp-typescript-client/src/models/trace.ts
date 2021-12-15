@@ -1,7 +1,7 @@
 import { Schema } from 'when-json-met-bigint';
 import { assertNumber, bigint } from '../protocol/serialization';
 
-export const TraceSchema: Schema = {
+export const TraceSchema: Schema<Trace> = {
     end: bigint,
     nbEvents: assertNumber,
     start: bigint,

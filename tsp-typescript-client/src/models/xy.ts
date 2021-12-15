@@ -1,7 +1,7 @@
 import { Schema } from 'when-json-met-bigint';
 import { assertNumber, number } from '../protocol/serialization';
 
-export const XYSeriesSchema: Schema = {
+export const XYSeriesSchema: Schema<XYSeries> = {
     seriesId: assertNumber,
     xValues: [number], // lossy conversion if too big
     yValues: [assertNumber],
@@ -48,7 +48,7 @@ export interface XYSeries {
     tags?: number[];
 }
 
-export const XYModelSchema: Schema = {
+export const XYModelSchema: Schema<XYModel> = {
     series: [XYSeriesSchema],
 };
 
