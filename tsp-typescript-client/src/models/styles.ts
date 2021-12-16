@@ -1,9 +1,3 @@
-import { createNormalizer } from '../protocol/serialization';
-
-export const OutputElementStyle = createNormalizer<OutputElementStyle>({
-    values: undefined,
-});
-
 /**
  * Output element style object for one style key. It supports style
  * inheritance. To avoid creating new styles the element style can have a parent

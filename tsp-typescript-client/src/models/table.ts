@@ -1,8 +1,9 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber } from '../protocol/serialization';
 
-export const ColumnHeaderEntry = createNormalizer<ColumnHeaderEntry>({
+export const ColumnHeaderEntrySchema: Schema<ColumnHeaderEntry> = {
     id: assertNumber,
-});
+};
 
 /**
  * Column header
@@ -29,9 +30,9 @@ export interface ColumnHeaderEntry {
     type: string;
 }
 
-export const Cell = createNormalizer<Cell>({
+export const CellSchema: Schema<Cell> = {
     tags: assertNumber,
-});
+};
 
 /**
  * Cell inside a table line
@@ -48,11 +49,11 @@ export interface Cell {
     tags?: number;
 }
 
-export const Line = createNormalizer<Line>({
-    cells: array(Cell),
+export const LineSchema: Schema<Line> = {
+    cells: [CellSchema],
     index: assertNumber,
     tags: assertNumber,
-});
+};
 
 /**
  * Line of a table
@@ -74,12 +75,12 @@ export interface Line {
     tags?: number;
 }
 
-export const TableModel = createNormalizer<TableModel>({
-    columnIds: array(assertNumber),
-    lines: array(Line),
+export const TableModelSchema: Schema<TableModel> = {
+    columnIds: [assertNumber],
+    lines: [LineSchema],
     lowIndex: assertNumber,
     size: assertNumber,
-});
+};
 
 /**
  * Model of a table

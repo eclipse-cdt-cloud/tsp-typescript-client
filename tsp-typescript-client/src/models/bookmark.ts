@@ -1,9 +1,10 @@
-import { createNormalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { bigint } from '../protocol/serialization';
 
-export const Bookmark = createNormalizer<Bookmark>({
-    endTime: BigInt,
-    startTime: BigInt,
-});
+export const BookmarkSchema: Schema<Bookmark> = {
+    endTime: bigint,
+    startTime: bigint,
+};
 
 /**
  * Model for bookmark

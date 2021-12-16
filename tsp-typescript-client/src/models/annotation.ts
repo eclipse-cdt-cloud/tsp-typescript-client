@@ -1,4 +1,5 @@
-import { array, assertNumber, createNormalizer, record } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber, bigint } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
 
 export enum Type {
@@ -10,12 +11,15 @@ export interface AnnotationCategoriesModel {
     annotationCategories: string[];
 }
 
-export const Annotation = createNormalizer<Annotation>({
-    duration: BigInt,
-    entryId: assertNumber,
-    time: BigInt,
-    style: OutputElementStyle,
-});
+export const AnnotationSchema: Schema<AnnotationModel> = {
+    annotations: {
+        [Symbol.for(`any`)]: [{
+            duration: bigint,
+            entryId: assertNumber,
+            time: bigint,
+        }]
+    }
+};
 
 /**
  * Model for annotation
@@ -52,10 +56,6 @@ export interface Annotation {
      */
     style?: OutputElementStyle;
 }
-
-export const AnnotationModel = createNormalizer<AnnotationModel>({
-    annotations: record(array(Annotation)),
-});
 
 export interface AnnotationModel {
     annotations: { [category: string]: Annotation[] };

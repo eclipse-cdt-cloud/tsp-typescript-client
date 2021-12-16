@@ -1,11 +1,12 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { Schema } from 'when-json-met-bigint';
+import { assertNumber, number } from '../protocol/serialization';
 
-export const XYSeries = createNormalizer<XYSeries>({
+export const XYSeriesSchema: Schema<XYSeries> = {
     seriesId: assertNumber,
-    xValues: array(Number), // lossy conversion if too big
-    yValues: array(assertNumber),
-    tags: array(assertNumber),
-});
+    xValues: [number], // lossy conversion if too big
+    yValues: [assertNumber],
+    tags: [assertNumber],
+};
 
 /**
  * Represent a XY series and its values
@@ -47,9 +48,9 @@ export interface XYSeries {
     tags?: number[];
 }
 
-export const XYModel = createNormalizer<XYModel>({
-    series: array(XYSeries),
-});
+export const XYModelSchema: Schema<XYModel> = {
+    series: [XYSeriesSchema],
+};
 
 /**
  * Model of a XY chart, contains at least one XY series

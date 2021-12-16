@@ -1,19 +1,18 @@
 import { Query } from '../models/query/query';
-import { GenericResponse } from '../models/response/responses';
-import { XYModel } from '../models/xy';
-import { TimeGraphEntry, TimeGraphArrow, TimeGraphModel } from '../models/timegraph';
-import { AnnotationCategoriesModel, AnnotationModel } from '../models/annotation';
-import { TableModel, ColumnHeaderEntry } from '../models/table';
-import { Trace } from '../models/trace';
+import { GenericResponseSchema, GenericResponse } from '../models/response/responses';
+import { XYModelSchema, XYModel } from '../models/xy';
+import { TimeGraphEntrySchema, TimeGraphArrowSchema, TimeGraphModelSchema, TimeGraphModel, TimeGraphEntry, TimeGraphArrow } from '../models/timegraph';
+import { AnnotationCategoriesModel, AnnotationSchema, AnnotationModel } from '../models/annotation';
+import { TableModelSchema, ColumnHeaderEntrySchema, TableModel, ColumnHeaderEntry } from '../models/table';
+import { TraceSchema, Trace } from '../models/trace';
 import { RestClient } from './rest-client';
-import { Experiment } from '../models/experiment';
-import { OutputDescriptor } from '../models/output-descriptor';
-import { EntryModel, Entry } from '../models/entry';
+import { ExperimentSchema, Experiment } from '../models/experiment';
+import { OutputDescriptorSchema, OutputDescriptor } from '../models/output-descriptor';
+import { EntryModelSchema, EntrySchema, EntryModel, Entry } from '../models/entry';
 import { TspClientResponse } from './tsp-client-response';
 import { OutputStyleModel } from '../models/styles';
 import { HealthStatus } from '../models/health';
 import { MarkerSet } from '../models/markerset';
-import { array } from './serialization';
 
 /**
  * Trace Server Protocol client
@@ -35,7 +34,7 @@ export class TspClient {
      */
     public async fetchTraces(): Promise<TspClientResponse<Trace[]>> {
         const url = this.baseUrl + '/traces';
-        return RestClient.get(url, undefined, array(Trace));
+        return RestClient.get(url, undefined, [TraceSchema]);
     }
 
     /**
@@ -44,7 +43,7 @@ export class TspClient {
      */
     public async fetchTrace(traceUUID: string): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces/' + traceUUID;
-        return RestClient.get(url, undefined, Trace);
+        return RestClient.get(url, undefined, TraceSchema);
     }
 
     /**
@@ -54,7 +53,7 @@ export class TspClient {
      */
     public async openTrace(parameters: Query): Promise<TspClientResponse<Trace>> {
         const url = this.baseUrl + '/traces';
-        return RestClient.post(url, parameters, Trace);
+        return RestClient.post(url, parameters, TraceSchema);
     }
 
     /**
@@ -73,7 +72,7 @@ export class TspClient {
         if (removeCache) {
             deleteParameters.set('removeCache', removeCache.toString());
         }
-        return RestClient.delete(url, deleteParameters, Trace);
+        return RestClient.delete(url, deleteParameters, TraceSchema);
     }
 
     /**
@@ -82,7 +81,7 @@ export class TspClient {
      */
     public async fetchExperiments(): Promise<TspClientResponse<Experiment[]>> {
         const url = this.baseUrl + '/experiments';
-        return RestClient.get(url, undefined, array(Experiment));
+        return RestClient.get(url, undefined, [ExperimentSchema]);
     }
 
     /**
@@ -92,7 +91,7 @@ export class TspClient {
      */
     public async fetchExperiment(expUUID: string): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return RestClient.get(url, undefined, Experiment);
+        return RestClient.get(url, undefined, ExperimentSchema);
     }
 
     /**
@@ -102,7 +101,7 @@ export class TspClient {
      */
     public async createExperiment(parameters: Query): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments';
-        return RestClient.post(url, parameters, Experiment);
+        return RestClient.post(url, parameters, ExperimentSchema);
     }
 
     /**
@@ -113,7 +112,7 @@ export class TspClient {
      */
     public async updateExperiment(expUUID: string, parameters: Query): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return RestClient.put(url, parameters, Experiment);
+        return RestClient.put(url, parameters, ExperimentSchema);
     }
 
     /**
@@ -123,7 +122,7 @@ export class TspClient {
      */
     public async deleteExperiment(expUUID: string): Promise<TspClientResponse<Experiment>> {
         const url = this.baseUrl + '/experiments/' + expUUID;
-        return RestClient.delete(url, undefined, Experiment);
+        return RestClient.delete(url, undefined, ExperimentSchema);
     }
 
     /**
@@ -133,7 +132,7 @@ export class TspClient {
      */
     public async experimentOutputs(expUUID: string): Promise<TspClientResponse<OutputDescriptor[]>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs';
-        return RestClient.get(url, undefined, array(OutputDescriptor));
+        return RestClient.get(url, undefined, [OutputDescriptorSchema]);
     }
 
     /**
@@ -149,7 +148,7 @@ export class TspClient {
         parameters: Query,
     ): Promise<TspClientResponse<GenericResponse<EntryModel<Entry>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
-        return RestClient.post(url, parameters, GenericResponse(EntryModel(Entry)));
+        return RestClient.post(url, parameters, GenericResponseSchema(EntryModelSchema(EntrySchema)));
     }
 
     /**
@@ -165,7 +164,7 @@ export class TspClient {
         parameters: Query,
     ): Promise<TspClientResponse<GenericResponse<XYModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/xy';
-        return RestClient.post(url, parameters, GenericResponse(XYModel));
+        return RestClient.post(url, parameters, GenericResponseSchema(XYModelSchema));
     }
 
     /**
@@ -210,7 +209,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/tree';
-        return RestClient.post(url, parameters, GenericResponse(EntryModel(TimeGraphEntry)));
+        return RestClient.post(url, parameters, GenericResponseSchema(EntryModelSchema(TimeGraphEntrySchema)));
     }
 
     /**
@@ -226,7 +225,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<TimeGraphModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/states';
-        return RestClient.post(url, parameters, GenericResponse(TimeGraphModel));
+        return RestClient.post(url, parameters, GenericResponseSchema(TimeGraphModelSchema));
     }
 
     /**
@@ -242,7 +241,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<TimeGraphArrow[]>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/timeGraph/' + outputID + '/arrows';
-        return RestClient.post(url, parameters, GenericResponse(array(TimeGraphArrow)));
+        return RestClient.post(url, parameters, GenericResponseSchema([TimeGraphArrowSchema]));
     }
 
     /**
@@ -288,7 +287,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<AnnotationModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/annotations';
-        return RestClient.post(url, parameters, GenericResponse(AnnotationModel));
+        return RestClient.post(url, parameters, GenericResponseSchema(AnnotationSchema));
     }
 
     /**
@@ -320,7 +319,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<ColumnHeaderEntry[]>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/columns';
-        return RestClient.post(url, parameters, GenericResponse(array(ColumnHeaderEntry)));
+        return RestClient.post(url, parameters, GenericResponseSchema([ColumnHeaderEntrySchema]));
     }
 
     /**
@@ -336,7 +335,7 @@ export class TspClient {
         parameters: Query
     ): Promise<TspClientResponse<GenericResponse<TableModel>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/table/' + outputID + '/lines';
-        return RestClient.post(url, parameters, GenericResponse(TableModel));
+        return RestClient.post(url, parameters, GenericResponseSchema(TableModelSchema));
     }
 
     /**

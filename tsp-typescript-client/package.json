@@ -11,7 +11,6 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
-    "@types/json-bigint": "^1.0.1",
     "@types/node": "^11.13.8",
     "@types/node-fetch": "^2.3.3",
     "jest": "^27.1.0",
@@ -22,9 +21,9 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "json-bigint": "sidorares/json-bigint#2c0a5f896d7888e68e5f4ae3c7ea5cd42fd54473",
     "node-fetch": "^2.5.0",
-    "rimraf": "latest"
+    "rimraf": "latest",
+    "when-json-met-bigint": "^0.27.0"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
