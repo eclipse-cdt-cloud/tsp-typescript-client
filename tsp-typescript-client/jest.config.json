@@ -1,20 +1,10 @@
 {
-  "globals": {
-    "ts-jest": {
-      "tsconfig": "tsconfig.json"
-    }
-  },
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
-  },
   "testEnvironment": "jsdom",
   "testPathIgnorePatterns": [
-    "/lib/"
+    "/src/"
   ],
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
   "moduleFileExtensions": [
-    "ts",
-    "tsx",
     "js",
     "jsx",
     "json",
