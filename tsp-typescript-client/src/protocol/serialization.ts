@@ -200,3 +200,9 @@ export const assertNumber: Normalizer<number> =
         }
         return input;
     };
+
+export const toBigInt: Normalizer<bigint> =
+    function toBigInt(value: number | bigint): bigint {
+        return BigInt(value);
+    };
+    
