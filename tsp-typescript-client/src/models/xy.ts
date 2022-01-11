@@ -1,8 +1,8 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
 
 export const XYSeries = createNormalizer<XYSeries>({
     seriesId: assertNumber,
-    xValues: array(Number), // lossy conversion if too big
+    xValues: array(toBigInt),
     yValues: array(assertNumber),
     tags: array(assertNumber),
 });
@@ -34,7 +34,7 @@ export interface XYSeries {
     /**
      * Series' X values
      */
-    xValues: number[];
+    xValues: bigint[];
 
     /**
      * Series' Y values

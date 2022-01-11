@@ -245,7 +245,7 @@ describe('TspClient Deserialization', () => {
       expect(serie.xValues).toHaveLength(3);
       expect(serie.yValues).toHaveLength(3);
       for (const xValue of serie.xValues) {
-        expect(typeof xValue).toEqual('number');
+        expect(typeof xValue).toEqual('bigint');
       }
       for (const yValue of serie.yValues) {
         expect(typeof yValue).toEqual('number');
