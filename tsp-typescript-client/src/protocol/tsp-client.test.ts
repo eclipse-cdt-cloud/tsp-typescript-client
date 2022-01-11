@@ -13,7 +13,7 @@ describe('TspClient Deserialization', () => {
   let fixtures: FixtureSet;
 
   beforeAll(async () => {
-    fixtures = await FixtureSet.fromFolder(__dirname, 'fixtures/tsp-client');
+    fixtures = await FixtureSet.fromFolder(__dirname, '../../fixtures/tsp-client');
     RestClient['httpRequest'] = httpRequestMock;
   });
 
