@@ -22,14 +22,26 @@ export interface HttpResponse {
 }
 
 /**
+ * A listener that is called when the connection status is changed.
+ * The status 'true' indicates that the server was last reached successfully.
+ * The status 'false' indicates that the server could not be reached or
+ * returned a status code indicating that it cannot service requests (>= 502).
+ */
+export type ConnectionStatusListener = ((status: boolean) => void);
+
+/**
  * Rest client helper to make request.
  * The request response status code indicates if the request is successful.
  * The json object in the response may be undefined when an error occurs.
  */
 export class RestClient {
 
+    static status = false;
+    static connectionStatusListeners: ConnectionStatusListener[] = [];
+
     static get<T>(url: string, parameters?: Map<string, string>): Promise<TspClientResponse<Deserialized<T>>>;
     static get<T>(url: string, parameters: Map<string, string> | undefined, normalizer: Normalizer<T>): Promise<TspClientResponse<T>>;
+
     /**
      * Perform GET
      * @template T is the expected type of the json object returned by this request
@@ -103,7 +115,10 @@ export class RestClient {
                 },
                 body: this.jsonStringify(body)
             });
+            const status = response.status <= 501;
+            this.updateConnectionStatus(status);
         } catch (err) {
+            this.updateConnectionStatus(false);
             return new TspClientResponse(err.toString(), 503, 'Service Unavailable');
         }
 
@@ -148,7 +163,7 @@ export class RestClient {
     /**
      * Stringify JS objects. Can stringify `BigInt` values.
      */
-     protected static jsonStringify(data: any): string {
+    protected static jsonStringify(data: any): string {
         return JSONBig.stringify(data);
     }
 
@@ -158,5 +173,37 @@ export class RestClient {
      */
     protected static jsonParse(text: string): any {
         return JSONBig.parse(text);
+    }
+
+    /**
+     * Adds a connection status listener.
+     * The listener will immediately be called with the current status.
+     *
+     * @param listener The listener to add
+     */
+    public static addConnectionStatusListener(listener: ConnectionStatusListener): void {
+        if (!this.connectionStatusListeners.includes(listener)) {
+            this.connectionStatusListeners.push(listener);
+        }
+        listener(this.status);
+    }
+
+    /**
+     * Removes a connection status listener.
+     *
+     * @param listener The listener to remove
+     */
+    public static removeConnectionStatusListener(listener: ConnectionStatusListener): void {
+        this.connectionStatusListeners = this.connectionStatusListeners.filter(element => element !== listener);
+    }
+
+    private static updateConnectionStatus(status: boolean) {
+        if (this.status === status) {
+            return;
+        }
+        for (const listener of this.connectionStatusListeners) {
+            listener(status);
+        }
+        this.status = status;
     }
 }
