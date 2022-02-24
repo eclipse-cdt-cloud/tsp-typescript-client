@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch, { Headers } from 'node-fetch';
 import { Deserialized, Normalizer } from './serialization';
 import { TspClientResponse } from './tsp-client-response';
 import JSONBigConfig = require('json-bigint');
@@ -18,6 +18,7 @@ export interface HttpResponse {
     text: string
     status: number
     statusText: string
+    headers?: Headers
 }
 
 /**
@@ -91,18 +92,35 @@ export class RestClient {
         body?: any,
         normalizer?: Normalizer<T>,
     ): Promise<TspClientResponse<Deserialized<T>>> {
-        const response = await this.httpRequest({
-            url,
-            method,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: this.jsonStringify(body)
-        });
-        const parsed = this.jsonParse(response.text);
-        const responseModel = normalizer ? normalizer(parsed) : parsed;
-        return new TspClientResponse(response.text, response.status, response.statusText, responseModel);
+        let response: HttpResponse;
+        try {
+            response = await this.httpRequest({
+                url,
+                method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: this.jsonStringify(body)
+            });
+        } catch (err) {
+            return new TspClientResponse(err.toString(), 503, 'Service Unavailable');
+        }
+
+        if (response.headers?.get('Content-Type') === 'application/json') {
+            try {
+                const parsed = this.jsonParse(response.text);
+                try {
+                    const responseModel = normalizer ? normalizer(parsed) : parsed;
+                    return new TspClientResponse(response.text, response.status, response.statusText, responseModel);
+                } catch (err) {
+                    console.log('Error normalizing model: ' + err.toString());
+                }
+            } catch (err) {
+                console.log('Error parsing response model: ' + JSON.stringify(err));
+            }
+        }
+        return new TspClientResponse(response.text, response.status, response.statusText);
     }
 
     protected static async httpRequest(req: HttpRequest): Promise<HttpResponse> {
@@ -113,6 +131,7 @@ export class RestClient {
             text,
             status: response.status,
             statusText: response.statusText,
+            headers: response.headers
         };
     }
 

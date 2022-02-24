@@ -2,6 +2,7 @@
 
 import { Query } from '../models/query/query';
 import { HttpRequest, HttpResponse, RestClient } from './rest-client';
+import { Headers } from 'node-fetch';
 import { FixtureSet } from './test-utils';
 import { TspClient } from './tsp-client';
 
@@ -34,6 +35,26 @@ describe('TspClient Deserialization', () => {
     expect(health.status).toEqual('UP');
   });
 
+  it('checkHealth-rejection', async () => {
+    httpRequestMock.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+    const response = await client.checkHealth();
+
+    expect(response.getStatusCode()).toEqual(503);
+    expect(response.getStatusMessage()).toEqual('Service Unavailable');
+    expect(response.getText()).toEqual('TypeError: Failed to fetch');
+    expect(response.getModel()).toBeUndefined();
+  });
+
+  it('checkHealth-failure', async () => {
+    httpRequestMock.mockResolvedValueOnce({ status: 502, statusText: 'Bad Gateway', text: 'Service Temporarily Overloaded', headers: new Headers({ 'Content-Type': 'text/plain' }) });
+    const response = await client.checkHealth();
+
+    expect(response.getStatusCode()).toEqual(502);
+    expect(response.getStatusMessage()).toEqual('Bad Gateway');
+    expect(response.getText()).toEqual('Service Temporarily Overloaded');
+    expect(response.getModel()).toBeUndefined();
+  });
+
   it('createExperiment', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('create-experiment-0.json'));
     const response = await client.createExperiment(new Query({}));
@@ -42,6 +63,40 @@ describe('TspClient Deserialization', () => {
     expect(typeof experiment.end).toEqual('bigint');
     expect(typeof experiment.start).toEqual('bigint');
     expect(typeof experiment.nbEvents).toEqual('number');
+  });
+
+  it('createExperiment-invalidModel', async () => {
+    const value = await fixtures.asResponse('create-experiment-0.json');
+    value.text = 'Not a JSON string';
+    httpRequestMock.mockResolvedValueOnce(value);
+    const response = await client.createExperiment(new Query({}));
+    const experiment = response.getModel()!;
+
+    expect(response.getStatusCode()).toBe(200);
+    expect(response.getText()).toBe('Not a JSON string');
+    expect(experiment).toBeUndefined();
+  });
+
+  it('createExperiment-invalidBigInt', async () => {
+    const value = await fixtures.asResponse('create-experiment-0.json');
+    value.text = value.text.replace('1234567890123456789', '1.234567890123456789');
+    httpRequestMock.mockResolvedValueOnce(value);
+    const response = await client.createExperiment(new Query({}));
+    const experiment = response.getModel()!;
+
+    expect(response.getStatusCode()).toBe(200);
+    expect(experiment).toBeUndefined();
+  });
+
+  it('createExperiment-invalidNumber', async () => {
+    const value = await fixtures.asResponse('create-experiment-0.json');
+    value.text = value.text.replace('999999', '9999999999999999999');
+    httpRequestMock.mockResolvedValueOnce(value);
+    const response = await client.createExperiment(new Query({}));
+    const experiment = response.getModel()!;
+
+    expect(response.getStatusCode()).toBe(200);
+    expect(experiment).toBeUndefined();
   });
 
   it('deleteExperiment', async () => {

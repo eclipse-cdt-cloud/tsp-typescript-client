@@ -1,4 +1,5 @@
 import fs = require('fs');
+import { Headers } from 'node-fetch';
 import path = require('path');
 import type { HttpResponse } from './rest-client';
 
@@ -35,6 +36,7 @@ export class FixtureSet {
             status,
             statusText,
             text: await this.readFixture(fixtureName),
+            headers: new Headers({ 'Content-Type': 'application/json' })
         };
     }
 
