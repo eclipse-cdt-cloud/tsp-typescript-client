@@ -32,6 +32,46 @@ describe('Query helper tests', () => {
     expect(test).toEqual(query);
   });
 
+  it('Should build a time range query', () => {
+    const requestedTimeRange = { start: BigInt(1000), end: BigInt(2000) };
+    const query = new Query({ [QueryHelper.REQUESTED_TIMERANGE_KEY]: requestedTimeRange });
+    const test = QueryHelper.timeRangeQuery(BigInt(1000), BigInt(2000));
+
+    expect(test).toEqual(query);
+  });
+
+  it('Should build a sampled time range query', () => {
+    const requestedTimeRange = { start: BigInt(1000), end: BigInt(2000), nbTimes: 10 };
+    const query = new Query({ [QueryHelper.REQUESTED_TIMERANGE_KEY]: requestedTimeRange });
+    const test = QueryHelper.timeRangeQuery(BigInt(1000), BigInt(2000), 10);
+
+    expect(test).toEqual(query);
+  });
+
+  it('Should build a time range query with selected items', () => {
+    const requestedTimeRange = { start: BigInt(1000), end: BigInt(2000) };
+    const items = [4, 5, 6];
+    const query = new Query({
+      [QueryHelper.REQUESTED_TIMERANGE_KEY]: requestedTimeRange,
+      [QueryHelper.REQUESTED_ITEMS_KEY]: items
+    });
+    const test = QueryHelper.selectionTimeRangeQuery(BigInt(1000), BigInt(2000), items);
+
+    expect(test).toEqual(query);
+  });
+
+  it('Should build a sampled time range query with selected items', () => {
+    const requestedTimeRange = { start: BigInt(1000), end: BigInt(2000), nbTimes: 10 };
+    const items = [4, 5, 6];
+    const query = new Query({
+      [QueryHelper.REQUESTED_TIMERANGE_KEY]: requestedTimeRange,
+      [QueryHelper.REQUESTED_ITEMS_KEY]: items
+    });
+    const test = QueryHelper.selectionTimeRangeQuery(BigInt(1000), BigInt(2000), 10, items);
+
+    expect(test).toEqual(query);
+  });
+
   it('Should build a simple table query', () => {
     const columnIds = [1, 2, 3];
     const index = 2;
