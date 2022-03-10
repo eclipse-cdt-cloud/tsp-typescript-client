@@ -10,6 +10,11 @@ export class QueryHelper {
     public static readonly REQUESTED_TIMES_KEY: string = 'requested_times';
 
     /**
+     * Time range requested key
+     */
+    public static readonly REQUESTED_TIMERANGE_KEY: string = 'requested_timerange';
+
+    /**
      * Selected items key
      */
     public static readonly REQUESTED_ITEMS_KEY: string = 'requested_items';
@@ -17,7 +22,7 @@ export class QueryHelper {
     /**
      * Selected items key
      */
-     public static readonly REQUESTED_ELEMENT_KEY: string = 'requested_element';
+    public static readonly REQUESTED_ELEMENT_KEY: string = 'requested_element';
 
     /**
      * Starting index key
@@ -66,6 +71,78 @@ export class QueryHelper {
             [this.REQUESTED_ITEMS_KEY]: items
         };
 
+        return new Query({ ...selectionTimeObj, ...additionalProperties });
+    }
+
+    /**
+     * Build a time range query
+     * @param start Start time
+     * @param end End time
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     */
+    public static timeRangeQuery(start: bigint, end: bigint, additionalProperties?: { [key: string]: any }): Query;
+
+    /**
+     * Build a sampled time range query
+     * @param start Start time
+     * @param end End time
+     * @param nbTimes Number of time samples
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     */
+    public static timeRangeQuery(start: bigint, end: bigint, nbTimes?: number, additionalProperties?: { [key: string]: any }): Query;
+
+    public static timeRangeQuery(start: bigint, end: bigint, third?: number | { [key: string]: any }, fourth?: { [key: string]: any }): Query {
+        if (typeof third === 'number') {
+            const nbTimes = third;
+            const additionalProperties = fourth;
+            const timeObj = {
+                [this.REQUESTED_TIMERANGE_KEY]: { start, end, nbTimes }
+            };
+            return new Query({ ...timeObj, ...additionalProperties });
+        }
+        const additionalProperties = third;
+        const timeObj = {
+            [this.REQUESTED_TIMERANGE_KEY]: { start, end }
+        };
+        return new Query({ ...timeObj, ...additionalProperties });
+    }
+
+    /**
+     * Build a time range query with selected items
+     * @param start Start time
+     * @param end End time
+     * @param items Array of item IDs
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     */
+    public static selectionTimeRangeQuery(start: bigint, end: bigint, items: number[], additionalProperties?: { [key: string]: any }): Query
+
+    /**
+     * Build a sampled time range query with selected items
+     * @param start Start time
+     * @param end End time
+     * @param nbTimes Number of time samples
+     * @param items Array of item IDs
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     */
+    public static selectionTimeRangeQuery(start: bigint, end: bigint, nbTimes: number, items: number[], additionalProperties?: { [key: string]: any }): Query
+
+    public static selectionTimeRangeQuery(start: bigint, end: bigint, third: number | number[], fourth: number[] | { [key: string]: any }, fifth?: { [key: string]: any }): Query {
+        if (typeof third === 'number') {
+            const nbTimes = third;
+            const items = fourth;
+            const additionalProperties = fifth;
+            const selectionTimeObj = {
+                [this.REQUESTED_TIMERANGE_KEY]: { start, end, nbTimes },
+                [this.REQUESTED_ITEMS_KEY]: items
+            };
+            return new Query({ ...selectionTimeObj, ...additionalProperties });
+        }
+        const items = third;
+        const additionalProperties = fourth;
+        const selectionTimeObj = {
+            [this.REQUESTED_TIMERANGE_KEY]: { start, end },
+            [this.REQUESTED_ITEMS_KEY]: items
+        };
         return new Query({ ...selectionTimeObj, ...additionalProperties });
     }
 
