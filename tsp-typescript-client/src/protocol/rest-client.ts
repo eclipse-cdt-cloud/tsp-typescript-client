@@ -1,5 +1,5 @@
 import fetch, { Headers } from 'node-fetch';
-import { Deserialized, Normalizer } from './serialization';
+import { Deserialized, Normalizer } from '../utils/serialization';
 import { TspClientResponse } from './tsp-client-response';
 import JSONBigConfig = require('json-bigint');
 

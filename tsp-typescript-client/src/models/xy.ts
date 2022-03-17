@@ -1,4 +1,4 @@
-import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer, toBigInt } from '../utils/serialization';
 import { Entry } from './entry';
 import { OutputElementStyle } from "./styles";
 

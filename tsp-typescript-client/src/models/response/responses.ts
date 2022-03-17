@@ -1,4 +1,4 @@
-import { Deserialized, createNormalizer, Normalizer } from '../../protocol/serialization';
+import { Deserialized, createNormalizer, Normalizer } from '../../utils/serialization';
 
 /**
  * Response status
