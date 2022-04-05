@@ -1,8 +1,10 @@
 # tsp-typescript-client
 
-Client-side implementation, in typescript, of the Trace Server Protocol (<https://github.com/theia-ide/trace-server-protocol>).
+Client-side implementation, in typescript, of the [Trace Server Protocol][protocol].
 
 > Notice: this implementation is currently in the "Works on my computer" phase. Testing will come soon.
+
+**👋 Want to help?** Read our [contributor guide][contributing].
 
 ## Installation
 
@@ -33,3 +35,6 @@ The following command prints a coverage report to the terminal. As of now it cov
 ```shell
 yarn test --coverage --collectCoverageFrom='src/**/*.ts'
 ```
+
+[contributing]: CONTRIBUTING.md
+[protocol]: https://github.com/theia-ide/trace-server-protocol
