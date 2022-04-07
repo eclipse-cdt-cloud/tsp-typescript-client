@@ -37,4 +37,4 @@ yarn test --coverage --collectCoverageFrom='src/**/*.ts'
 ```
 
 [contributing]: CONTRIBUTING.md
-[protocol]: https://github.com/theia-ide/trace-server-protocol
+[protocol]: https://github.com/eclipse-cdt-cloud/trace-server-protocol
