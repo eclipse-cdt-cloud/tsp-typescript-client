@@ -68,11 +68,6 @@ export interface XYModel {
     title: string;
 
     /**
-     * Indicate if all the Y values are using the same X axis
-     */
-    commonXAxis: boolean;
-
-    /**
      * Array of XY series
      */
     series: XYSeries[];
