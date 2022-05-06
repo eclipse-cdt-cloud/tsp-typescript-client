@@ -7,6 +7,7 @@ export const Entry = createNormalizer<Entry>({
     style: {
         values: undefined,
     },
+    metadata: undefined,
 });
 
 /**
@@ -38,6 +39,11 @@ export interface Entry {
      * The style map can be obtained by using the style endpoint.
      */
     style?: OutputElementStyle;
+
+    /**
+     * Metadata
+     */
+    metadata?: { [key: string]: any };
 }
 
 /**

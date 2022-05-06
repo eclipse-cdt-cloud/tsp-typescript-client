@@ -8,6 +8,7 @@ export const TimeGraphEntry = createNormalizer<TimeGraphEntry>({
     parentId: assertNumber,
     start: BigInt,
     style: OutputElementStyle,
+    metadata: undefined,
 });
 
 /**
