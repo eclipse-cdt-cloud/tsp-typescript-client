@@ -1,6 +1,7 @@
 import { array, assertNumber, createNormalizer } from '../protocol/serialization';
 import { Entry } from './entry';
 import { OutputElementStyle } from './styles';
+import { Metadata } from './metadata';
 
 export const TimeGraphEntry = createNormalizer<TimeGraphEntry>({
     end: BigInt,
@@ -8,6 +9,7 @@ export const TimeGraphEntry = createNormalizer<TimeGraphEntry>({
     parentId: assertNumber,
     start: BigInt,
     style: OutputElementStyle,
+    metadata: Metadata,
 });
 
 /**

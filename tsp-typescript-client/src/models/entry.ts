@@ -1,5 +1,6 @@
 import { array, assertNumber, createNormalizer, Normalizer } from '../protocol/serialization';
 import { OutputElementStyle } from './styles';
+import { Metadata } from './metadata';
 
 export const Entry = createNormalizer<Entry>({
     id: assertNumber,
@@ -7,6 +8,7 @@ export const Entry = createNormalizer<Entry>({
     style: {
         values: undefined,
     },
+    metadata: Metadata,
 });
 
 /**
@@ -38,6 +40,11 @@ export interface Entry {
      * The style map can be obtained by using the style endpoint.
      */
     style?: OutputElementStyle;
+
+    /**
+     * Metadata
+     */
+    metadata?: Metadata;
 }
 
 /**
