@@ -1,10 +1,12 @@
 import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
+import { OutputElementStyle } from "./styles";
 
 export const XYSeries = createNormalizer<XYSeries>({
     seriesId: assertNumber,
     xValues: array(toBigInt),
     yValues: array(assertNumber),
     tags: array(assertNumber),
+    style: OutputElementStyle,
 });
 
 /**
@@ -45,6 +47,11 @@ export interface XYSeries {
      * Array of tags for each XY value, used when a value passes a filter
      */
     tags?: number[];
+
+    /**
+     * Style of the series
+     */
+    style: OutputElementStyle;
 }
 
 export const XYModel = createNormalizer<XYModel>({
