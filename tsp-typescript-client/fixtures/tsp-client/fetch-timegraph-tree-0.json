@@ -10,7 +10,12 @@
 				],
 				"start": 1234567890123456789,
 				"end": 9876543210987654321,
-				"hasData": true
+				"hasData": true,
+				"metadata": {
+					"pid": [1234, 7777],
+					"tid": [5678],
+					"exec_name": ["name"]
+				}
 			}
 		],
 		"headers": [

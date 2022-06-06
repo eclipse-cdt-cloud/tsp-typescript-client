@@ -279,6 +279,25 @@ describe('TspClient Deserialization', () => {
       expect(typeof entry.end).toEqual('bigint');
       expect(typeof entry.id).toEqual('number');
       expect(typeof entry.start).toEqual('bigint');
+      const metadata = entry.metadata;
+      expect(metadata).toBeDefined();
+      const pids = metadata?.pid;
+      expect(pids).toBeDefined();
+      expect(pids).toHaveLength(2);
+      expect(typeof pids[0]).toEqual('number');
+      expect(typeof pids[1]).toEqual('number');
+      expect(pids[0]).toEqual(1234)
+      expect(pids[1]).toEqual(7777)
+      const tids = metadata?.tid;
+      expect(tids).toBeDefined();
+      expect(tids).toHaveLength(1);
+      expect(typeof tids[0]).toEqual('number');
+      expect(tids[0]).toEqual(5678)
+      const exec = metadata?.exec_name;
+      expect(exec).toBeDefined();
+      expect(exec).toHaveLength(1);
+      expect(typeof exec[0]).toEqual('string');
+      expect(exec[0]).toEqual('name')
     }
   });
 
