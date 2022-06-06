@@ -34,7 +34,7 @@ export class TspClientResponse<T> {
     }
     
     /**
-     * Get the model from the server, or throw custom Error
+     * Get the model from the server, or call custom Error handler callback
      */
     public tryGetModel(cb: (msg: string, code?: number) => T): T {
         if (!this.isOk()) return cb(this.text, this.statusCode);
