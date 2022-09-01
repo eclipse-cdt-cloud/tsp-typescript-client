@@ -10,12 +10,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/theia-ide/tsp-typescript-client"
+    "url": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client"
   },
   "bugs": {
-    "url": "https://github.com/theia-ide/tsp-typescript-client/issues"
+    "url": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client/issues"
   },
-  "homepage": "https://github.com/theia-ide/tsp-typescript-client",
+  "homepage": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client",
   "files": [
     "lib",
     "src"
