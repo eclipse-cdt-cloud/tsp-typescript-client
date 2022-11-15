@@ -37,7 +37,12 @@ export class QueryHelper {
     /**
      * Table column IDs key
      */
-    public static readonly REQUESTED_TABLE_COLUMN_IDS_KEY = 'requested_table_column_ids';
+    public static readonly REQUESTED_TABLE_COLUMN_IDS_KEY: string = 'requested_table_column_ids';
+
+    /**
+     *Is Filtered Key
+     */
+    public static readonly IS_FILTERED_KEY: string = 'isFiltered';
 
     /**
      * Build a simple query

@@ -14,6 +14,7 @@ import { OutputStyleModel } from '../models/styles';
 import { HealthStatus } from '../models/health';
 import { MarkerSet } from '../models/markerset';
 import { array } from './serialization';
+import { QueryablePropertyModel } from '../models/queryable-property';
 
 /**
  * Trace Server Protocol client
@@ -362,5 +363,22 @@ export class TspClient {
     public async checkHealth(): Promise<TspClientResponse<HealthStatus>> {
         const url = this.baseUrl + '/health';
         return RestClient.get(url);
+    }
+
+    /**
+     * Fetch Queryable Property
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Property model response with the model
+     */
+    public async fetchQueryableProperty(
+        expUUID: string,
+        outputID: string,
+        propertyID: string,
+        parameters: Query,
+    ): Promise<TspClientResponse<QueryablePropertyModel>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/' + outputID + '/properties/' + propertyID;
+        return RestClient.post(url, parameters, QueryablePropertyModel);
     }
 }

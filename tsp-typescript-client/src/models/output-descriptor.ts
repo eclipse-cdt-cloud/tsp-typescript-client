@@ -1,4 +1,5 @@
 import { createNormalizer } from '../protocol/serialization';
+import { QueryablePropertyDescriptor } from './queryable-property';
 
 export const OutputDescriptor = createNormalizer<OutputDescriptor>({
     end: BigInt,
@@ -56,4 +57,9 @@ export interface OutputDescriptor {
      * List of compatible outputs that can be used in the same view (ex. as overlay)
      */
     compatibleProviders?: string[];
+
+    /**
+     * List of queryable properties that the provider accepts
+     */
+    queryableProperties?: QueryablePropertyDescriptor[];
 }
