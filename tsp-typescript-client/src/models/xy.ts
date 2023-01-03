@@ -1,4 +1,5 @@
 import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
+import { Entry } from './entry';
 import { OutputElementStyle } from "./styles";
 
 export const XYSeries = createNormalizer<XYSeries>({
@@ -8,6 +9,13 @@ export const XYSeries = createNormalizer<XYSeries>({
     tags: array(assertNumber),
     style: OutputElementStyle,
 });
+
+export interface XyEntry extends Entry {
+    /**
+     * Flag whether or not the entry is a default entry and its xy data should be fetched by default
+     */
+    isDefault?: boolean;
+}
 
 /**
  * Represent a XY series and its values
