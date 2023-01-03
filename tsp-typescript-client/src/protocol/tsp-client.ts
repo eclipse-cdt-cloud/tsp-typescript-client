@@ -1,6 +1,6 @@
 import { Query } from '../models/query/query';
 import { GenericResponse } from '../models/response/responses';
-import { XYModel } from '../models/xy';
+import { XyEntry, XYModel } from '../models/xy';
 import { TimeGraphEntry, TimeGraphArrow, TimeGraphModel } from '../models/timegraph';
 import { AnnotationCategoriesModel, AnnotationModel } from '../models/annotation';
 import { TableModel, ColumnHeaderEntry } from '../models/table';
@@ -147,7 +147,7 @@ export class TspClient {
         expUUID: string,
         outputID: string,
         parameters: Query,
-    ): Promise<TspClientResponse<GenericResponse<EntryModel<Entry>>>> {
+    ): Promise<TspClientResponse<GenericResponse<EntryModel<XyEntry>>>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/XY/' + outputID + '/tree';
         return RestClient.post(url, parameters, GenericResponse(EntryModel(Entry)));
     }
