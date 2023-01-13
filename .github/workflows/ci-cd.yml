@@ -55,7 +55,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [12]
+        node: [16.x]
 
     steps:
       - name: Checkout
