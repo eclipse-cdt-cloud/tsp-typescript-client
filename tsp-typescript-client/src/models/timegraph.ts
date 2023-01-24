@@ -64,6 +64,8 @@ export interface TimeGraphState {
 }
 
 export const TimeGraphRow = createNormalizer<TimeGraphRow>({
+    labels: array(String),
+    styles: array(OutputElementStyle),
     entryId: assertNumber,
     states: array(TimeGraphState),
 });
@@ -72,6 +74,15 @@ export const TimeGraphRow = createNormalizer<TimeGraphRow>({
  * Time graph row described by an array of states for a specific entry
  */
 export interface TimeGraphRow {
+    /**
+     * Labels for the row
+     */
+    labels: String[];
+
+    /**
+     * Styles for the row
+     */
+    styles: OutputElementStyle[]
     /**
      * Entry Id associated to the state array
      */
