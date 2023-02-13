@@ -1,0 +1,98 @@
+{
+	"model": {
+	  "entries": [
+		{
+		  "id": 0,
+		  "parentId": -1,
+		  "style": null,
+		  "labels": [
+			"kernel",
+			"221 ns",
+			"13.583 s",
+			"117.405 ms",
+			"743.411 ms",
+			"4364",
+			"512.353 s"
+		  ],
+		  "hasData": true
+		},
+		{
+		  "id": 1,
+		  "parentId": 0,
+		  "style": null,
+		  "labels": [
+			"Total",
+			"221 ns",
+			"13.583 s",
+			"117.405 ms",
+			"743.411 ms",
+			"4364",
+			"512.353 s"
+		  ],
+		  "hasData": true
+		},
+		{
+		  "id": 2,
+		  "parentId": 1,
+		  "style": null,
+		  "labels": [
+			"WAKE",
+			"221 ns",
+			"55.137 µs",
+			"3.707 µs",
+			"5.214 µs",
+			"3010",
+			"11.158 ms"
+		  ],
+		  "hasData": true
+		},
+		{
+		  "id": 3,
+		  "parentId": 1,
+		  "style": null,
+		  "labels": [
+			"WAIT",
+			"319 ns",
+			"13.583 s",
+			"378.392 ms",
+			"1.297 s",
+			"1354",
+			"512.342 s"
+		  ],
+		  "hasData": true
+		}
+	  ],
+	  "headers": [
+		{
+		  "name": "Label",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Minimum",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Maximum",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Average",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Std Dev",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Count",
+		  "tooltip": ""
+		},
+		{
+		  "name": "Total",
+		  "tooltip": ""
+		}
+	  ]
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+  }
