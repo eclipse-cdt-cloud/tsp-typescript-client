@@ -327,6 +327,19 @@ describe('TspClient Deserialization', () => {
     }
   });
 
+  it('fetchDataTree', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-data-tree-0.json'));
+    const response = await client.fetchDataTree('not-relevant', 'not-relevant', new Query({}));
+    const genericResponse = response.getModel()!;
+    const model = genericResponse.model;
+
+    expect(model.entries).toHaveLength(4);
+    expect(model.headers).toHaveLength(7);
+    for (const entry of model.entries) {
+      expect(typeof entry.id).toEqual('number');
+    }
+  });
+
   it('fetchXYTree', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-xy-tree-0.json'));
     const response = await client.fetchXYTree('not-relevant', 'not-relevant', new Query({}));

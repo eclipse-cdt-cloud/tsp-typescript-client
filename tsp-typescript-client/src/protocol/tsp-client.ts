@@ -14,6 +14,7 @@ import { OutputStyleModel } from '../models/styles';
 import { HealthStatus } from '../models/health';
 import { MarkerSet } from '../models/markerset';
 import { array } from './serialization';
+import { DataTreeEntry } from '../models/data-tree';
 
 /**
  * Trace Server Protocol client
@@ -134,6 +135,22 @@ export class TspClient {
     public async experimentOutputs(expUUID: string): Promise<TspClientResponse<OutputDescriptor[]>> {
         const url = this.baseUrl + '/experiments/' + expUUID + '/outputs';
         return RestClient.get(url, undefined, array(OutputDescriptor));
+    }
+
+    /**
+     * Fetch Data tree
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic entry response with entries
+     */
+    public async fetchDataTree(
+        expUUID: string,
+        outputID: string,
+        parameters: Query,
+    ): Promise<TspClientResponse<GenericResponse<EntryModel<DataTreeEntry>>>> {
+        const url = this.baseUrl + '/experiments/' + expUUID + '/outputs/data/' + outputID + '/tree';
+        return RestClient.post(url, parameters, GenericResponse(EntryModel(DataTreeEntry)));
     }
 
     /**
