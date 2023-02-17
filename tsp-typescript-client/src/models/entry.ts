@@ -58,6 +58,11 @@ export interface EntryHeader {
      * The description of this header field
      */
     tooltip: string
+
+    /**
+     * The data type of the column. If undefined, default is DATA_TYPE.STRING.
+     */
+    dataType?: string
 }
 
 export function EntryModel<T extends Entry>(normalizer: Normalizer<T>): Normalizer<EntryModel<T>> {

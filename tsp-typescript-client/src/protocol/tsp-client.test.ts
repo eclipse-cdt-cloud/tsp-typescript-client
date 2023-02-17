@@ -1,10 +1,11 @@
 // tslint:disable: no-unused-expression
 
+import { Headers } from 'node-fetch';
 import { Query } from '../models/query/query';
 import { HttpRequest, HttpResponse, RestClient } from './rest-client';
-import { Headers } from 'node-fetch';
 import { FixtureSet } from './test-utils';
 import { TspClient } from './tsp-client';
+import { DataType } from '../models/data-type';
 
 describe('TspClient Deserialization', () => {
 
@@ -333,11 +334,34 @@ describe('TspClient Deserialization', () => {
     const genericResponse = response.getModel()!;
     const model = genericResponse.model;
 
+    const EXPECTED_TRACE_MAX_RANGE = "[1571171542231247219,1571171543252848866]";
+    const EXPECTED_HEADERS = [ { name: 'Label', tooltip: '' }, 
+                               { name: 'Minimum', tooltip: '' }, 
+                               { name: 'Maximum', tooltip: '' },
+                               { name: 'Average', tooltip: '' },
+                               { name: 'Std Dev', tooltip: '' },
+                               { name: 'Count', tooltip: '', },
+                               { name: 'Total', tooltip: '', },
+                               { name: 'Min Time Range', tooltip: '', dataType: DataType.TIME_RANGE },
+                               { name: 'Max Time Range', tooltip: '', dataType: DataType.TIME_RANGE }];
+
     expect(model.entries).toHaveLength(4);
-    expect(model.headers).toHaveLength(7);
+    expect(model.headers).toHaveLength(9);
+
+    let i = 0;
+    for (const header of model.headers) {
+        expect(header.name).toEqual(EXPECTED_HEADERS[i].name);
+        expect(header.tooltip).toEqual(EXPECTED_HEADERS[i].tooltip);
+        if (EXPECTED_HEADERS[i].dataType) {
+          expect(header.dataType).toEqual(EXPECTED_HEADERS[i].dataType);
+        }
+        i++;
+    }
     for (const entry of model.entries) {
       expect(typeof entry.id).toEqual('number');
     }
+    const len = model.entries[0].labels.length;
+    expect(model.entries[0].labels[len - 1]).toEqual(EXPECTED_TRACE_MAX_RANGE);
   });
 
   it('fetchXYTree', async () => {
