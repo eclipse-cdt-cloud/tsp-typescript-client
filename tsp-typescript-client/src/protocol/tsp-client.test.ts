@@ -4,12 +4,12 @@ import { Headers } from 'node-fetch';
 import { Query } from '../models/query/query';
 import { HttpRequest, HttpResponse, RestClient } from './rest-client';
 import { FixtureSet } from './test-utils';
-import { TspClient } from './tsp-client';
+import { HttpTspClient } from './http-tsp-client';
 import { DataType } from '../models/data-type';
 
-describe('TspClient Deserialization', () => {
+describe('HttpTspClient Deserialization', () => {
 
-  const client = new TspClient('not-relevant');
+  const client = new HttpTspClient('not-relevant');
   const httpRequestMock = jest.fn<Promise<HttpResponse>, [req: HttpRequest]>();
 
   let fixtures: FixtureSet;
