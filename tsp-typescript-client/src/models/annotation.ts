@@ -1,4 +1,4 @@
-import { array, assertNumber, createNormalizer, record } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer, record } from '../utils/serialization';
 import { OutputElementStyle } from './styles';
 
 export enum Type {

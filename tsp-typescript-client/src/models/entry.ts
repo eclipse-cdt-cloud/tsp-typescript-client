@@ -1,4 +1,4 @@
-import { array, assertNumber, createNormalizer, Normalizer } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer, Normalizer } from '../utils/serialization';
 import { OutputElementStyle } from './styles';
 
 export const Entry = createNormalizer<Entry>({

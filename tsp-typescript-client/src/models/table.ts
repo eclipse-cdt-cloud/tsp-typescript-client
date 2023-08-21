@@ -1,4 +1,4 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer } from '../utils/serialization';
 
 export const ColumnHeaderEntry = createNormalizer<ColumnHeaderEntry>({
     id: assertNumber,

@@ -1,4 +1,4 @@
-import { createNormalizer } from '../protocol/serialization';
+import { createNormalizer } from '../utils/serialization';
 
 export const OutputElementStyle = createNormalizer<OutputElementStyle>({
     values: undefined,

@@ -20,7 +20,7 @@ import { TspClientResponse } from "./tsp-client-response";
 import { OutputStyleModel } from "../models/styles";
 import { HealthStatus } from "../models/health";
 import { MarkerSet } from "../models/markerset";
-import { array } from "./serialization";
+import { array } from "../utils/serialization";
 import { DataTreeEntry } from "../models/data-tree";
 import { ITspClient } from "./tsp-client";
 

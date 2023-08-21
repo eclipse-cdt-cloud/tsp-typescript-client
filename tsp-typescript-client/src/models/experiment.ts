@@ -1,4 +1,4 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer } from '../utils/serialization';
 import { Trace } from './trace';
 
 export const Experiment = createNormalizer<Experiment>({

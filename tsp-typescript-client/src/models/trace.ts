@@ -1,4 +1,4 @@
-import { assertNumber, createNormalizer } from '../protocol/serialization';
+import { assertNumber, createNormalizer } from '../utils/serialization';
 
 export const Trace = createNormalizer<Trace>({
     end: BigInt,
