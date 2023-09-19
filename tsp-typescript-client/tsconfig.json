@@ -12,11 +12,6 @@
         "alwaysStrict": true,
         "strictNullChecks": true,
         "skipLibCheck": true,
-        "plugins": [
-            {
-                "name": "tslint-language-service"
-            }
-        ],
         "outDir": "lib",
         "rootDir": "src",
         "noUnusedLocals": true

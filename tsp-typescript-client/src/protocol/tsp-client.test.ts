@@ -1,5 +1,3 @@
-// tslint:disable: no-unused-expression
-
 import { Headers } from 'node-fetch';
 import { Query } from '../models/query/query';
 import { HttpRequest, HttpResponse, RestClient } from './rest-client';
@@ -335,8 +333,8 @@ describe('HttpTspClient Deserialization', () => {
     const model = genericResponse.model;
 
     const EXPECTED_TRACE_MAX_RANGE = "[1571171542231247219,1571171543252848866]";
-    const EXPECTED_HEADERS = [ { name: 'Label', tooltip: '' }, 
-                               { name: 'Minimum', tooltip: '' }, 
+    const EXPECTED_HEADERS = [ { name: 'Label', tooltip: '' },
+                               { name: 'Minimum', tooltip: '' },
                                { name: 'Maximum', tooltip: '' },
                                { name: 'Average', tooltip: '' },
                                { name: 'Std Dev', tooltip: '' },
