@@ -15,9 +15,7 @@
     "@types/node": "^11.13.8",
     "@types/node-fetch": "^2.3.3",
     "jest": "^27.1.0",
-    "tslint": "^5.16.0",
-    "tslint-language-service": "^0.9.9",
-    "typescript": "latest"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "json-bigint": "sidorares/json-bigint#2c0a5f896d7888e68e5f4ae3c7ea5cd42fd54473",

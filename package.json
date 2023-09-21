@@ -21,15 +21,15 @@
     "src"
   ],
   "devDependencies": {
-    "lerna": "4.0.0",
-    "typescript": "latest"
+    "lerna": "^7.0.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "node-fetch": "^2.5.0"
   },
   "workspaces": [
     "tsp-typescript-client"
-],
+  ],
   "scripts": {
     "prepare": "yarn build",
     "build": "lerna run build",

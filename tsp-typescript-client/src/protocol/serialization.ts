@@ -193,7 +193,6 @@ export function record<T>(normalizer: Normalizer<T>): Normalizer<Record<string, 
  * Throw if `input` is not a `number`.
  */
 export const assertNumber: Normalizer<number> =
-    // tslint:disable-next-line: no-shadowed-variable
     function assertNumber(input: unknown): number {
         if (typeof input !== 'number') {
             throw new TypeError(`"${input}" is not a number!`);
@@ -205,4 +204,3 @@ export const toBigInt: Normalizer<bigint> =
     function toBigInt(value: number | bigint): bigint {
         return BigInt(value);
     };
-    

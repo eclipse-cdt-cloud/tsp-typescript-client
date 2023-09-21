@@ -1,5 +1,3 @@
-// tslint:disable: no-unused-expression
-
 import { URLSearchParams } from 'url';
 import { RestClient } from './rest-client';
 
