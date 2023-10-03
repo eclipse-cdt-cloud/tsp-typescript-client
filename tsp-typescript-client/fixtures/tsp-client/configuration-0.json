@@ -1,0 +1,9 @@
+{
+	"id": "my-config-1-id",
+	"name": "My configuration 1",
+	"description": "My configuration 1 description",
+	"sourceTypeId": "my-source-type-1-id",
+	"parameters": {
+		"path": "/home/user/tmp"
+	}
+}

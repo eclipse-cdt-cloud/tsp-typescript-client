@@ -1,28 +1,30 @@
-import { Query } from "../models/query/query";
-import { GenericResponse } from "../models/response/responses";
-import { XyEntry, XYModel } from "../models/xy";
-import {
-    TimeGraphEntry,
-    TimeGraphArrow,
-    TimeGraphModel,
-} from "../models/timegraph";
 import {
     AnnotationCategoriesModel,
     AnnotationModel,
 } from "../models/annotation";
-import { TableModel, ColumnHeaderEntry } from "../models/table";
-import { Trace } from "../models/trace";
-import { RestClient } from "./rest-client";
+import { Configuration } from "../models/configuration";
+import { ConfigurationSourceType } from "../models/configuration-source";
+import { DataTreeEntry } from "../models/data-tree";
+import { Entry, EntryModel } from "../models/entry";
 import { Experiment } from "../models/experiment";
-import { OutputDescriptor } from "../models/output-descriptor";
-import { EntryModel, Entry } from "../models/entry";
-import { TspClientResponse } from "./tsp-client-response";
-import { OutputStyleModel } from "../models/styles";
 import { HealthStatus } from "../models/health";
 import { MarkerSet } from "../models/markerset";
+import { OutputDescriptor } from "../models/output-descriptor";
+import { Query } from "../models/query/query";
+import { GenericResponse } from "../models/response/responses";
+import { OutputStyleModel } from "../models/styles";
+import { ColumnHeaderEntry, TableModel } from "../models/table";
+import {
+    TimeGraphArrow,
+    TimeGraphEntry,
+    TimeGraphModel,
+} from "../models/timegraph";
+import { Trace } from "../models/trace";
+import { XYModel, XyEntry } from "../models/xy";
+import { RestClient } from "./rest-client";
 import { array } from "./serialization";
-import { DataTreeEntry } from "../models/data-tree";
 import { ITspClient } from "./tsp-client";
+import { TspClientResponse } from "./tsp-client-response";
 
 /**
  * Http request implementation, using the RestClient helper, of the Trace Server Protocol client
@@ -515,5 +517,79 @@ export class HttpTspClient implements ITspClient {
     public async checkHealth(): Promise<TspClientResponse<HealthStatus>> {
         const url = this.baseUrl + "/health";
         return RestClient.get(url);
+    }
+
+    /**
+     * Fetch all configuration source types
+     * @returns Generic response with the model
+     */
+    fetchConfigurationSourceTypes(): Promise<TspClientResponse<ConfigurationSourceType[]>> {
+        const url = this.baseUrl + "/config/types";
+        return RestClient.get(url);
+    }
+
+    /**
+     * Fetch configuration source type for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @returns Generic response with the model
+     */
+    fetchConfigurationSourceType(typeId: string): Promise<TspClientResponse<ConfigurationSourceType>> {
+        const url = this.baseUrl + "/config/types/" + typeId;
+        return RestClient.get(url);
+    }
+
+    /**
+     * Fetch all configurations for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @returns Generic response with the model
+     */
+    fetchConfigurations(typeId: string): Promise<TspClientResponse<Configuration[]>> {
+        const url = this.baseUrl + "/config/types/" + typeId + "/configs";
+        return RestClient.get(url);
+    }
+
+    /**
+     * Fetch a configuration by ID for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @returns Generic response with the model
+     */
+    fetchConfiguration(typeId: string, configId: string): Promise<TspClientResponse<Configuration>> {
+        const url = this.baseUrl + "/config/types/" + typeId + "/configs/" + configId;
+        return RestClient.get(url);
+    }
+
+    /**
+     * Create a configuration for a given type ID and parameters
+     * @param typeId the ID of the configuration source type
+     * @param parameters Query object
+     * @returns Generic response with the model
+     */
+    createConfiguration(typeId: string, parameters: Query): Promise<TspClientResponse<Configuration>> {
+        const url = this.baseUrl + "/config/types/" + typeId;
+        return RestClient.post(url, parameters);
+    }
+
+    /**
+     * Update a configuration for a given type ID, config ID and parameters
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @param parameters Query object
+     * @returns Generic response with the model
+     */
+    updateConfiguration(typeId: string, configId: string, parameters: Query): Promise<TspClientResponse<Configuration>> {
+        const url = this.baseUrl + "/config/types/" + typeId + "/configs/" + configId;
+        return RestClient.put(url, parameters);
+    }
+
+    /**
+     * Delete a configuration for a given type ID and config ID
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @returns Generic response with the model
+     */
+    deleteConfiguration(typeId: string, configId: string): Promise<TspClientResponse<Configuration>> {
+        const url = this.baseUrl + "/config/types/" + typeId + "/configs/" + configId;
+        return RestClient.delete(url);
     }
 }

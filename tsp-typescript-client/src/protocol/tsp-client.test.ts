@@ -384,4 +384,98 @@ describe('HttpTspClient Deserialization', () => {
     expect(typeof trace.nbEvents).toEqual('number');
     expect(typeof trace.start).toEqual('bigint');
   });
+
+  it('configurationSourceTypes', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-configuration-sources-0.json'));
+    const response = await client.fetchConfigurationSourceTypes();
+    const sourceTypes = response.getModel()!;
+
+    expect(sourceTypes).toHaveLength(1);
+    expect(sourceTypes[0].name).toEqual('My configuration source 1');
+    expect(sourceTypes[0].description).toEqual('My configuration source 1 description');
+    expect(sourceTypes[0].id).toEqual('my-source-type-1-id');
+    expect(sourceTypes[0].configParamDescriptors).toHaveLength(2);
+
+    expect(sourceTypes[0].configParamDescriptors[0].keyName).toEqual('path');
+    expect(sourceTypes[0].configParamDescriptors[0].description).toEqual('path description');
+    expect(sourceTypes[0].configParamDescriptors[0].dataType).toEqual('STRING');
+    expect(sourceTypes[0].configParamDescriptors[0].isRequired).toBeTruthy();
+
+    expect(sourceTypes[0].configParamDescriptors[1].keyName).toEqual('test1');
+    expect(sourceTypes[0].configParamDescriptors[1].description).toBeUndefined();
+    expect(sourceTypes[0].configParamDescriptors[1].dataType).toBeUndefined();
+    expect(sourceTypes[0].configParamDescriptors[1].isRequired).toBeUndefined();
+  });
+
+  it('configurations', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-configurations-0.json'));
+    const response = await client.fetchConfigurations("my-config-1-id");
+    const configs = response.getModel()!;
+
+    expect(configs).toHaveLength(2);
+    expect(configs[0].name).toEqual('My configuration 1');
+    expect(configs[0].description).toEqual('My configuration 1 description');
+    expect(configs[0].id).toEqual('my-config-1-id');
+    expect(configs[0].parameters).toBeDefined();
+    expect(configs[0].parameters?.path).toBeDefined();
+    expect(configs[0].parameters?.path).toEqual('/home/user/tmp');
+
+    expect(configs[1].name).toEqual('My configuration 2');
+    expect(configs[1].description).toBeUndefined()
+    expect(configs[1].id).toEqual('my-config-2-id');
+    expect(configs[1].parameters).toBeUndefined();
+  });
+
+  it('configuration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
+    const response = await client.fetchConfiguration("my-source-type-1-id", "my-config-1-id");
+    const config = response.getModel()!;
+    
+    expect(config.name).toEqual('My configuration 1');
+    expect(config.description).toEqual('My configuration 1 description');
+    expect(config.id).toEqual('my-config-1-id');
+    expect(config.parameters).toBeDefined();
+    expect(config.parameters?.path).toBeDefined();
+    expect(config.parameters?.path).toEqual('/home/user/tmp');
+  });
+
+  it('createConfiguration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
+    const response = await client.createConfiguration("my-source-type-1-id", new Query({}));
+    const config = response.getModel()!;
+
+    expect(config.name).toEqual('My configuration 1');
+    expect(config.description).toEqual('My configuration 1 description');
+    expect(config.id).toEqual('my-config-1-id');
+    expect(config.parameters).toBeDefined();
+    expect(config.parameters?.path).toBeDefined();
+    expect(config.parameters?.path).toEqual('/home/user/tmp');
+  });
+
+  it('updateConfiguration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
+    const response = await client.updateConfiguration("my-source-type-1-id", "my-config-1-id", new Query({}));
+    const config = response.getModel()!;
+
+    expect(config.name).toEqual('My configuration 1');
+    expect(config.description).toEqual('My configuration 1 description');
+    expect(config.id).toEqual('my-config-1-id');
+    expect(config.parameters).toBeDefined();
+    expect(config.parameters?.path).toBeDefined();
+    expect(config.parameters?.path).toEqual('/home/user/tmp');
+  });
+
+  it('deleteConfiguration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
+    const response = await client.deleteConfiguration("my-source-type-1-id", "my-config-1-id");
+    const config = response.getModel()!;
+
+    expect(config.name).toEqual('My configuration 1');
+    expect(config.description).toEqual('My configuration 1 description');
+    expect(config.id).toEqual('my-config-1-id');
+    expect(config.parameters).toBeDefined();
+    expect(config.parameters?.path).toBeDefined();
+    expect(config.parameters?.path).toEqual('/home/user/tmp');
+  });
+
 });

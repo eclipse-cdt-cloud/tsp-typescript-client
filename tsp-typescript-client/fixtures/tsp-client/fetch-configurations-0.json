@@ -1,0 +1,16 @@
+[
+	{
+		"id": "my-config-1-id",
+		"name": "My configuration 1",
+		"description": "My configuration 1 description",
+		"sourceTypeId": "my-source-type-1-id",
+		"parameters": {
+			"path": "/home/user/tmp"
+		}
+	},
+	{
+		"id": "my-config-2-id",
+		"name": "My configuration 2",
+		"sourceTypeId": "my-source-type-1-id"
+	}
+]
