@@ -1,0 +1,18 @@
+[
+	{
+		"id": "my-source-type-1-id",
+		"name": "My configuration source 1",
+		"description": "My configuration source 1 description",
+		"configParamDescriptors": [ 
+			{
+				"keyName": "path",
+				"description": "path description",
+				"dataType": "STRING",
+				"isRequired": "True"
+ 			},
+			{
+				"keyName": "test1"
+  		    }
+		]
+	}
+]

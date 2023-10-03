@@ -20,6 +20,8 @@ import { OutputStyleModel } from "../models/styles";
 import { HealthStatus } from "../models/health";
 import { MarkerSet } from "../models/markerset";
 import { DataTreeEntry } from "../models/data-tree";
+import { ConfigurationSourceType } from "../models/configuration-source";
+import { Configuration } from "../models/configuration";
 
 export {
     /** @deprecated */ HttpTspClient as TspClient,
@@ -294,4 +296,57 @@ export interface ITspClient {
      * @returns The Health Status
      */
     checkHealth(): Promise<TspClientResponse<HealthStatus>>;
+
+    /**
+     * Fetch all configuration source types
+     * @returns Generic response with the model
+     */
+    fetchConfigurationSourceTypes(): Promise<TspClientResponse<ConfigurationSourceType[]>>;
+
+    /**
+     * Fetch configuration source type for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @returns Generic response with the model
+     */
+    fetchConfigurationSourceType(typeId: string): Promise<TspClientResponse<ConfigurationSourceType>>;
+
+    /**
+     * Fetch all configurations for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @returns Generic response with the model
+     */
+    fetchConfigurations(typeId: string): Promise<TspClientResponse<Configuration[]>>;
+
+    /**
+     * Fetch a configuration by ID for a given type ID
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @returns Generic response with the model
+     */
+    fetchConfiguration(typeId: string, configId: string): Promise<TspClientResponse<Configuration>>;
+
+    /**
+     * Create a configuration for a given type ID and parameters
+     * @param typeId the ID of the configuration source type
+     * @param parameters Query object
+     * @returns Generic response with the model
+     */
+    createConfiguration(typeId: string, parameters: Query): Promise<TspClientResponse<Configuration>>;
+
+    /**
+     * Update a configuration for a given type ID, config ID and parameters
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @param parameters Query object
+     * @returns Generic response with the model
+     */
+    updateConfiguration(typeId: string, configId: string, parameters: Query): Promise<TspClientResponse<Configuration>>;
+
+    /**
+     * Delete a configuration for a given type ID and config ID
+     * @param typeId the ID of the configuration source type
+     * @param configId the ID of the configuration
+     * @returns Generic response with the model
+     */
+    deleteConfiguration(typeId: string, configId: string): Promise<TspClientResponse<Configuration>>;
 }
