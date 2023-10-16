@@ -22,13 +22,13 @@ export interface ConfigurationSourceType {
      * A list of query parameter keys to be passed when creating
      * configuration instance of this type
      */
-    configParamDescriptors: ConfigParamDescriptor[];
+    parameterDescriptors: ConfigurationParameterDescriptor[];
 }
 
 /**
  * Model of a configuration parameter descriptor
  */
-export interface ConfigParamDescriptor {
+export interface ConfigurationParameterDescriptor {
     /**
      * The unique name of the key
      */
