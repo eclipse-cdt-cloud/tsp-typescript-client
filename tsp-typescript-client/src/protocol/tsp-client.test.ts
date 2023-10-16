@@ -394,17 +394,18 @@ describe('HttpTspClient Deserialization', () => {
     expect(sourceTypes[0].name).toEqual('My configuration source 1');
     expect(sourceTypes[0].description).toEqual('My configuration source 1 description');
     expect(sourceTypes[0].id).toEqual('my-source-type-1-id');
-    expect(sourceTypes[0].configParamDescriptors).toHaveLength(2);
+    console.log(sourceTypes[0]);
+    expect(sourceTypes[0].parameterDescriptors).toHaveLength(2);
 
-    expect(sourceTypes[0].configParamDescriptors[0].keyName).toEqual('path');
-    expect(sourceTypes[0].configParamDescriptors[0].description).toEqual('path description');
-    expect(sourceTypes[0].configParamDescriptors[0].dataType).toEqual('STRING');
-    expect(sourceTypes[0].configParamDescriptors[0].isRequired).toBeTruthy();
+    expect(sourceTypes[0].parameterDescriptors[0].keyName).toEqual('path');
+    expect(sourceTypes[0].parameterDescriptors[0].description).toEqual('path description');
+    expect(sourceTypes[0].parameterDescriptors[0].dataType).toEqual('STRING');
+    expect(sourceTypes[0].parameterDescriptors[0].isRequired).toBeTruthy();
 
-    expect(sourceTypes[0].configParamDescriptors[1].keyName).toEqual('test1');
-    expect(sourceTypes[0].configParamDescriptors[1].description).toBeUndefined();
-    expect(sourceTypes[0].configParamDescriptors[1].dataType).toBeUndefined();
-    expect(sourceTypes[0].configParamDescriptors[1].isRequired).toBeUndefined();
+    expect(sourceTypes[0].parameterDescriptors[1].keyName).toEqual('test1');
+    expect(sourceTypes[0].parameterDescriptors[1].description).toBeUndefined();
+    expect(sourceTypes[0].parameterDescriptors[1].dataType).toBeUndefined();
+    expect(sourceTypes[0].parameterDescriptors[1].isRequired).toBeUndefined();
   });
 
   it('configurations', async () => {

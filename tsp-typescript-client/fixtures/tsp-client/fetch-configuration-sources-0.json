@@ -3,7 +3,7 @@
 		"id": "my-source-type-1-id",
 		"name": "My configuration source 1",
 		"description": "My configuration source 1 description",
-		"configParamDescriptors": [ 
+		"parameterDescriptors": [
 			{
 				"keyName": "path",
 				"description": "path description",
