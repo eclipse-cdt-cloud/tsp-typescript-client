@@ -95,6 +95,15 @@ export interface ITspClient {
     ): Promise<TspClientResponse<Experiment>>;
 
     /**
+     * Close an experiment
+     * @param expUUID Experiment UUID to close
+     * @returns The closed experiment
+     */
+    closeExperiment(
+        expUUID: string
+    ): Promise<TspClientResponse<Experiment>>;
+
+    /**
      * Delete an experiment on the server
      * @param expUUID Experiment UUID to delete
      * @returns The deleted experiment
