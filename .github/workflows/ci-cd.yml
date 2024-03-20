@@ -13,7 +13,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-test:
+    name: Build and test
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -37,7 +38,7 @@ jobs:
         shell: bash
         # Note: `yarn build` is done as part of `yarn install` already.
         run: |
-          yarn install --no-lockfile
+          yarn install --frozen-lockfile
         env:
           NODE_OPTIONS: --max_old_space_size=4096
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
@@ -45,47 +46,54 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          yarn test
+          yarn test --verbose
 
-  publish:
-    needs: build
+  publish-next:
+    name: Publish 'next' package to npm
+    needs: build-and-test
     if: github.ref == 'refs/heads/master' && github.event_name == 'push' && github.repository == 'eclipse-cdt-cloud/tsp-typescript-client'
-
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node: [18]
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          persist-credentials: false
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
+          node-version: '18'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Pre-Publish
-        shell: bash
-        # Note: `yarn build` is done as part of `yarn install` already.
-        run: |
-          yarn install --no-lockfile
-        env:
-          NODE_OPTIONS: --max_old_space_size=4096
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
-
-      - name: Publish
+      - run: yarn --frozen-lockfile
+      - name: Publish 'next'
         uses: nick-invision/retry@v3
         with:
           timeout_minutes: 5
           retry_wait_seconds: 60
           max_attempts: 3
           retry_on: error
-          command: yarn run publish:next
+          command: yarn publish:next
+        env:
+          # The variable name comes from here:
+          # https://github.com/actions/setup-node/blob/70b9252472eee7495c93bb1588261539c3c2b98d/src/authutil.ts#L48
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+  publish-latest:
+    name: Publish 'latest' package to npm
+    needs: build-and-test
+    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v') && github.repository == 'eclipse-cdt-cloud/tsp-typescript-client'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+      - name: Publish 'latest'
+        uses: nick-invision/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          retry_on: error
+          command: yarn publish:latest
         env:
           # The variable name comes from here:
           # https://github.com/actions/setup-node/blob/70b9252472eee7495c93bb1588261539c3c2b98d/src/authutil.ts#L48
