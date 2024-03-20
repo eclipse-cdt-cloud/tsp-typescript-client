@@ -27,5 +27,13 @@
     "build": "tsc",
     "clean": "rimraf lib",
     "test": "jest  --config jest.config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client"
+  },
+  "bugs": {
+      "url": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client/issues"
+  },
+  "homepage": "https://github.com/eclipse-cdt-cloud/tsp-typescript-client"
   }
-}
