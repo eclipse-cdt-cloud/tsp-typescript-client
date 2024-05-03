@@ -108,6 +108,14 @@ describe('HttpTspClient Deserialization', () => {
     expect(typeof experiment.nbEvents).toEqual('number');
   });
 
+  it('deleteExperiment', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('close-experiment-0.json'));
+    const response = await client.closeExperiment('not-relevant');
+    const experiment = response.getModel()!;
+
+    expect(experiment.indexingStatus).toEqual('CLOSED');
+  });
+
   it('deleteTrace', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('delete-trace-0.json'));
     const response = await client.deleteTrace('not-relevant');
