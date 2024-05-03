@@ -180,6 +180,19 @@ export interface ITspClient {
     ): Promise<TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>>>;
 
     /**
+     * Fetch Time Graph tree, Model extends TimeGraphEntry
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Time graph entry response with entries of type TimeGraphEntry
+     */
+    fetchTimeGraphTreeContext(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<{ [key: string]: unknown }>>>;
+
+    /**
      * Fetch Time Graph states. Model extends TimeGraphModel
      * @param expUUID Experiment UUID
      * @param outputID Output ID
