@@ -1,0 +1,11 @@
+{
+    "version": "0.9.1",
+    "buildTime": "202408051810",
+    "os": "Windows 10",
+    "osArch": "amd64",
+    "osVersion": "10.0",
+    "cpuCount": 8,
+    "maxMemory": 8552185856,
+    "launcherName": "Tracecompass-serverc",
+    "productId": "org.eclipse.tracecompass.incubator.trace.server.jersey.rest.core.id"
+}

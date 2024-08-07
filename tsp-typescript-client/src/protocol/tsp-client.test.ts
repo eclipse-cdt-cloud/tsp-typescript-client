@@ -178,6 +178,21 @@ describe('HttpTspClient Deserialization', () => {
     }
   });
 
+  it('fetchIdentifier' , async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-identifier-0.json'));
+    const response = await client.fetchIdentifier();
+    const identifier = response.getModel()!;
+
+    expect(response.getStatusCode()).toEqual(200);
+    expect(identifier.version).toBeDefined();
+    expect(identifier.os).toBeDefined();
+    expect(identifier.osArch).toBeDefined();
+    expect(identifier.osVersion).toBeDefined();
+    expect(identifier.cpuCount).toBeDefined();
+    expect(identifier.maxMemory).toBeDefined();
+    expect(identifier.productId).toBeDefined();
+  });
+
   it('fetchMarkerSets', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-marker-sets-0.json'));
     const response = await client.fetchMarkerSets('not-relevant');

@@ -22,6 +22,7 @@ import { MarkerSet } from "../models/markerset";
 import { DataTreeEntry } from "../models/data-tree";
 import { ConfigurationSourceType } from "../models/configuration-source";
 import { Configuration } from "../models/configuration";
+import { Identifier } from "../models/identifier";
 
 export {
     /** @deprecated */ HttpTspClient as TspClient,
@@ -296,6 +297,12 @@ export interface ITspClient {
      * @returns The Health Status
      */
     checkHealth(): Promise<TspClientResponse<HealthStatus>>;
+
+    /**
+     * Fetch the identifier service
+     * @returns Important information regarding the trace server and the system it is running on
+     */
+    fetchIdentifier(): Promise<TspClientResponse<Identifier>>;
 
     /**
      * Fetch all configuration source types
