@@ -8,6 +8,7 @@ import { DataTreeEntry } from "../models/data-tree";
 import { Entry, EntryModel } from "../models/entry";
 import { Experiment } from "../models/experiment";
 import { HealthStatus } from "../models/health";
+import { Identifier } from "../models/identifier";
 import { MarkerSet } from "../models/markerset";
 import { OutputDescriptor } from "../models/output-descriptor";
 import { Query } from "../models/query/query";
@@ -516,6 +517,15 @@ export class HttpTspClient implements ITspClient {
      */
     public async checkHealth(): Promise<TspClientResponse<HealthStatus>> {
         const url = this.baseUrl + "/health";
+        return RestClient.get(url);
+    }
+
+    /**
+     * Fetch the identifier service
+     * @returns Important information regarding the trace server and the system it is running on
+     */
+    public async fetchIdentifier(): Promise<TspClientResponse<Identifier>> {
+        const url = this.baseUrl + "/identifier";
         return RestClient.get(url);
     }
 
