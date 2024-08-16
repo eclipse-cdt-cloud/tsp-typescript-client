@@ -1,6 +1,6 @@
 {
   "name": "tsp-typescript-client",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Trace Server Protocol client written in TypeScript",
   "author": "Ericsson and others",
   "license": "MIT",
