@@ -15,7 +15,7 @@
     "@types/node": "^11.13.8",
     "@types/node-fetch": "^2.3.3",
     "jest": "^27.1.0",
-    "rimraf": "latest",
+    "rimraf": "^5.0.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
