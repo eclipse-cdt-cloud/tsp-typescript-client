@@ -20,9 +20,17 @@ export interface ConfigurationSourceType {
 
     /**
      * A list of query parameter keys to be passed when creating
-     * configuration instance of this type
+     * configuration instance of this type. Use this instead of
+     * schema. Omit if not used.
      */
-    parameterDescriptors: ConfigurationParameterDescriptor[];
+    parameterDescriptors?: ConfigurationParameterDescriptor[];
+
+    /**
+     * a JSON schema that describes the parameters that the front-end
+     * needs to provide with corresponding values. Use this for complex
+     * parameter descriptions instead of parameterDescriptors.
+     */
+    schema?: object;
 }
 
 /**
