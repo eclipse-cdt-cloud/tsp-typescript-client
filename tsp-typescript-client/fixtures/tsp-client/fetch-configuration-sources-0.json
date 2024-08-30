@@ -14,5 +14,32 @@
 				"keyName": "test1"
   		    }
 		]
+	},
+	{
+		"id": "my-source-type-2-id",
+		"name": "My configuration source 2",
+		"description": "My configuration source 2 description",
+		"schema": {
+			"$schema": "https://json-schema.org/draft/2020-12/schema",
+			"$id": "https://org.eclipse.tracecompass/custom-execution-analysis.json",
+			"title": "Custom Execution Analysis",
+			"description": "Custom Execution Analysis schema",
+			"type": "object",
+			"properties": {
+				"cpus": {
+					"description": "array of integer",
+					"type": "array",
+					"items": {
+						"type": "number"
+						}
+					},
+				"phone": {
+					"description": "Phone number",
+					"type": "string",
+					"pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+					}
+			},
+			"required": ["cpus"]
+		}
 	}
 ]

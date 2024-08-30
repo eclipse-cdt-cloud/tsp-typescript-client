@@ -4,6 +4,7 @@ import { HttpRequest, HttpResponse, RestClient } from './rest-client';
 import { FixtureSet } from './test-utils';
 import { HttpTspClient } from './http-tsp-client';
 import { DataType } from '../models/data-type';
+import { ConfigurationParameterDescriptor } from '../models/configuration-source';
 
 describe('HttpTspClient Deserialization', () => {
 
@@ -405,22 +406,38 @@ describe('HttpTspClient Deserialization', () => {
     const response = await client.fetchConfigurationSourceTypes();
     const sourceTypes = response.getModel()!;
 
-    expect(sourceTypes).toHaveLength(1);
+    expect(sourceTypes).toHaveLength(2);
     expect(sourceTypes[0].name).toEqual('My configuration source 1');
     expect(sourceTypes[0].description).toEqual('My configuration source 1 description');
     expect(sourceTypes[0].id).toEqual('my-source-type-1-id');
-    console.log(sourceTypes[0]);
-    expect(sourceTypes[0].parameterDescriptors).toHaveLength(2);
+    
+    expect(sourceTypes[0].parameterDescriptors).toBeDefined();
+    const paramDesc: ConfigurationParameterDescriptor[] = sourceTypes[0].parameterDescriptors ?? [];
+    expect(paramDesc).toHaveLength(2);
 
-    expect(sourceTypes[0].parameterDescriptors[0].keyName).toEqual('path');
-    expect(sourceTypes[0].parameterDescriptors[0].description).toEqual('path description');
-    expect(sourceTypes[0].parameterDescriptors[0].dataType).toEqual('STRING');
-    expect(sourceTypes[0].parameterDescriptors[0].isRequired).toBeTruthy();
+    expect(paramDesc[0].keyName).toEqual('path');
+    expect(paramDesc[0].description).toEqual('path description');
+    expect(paramDesc[0].dataType).toEqual('STRING');
+    expect(paramDesc[0].isRequired).toBeTruthy();
 
-    expect(sourceTypes[0].parameterDescriptors[1].keyName).toEqual('test1');
-    expect(sourceTypes[0].parameterDescriptors[1].description).toBeUndefined();
-    expect(sourceTypes[0].parameterDescriptors[1].dataType).toBeUndefined();
-    expect(sourceTypes[0].parameterDescriptors[1].isRequired).toBeUndefined();
+    expect(paramDesc[1].keyName).toEqual('test1');
+    expect(paramDesc[1].description).toBeUndefined();
+    expect(paramDesc[1].dataType).toBeUndefined();
+    expect(paramDesc[1].isRequired).toBeUndefined();
+    expect(sourceTypes[0].schema).toBeUndefined();
+
+    expect(sourceTypes[1].parameterDescriptors).toBeUndefined();
+    expect(sourceTypes[1].schema).toBeDefined();
+    const schema: {} = sourceTypes[1].schema ?? {}
+    const schemaString: string = JSON.stringify(schema);
+    expect(schemaString).toBeDefined();
+
+    // check some scheme content
+    expect(schema['$schema']).toBeDefined();
+    expect(schema['$schema']).toEqual('https://json-schema.org/draft/2020-12/schema')
+
+    expect(schema['$id']).toBeDefined();
+    expect(schema['$id']).toEqual('https://org.eclipse.tracecompass/custom-execution-analysis.json')
   });
 
   it('configurations', async () => {
