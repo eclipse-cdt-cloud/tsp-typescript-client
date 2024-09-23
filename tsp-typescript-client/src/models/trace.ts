@@ -4,6 +4,7 @@ export const Trace = createNormalizer<Trace>({
     end: BigInt,
     nbEvents: assertNumber,
     start: BigInt,
+    properties: undefined,
 });
 
 /**
@@ -39,6 +40,11 @@ export interface Trace {
      * Current number of events
      */
     nbEvents: number;
+
+    /**
+     * Trace's properties
+     */
+    properties: Record<string, any>;
 
     /**
      * Indicate if the indexing of the trace is completed or still running.

@@ -118,6 +118,7 @@ describe('HttpTspClient Deserialization', () => {
     expect(typeof trace.end).toEqual('bigint');
     expect(typeof trace.start).toEqual('bigint');
     expect(typeof trace.nbEvents).toEqual('number');
+    expect(typeof trace.properties).toEqual('object');
   });
 
   it('experimentOutputs', async () => {
@@ -400,6 +401,7 @@ describe('HttpTspClient Deserialization', () => {
     expect(typeof trace.end).toEqual('bigint');
     expect(typeof trace.nbEvents).toEqual('number');
     expect(typeof trace.start).toEqual('bigint');
+    expect(typeof trace.properties).toEqual('object');
   });
 
   it('configurationSourceTypes', async () => {
