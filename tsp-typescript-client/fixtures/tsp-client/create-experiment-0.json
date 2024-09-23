@@ -13,6 +13,11 @@
 			"nbEvents": 999999,
 			"start": 1234567890123456789,
 			"end": 9876543210987654321,
+			"properties":
+			{
+				"hostname": "qemu1",
+				"clock_offset": "1450192743562703624"
+			},
 			"indexingStatus": "COMPLETED"
 		}
 	]
