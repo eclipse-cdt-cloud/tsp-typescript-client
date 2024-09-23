@@ -5,5 +5,10 @@
 	"nbEvents": 0,
 	"start": 0,
 	"end": 0,
+	"properties":
+	{
+		"hostname": "qemu1",
+		"clock_offset": "1450192743562703624"
+	},
 	"indexingStatus": "CLOSED"
 }
