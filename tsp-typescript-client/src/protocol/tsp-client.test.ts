@@ -124,7 +124,7 @@ describe('HttpTspClient Deserialization', () => {
     const response = await client.experimentOutputs('not-relevant');
     const outputs = response.getModel()!;
 
-    expect(outputs).toHaveLength(4);
+    expect(outputs).toHaveLength(5);
   });
 
   it('fetchAnnotationsCategories', async () => {
