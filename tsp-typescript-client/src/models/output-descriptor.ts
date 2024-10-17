@@ -1,15 +1,22 @@
 import { createNormalizer } from '../protocol/serialization';
+import { Configuration } from './configuration';
 
 export const OutputDescriptor = createNormalizer<OutputDescriptor>({
     end: BigInt,
     queryParameters: undefined,
     start: BigInt,
+    configuration: Configuration
 });
 
 /**
  * Descriptor of a specific output provider
  */
 export interface OutputDescriptor {
+    /**
+     * Output provider's parent ID
+     */
+    parentId?: string;
+
     /**
      * Output provider's ID
      */
@@ -56,4 +63,9 @@ export interface OutputDescriptor {
      * List of compatible outputs that can be used in the same view (ex. as overlay)
      */
     compatibleProviders?: string[];
+
+    /**
+     * Configuration used to create this data provider.
+     */
+    configuration?: Configuration;
 }

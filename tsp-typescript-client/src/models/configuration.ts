@@ -1,3 +1,8 @@
+import { createNormalizer } from "../protocol/serialization";
+
+export const Configuration = createNormalizer<Configuration>({
+    parameters: undefined
+});
 
 /**
  * Model of a configuration instance
