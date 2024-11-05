@@ -1,0 +1,25 @@
+{
+  "parentId": "org.eclipse.tracecompass.incubator.inandout.core.analysis.inAndOutDataProviderFactory",
+  "id": "org.eclipse.tracecompass.incubator.inandout.analysis85eec6d6-bea0-3680-84b6-f1a200e852d1",
+  "name": "InAndOut Analysis (My new InAndOut)",
+  "description": "Custom InAndOut analysis configured by \"My new InAndOut\"",
+  "type": "NONE",
+  "configuration": {
+    "id": "85eec6d6-bea0-3680-84b6-f1a200e852d1",
+    "name": "My new InAndOut",
+    "description": "My special configuration",
+    "sourceTypeId": "org.eclipse.tracecompass.incubator.internal.inandout.core.config",
+    "parameters": {
+      "specifiers": [
+        {
+          "label": "latency",
+          "inRegex": "(\\S*)_entry",
+          "outRegex": "(\\S*)_exit",
+          "contextInRegex": "(\\S*)_entry",
+          "contextOutRegex": "(\\S*)_exit",
+          "classifier": "CPU"
+        }
+      ]
+    }
+  }
+}

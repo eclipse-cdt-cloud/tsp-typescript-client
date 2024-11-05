@@ -1,10 +1,11 @@
 import { Headers } from 'node-fetch';
-import { Query } from '../models/query/query';
+import { ConfigurationQuery, OutputConfigurationQuery, Query } from '../models/query/query';
 import { HttpRequest, HttpResponse, RestClient } from './rest-client';
 import { FixtureSet } from './test-utils';
 import { HttpTspClient } from './http-tsp-client';
 import { DataType } from '../models/data-type';
 import { ConfigurationParameterDescriptor } from '../models/configuration-source';
+import { QueryHelper } from '../models/query/query-helper';
 
 describe('HttpTspClient Deserialization', () => {
 
@@ -474,7 +475,7 @@ describe('HttpTspClient Deserialization', () => {
 
   it('createConfiguration', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
-    const response = await client.createConfiguration("my-source-type-1-id", new Query({}));
+    const response = await client.createConfiguration("my-source-type-1-id", new ConfigurationQuery('', undefined, {}));
     const config = response.getModel()!;
 
     expect(config.name).toEqual('My configuration 1');
@@ -487,7 +488,7 @@ describe('HttpTspClient Deserialization', () => {
 
   it('updateConfiguration', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('configuration-0.json'));
-    const response = await client.updateConfiguration("my-source-type-1-id", "my-config-1-id", new Query({}));
+    const response = await client.updateConfiguration("my-source-type-1-id", "my-config-1-id", new ConfigurationQuery('', undefined, {}));
     const config = response.getModel()!;
 
     expect(config.name).toEqual('My configuration 1');
@@ -511,4 +512,48 @@ describe('HttpTspClient Deserialization', () => {
     expect(config.parameters?.path).toEqual('/home/user/tmp');
   });
 
+  it('createOutputConfiguration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('output-configuration-0.json'));
+    const config: OutputConfigurationQuery = QueryHelper.outputConfigurationQuery(
+      'My new InAndOut',
+      'org.eclipse.tracecompass.incubator.internal.inandout.core.config',
+      'My special configuration',
+      {
+        specifiers: [
+          {
+            label: 'latency',
+            inRegex: '(\\S*)_entry',
+            outRegex: '(\\S*)_exit',
+            contextInRegex: '(\\S*)_entry',
+            contextOutRegex: '(\\S*)_exit',
+            classifier: 'CPU'
+          }
+        ]
+      }
+    );
+
+    const response = await client.createDerivedOutput(
+      'd280b5ab-b0ff-38cf-b3e1-d33a0d56d1a3',
+      'org.eclipse.tracecompass.incubator.inandout.core.analysis.inAndOutDataProviderFactory',
+      config);
+
+    const output = response.getModel()!;
+    expect(output.name).toEqual('InAndOut Analysis (My new InAndOut)');
+    expect(output.description).toEqual('Custom InAndOut analysis configured by "My new InAndOut"');
+    expect(output.id).toEqual('org.eclipse.tracecompass.incubator.inandout.analysis85eec6d6-bea0-3680-84b6-f1a200e852d1');
+    expect(output.parentId).toBeDefined();
+    expect(output.parentId).toEqual('org.eclipse.tracecompass.incubator.inandout.core.analysis.inAndOutDataProviderFactory');
+    expect(output.configuration).toBeDefined();
+  });
+
+  it('deleteOutputConfiguration', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('output-configuration-0.json'));
+    const response = await client.deleteDerivedOutput(
+      'd280b5ab-b0ff-38cf-b3e1-d33a0d56d1a3',
+      'org.eclipse.tracecompass.incubator.inandout.core.analysis.inAndOutdataProviderFactory',
+      'org.eclipse.tracecompass.incubator.inandout.analysis85eec6d6-bea0-3680-84b6-f1a200e852d1');
+
+    const output = response.getModel()!;
+    expect(output).toBeDefined();
+  });
 });

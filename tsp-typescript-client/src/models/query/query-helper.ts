@@ -1,4 +1,4 @@
-import { Query } from './query';
+import { ConfigurationQuery, OutputConfigurationQuery, Query } from './query';
 
 /**
  * Helper class to create query object
@@ -161,6 +161,27 @@ export class QueryHelper {
         };
 
         return new Query({ ...tableObj, ...additionalProperties });
+    }
+
+    /**
+     * Build a configuration query
+     * @param name the name of the configuration
+     * @param description the optional description of the configuration
+     * @param parameters the custom parameters
+     */
+    public static configurationQuery(name: string, description: string | undefined, parameters: { [key: string]: any }) {
+        return new ConfigurationQuery(name, description, parameters);
+    }
+
+    /**
+     * Build a output configuration query
+     * @param name the name of the configuration
+     * @param description the optional description of the configuration
+     * @param typeId the configuration type ID
+     * @param parameters the custom parameters
+     */
+    public static outputConfigurationQuery(name: string, description: string | undefined, typeId: string, parameters: { [key: string]: any }) {
+        return new OutputConfigurationQuery(name, description, typeId, parameters);
     }
 
     /**

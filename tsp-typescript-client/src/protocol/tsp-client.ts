@@ -1,4 +1,4 @@
-import { Query } from "../models/query/query";
+import { ConfigurationQuery, OutputConfigurationQuery, Query } from "../models/query/query";
 import { GenericResponse } from "../models/response/responses";
 import { XyEntry, XYModel } from "../models/xy";
 import {
@@ -293,6 +293,55 @@ export interface ITspClient {
     ): Promise<TspClientResponse<GenericResponse<OutputStyleModel>>>;
 
     /**
+     * Fetch all configuration source types for a given experiment and output
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @returns a list of configuration source types
+     */
+    fetchOutputConfigurationTypes(
+        expUUID: string,
+        outputID: string
+    ): Promise<TspClientResponse<ConfigurationSourceType[]>>;
+
+    /**
+     * Fetch a single configuration source type for a given experiment, output and type
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param typeID the ID of the configuration source type
+     * @returns the configuration source type
+     */
+    fetchOutputConfigurationType(
+        expUUID: string,
+        outputID: string,
+        typeID: string
+    ): Promise<TspClientResponse<ConfigurationSourceType>>;
+
+    /**
+     * Create a derived output for a given experiment, output and parameters
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters OutputConfigurationQuery object
+     * @returns the output descriptor of the derived output
+     */
+    createDerivedOutput(
+        expUUID: string,
+        outputID: string,
+        parameters: OutputConfigurationQuery): Promise<TspClientResponse<OutputDescriptor>>;
+
+    /**
+     * Delete a derived output (and its configuration) for a given experiment,
+     * output and derived output
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param derivedOutputID the ID of the derived output
+     * @returns the output descriptor of the deleted derived output
+     */
+    deleteDerivedOutput(
+        expUUID: string,
+        outputID: string,
+        derivedOutputID: string): Promise<TspClientResponse<OutputDescriptor>>;
+
+    /**
      * Check the health status of the server
      * @returns The Health Status
      */
@@ -338,7 +387,7 @@ export interface ITspClient {
      * @param parameters Query object
      * @returns Generic response with the model
      */
-    createConfiguration(typeId: string, parameters: Query): Promise<TspClientResponse<Configuration>>;
+    createConfiguration(typeId: string, parameters: ConfigurationQuery): Promise<TspClientResponse<Configuration>>;
 
     /**
      * Update a configuration for a given type ID, config ID and parameters
@@ -347,7 +396,7 @@ export interface ITspClient {
      * @param parameters Query object
      * @returns Generic response with the model
      */
-    updateConfiguration(typeId: string, configId: string, parameters: Query): Promise<TspClientResponse<Configuration>>;
+    updateConfiguration(typeId: string, configId: string, parameters: ConfigurationQuery): Promise<TspClientResponse<Configuration>>;
 
     /**
      * Delete a configuration for a given type ID and config ID
