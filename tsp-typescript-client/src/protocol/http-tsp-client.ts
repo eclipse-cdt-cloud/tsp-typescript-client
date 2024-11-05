@@ -11,7 +11,7 @@ import { HealthStatus } from "../models/health";
 import { Identifier } from "../models/identifier";
 import { MarkerSet } from "../models/markerset";
 import { OutputDescriptor } from "../models/output-descriptor";
-import { Query } from "../models/query/query";
+import { ConfigurationQuery, OutputConfigurationQuery, Query } from "../models/query/query";
 import { GenericResponse } from "../models/response/responses";
 import { OutputStyleModel } from "../models/styles";
 import { ColumnHeaderEntry, TableModel } from "../models/table";
@@ -512,6 +512,92 @@ export class HttpTspClient implements ITspClient {
     }
 
     /**
+     * Fetch all configuration source types for a given experiment and output
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @returns Generic response with the model
+     */
+    public async fetchOutputConfigurationTypes(
+        expUUID: string,
+        outputID: string
+    ): Promise<TspClientResponse<ConfigurationSourceType[]>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/" +
+            outputID +
+            "/configTypes";
+        return RestClient.get(url);
+    }
+
+    /**
+     * Fetch a single configuration source type for a given experiment, output and type
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param typeID the ID of the configuration source type
+     * @returns Generic response with the model
+     */
+    public async fetchOutputConfigurationType(
+        expUUID: string,
+        outputID: string,
+        typeID: string
+    ): Promise<TspClientResponse<ConfigurationSourceType>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/" +
+            outputID +
+            "/configTypes/" +
+            typeID;
+        return RestClient.get(url);
+    }
+
+    /**
+     * Create a derived output for a given experiment, output and parameters
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters OutputConfigurationQuery object
+     * @returns Generic response with the model
+     */
+    public async createDerivedOutput(
+        expUUID: string,
+        outputID: string,
+        parameters: OutputConfigurationQuery): Promise<TspClientResponse<OutputDescriptor>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/" +
+            outputID;
+        return RestClient.post(url, parameters, OutputDescriptor);
+    }
+
+    /**
+     * Delete a derived output (and its configuration) for a given experiment,
+     * output and derived output
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param derivedOutputID the ID of the derived output
+     * @returns Generic response with the model
+     */
+    public async deleteDerivedOutput(
+        expUUID: string,
+        outputID: string,
+        derivedOutputID: string): Promise<TspClientResponse<OutputDescriptor>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/" +
+            outputID +
+            "/" +
+            derivedOutputID;
+        return RestClient.delete(url, undefined, OutputDescriptor);
+        }
+
+    /**
      * Check the health status of the server
      * @returns The Health Status
      */
@@ -572,10 +658,10 @@ export class HttpTspClient implements ITspClient {
     /**
      * Create a configuration for a given type ID and parameters
      * @param typeId the ID of the configuration source type
-     * @param parameters Query object
+     * @param parameters ConfigurationQuery object
      * @returns Generic response with the model
      */
-    createConfiguration(typeId: string, parameters: Query): Promise<TspClientResponse<Configuration>> {
+    createConfiguration(typeId: string, parameters: ConfigurationQuery): Promise<TspClientResponse<Configuration>> {
         const url = this.baseUrl + "/config/types/" + typeId;
         return RestClient.post(url, parameters);
     }
@@ -584,10 +670,10 @@ export class HttpTspClient implements ITspClient {
      * Update a configuration for a given type ID, config ID and parameters
      * @param typeId the ID of the configuration source type
      * @param configId the ID of the configuration
-     * @param parameters Query object
+     * @param parameters ConfigurationQuery object
      * @returns Generic response with the model
      */
-    updateConfiguration(typeId: string, configId: string, parameters: Query): Promise<TspClientResponse<Configuration>> {
+    updateConfiguration(typeId: string, configId: string, parameters: ConfigurationQuery): Promise<TspClientResponse<Configuration>> {
         const url = this.baseUrl + "/config/types/" + typeId + "/configs/" + configId;
         return RestClient.put(url, parameters);
     }

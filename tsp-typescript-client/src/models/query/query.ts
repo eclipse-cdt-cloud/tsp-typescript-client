@@ -19,3 +19,47 @@ export class Query {
         this.parameters = parameters;
     }
 }
+export class ConfigurationQuery extends Query {
+    /**
+     * Name of the configuration
+     */
+    // @ts-expect-error TS doesn't like unused private fields.
+    private name: string;
+
+    /**
+     * The optional description of configuration
+     */
+    // @ts-expect-error TS doesn't like unused private fields.
+    private description?: string;
+
+    /**
+     * Constructor
+     * @param name Name of the configuration
+     * @param parameters Object used to send parameters to the server
+     * @param description Optional description of the configuraiton
+     */
+    constructor(name: string, descripion: string | undefined, parameters: Object) {
+        super(parameters);
+        this.name = name;
+        this.description = descripion;
+    }
+}
+export class OutputConfigurationQuery extends ConfigurationQuery {
+    /**
+     * The configuration source type ID
+     */
+    // @ts-expect-error TS doesn't like unused private fields.
+    private typeId: string;
+
+    /**
+     * Constructor
+     * @param name Name of the configuration
+     * @param description Optional description of the configuraiton
+     * @param typeId The ID of the configuration source type
+     * @param parameters Object used to send parameters to the server
+     */
+    constructor(name: string, description: string | undefined,  typeId: string, parameters: Object) {
+        super(name, description, parameters);
+        this.typeId = typeId;
+    }
+}

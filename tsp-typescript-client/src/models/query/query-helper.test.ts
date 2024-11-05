@@ -1,5 +1,5 @@
 import { QueryHelper } from './query-helper';
-import { Query } from './query';
+import { ConfigurationQuery, OutputConfigurationQuery, Query } from './query';
 
 describe('Query helper tests', () => {
   it('Should build a simple query', () => {
@@ -104,5 +104,51 @@ describe('Query helper tests', () => {
     const test = QueryHelper.splitRangeIntoEqualParts(start, end, parts);
 
     expect(test).toEqual(array);
+  });
+
+  it('Should create a configuration query', () => {
+    const param = {
+      cpu: 0,
+      thread: "myThread"
+    };
+
+    const test = QueryHelper.configurationQuery(
+      'My Config',
+      'My special configuration', 
+      param);
+
+    const query = new ConfigurationQuery('My Config',
+      'My special configuration',
+      param);
+    
+    expect(test).toEqual(query);
+  });
+
+  it('Should create a output configuration query', () => {
+    const param = {
+      specifiers: [
+        {
+         label: 'latency',
+         inRegex: '(\\S*)_entry',
+          outRegex: '(\\S*)_exit',
+         contextInRegex: '(\\S*)_entry',
+         contextOutRegex: '(\\S*)_exit',
+          classifier: 'CPU'
+        }
+      ]
+    };
+
+  const test = QueryHelper.outputConfigurationQuery(
+    'My new InAndOut',
+    'org.eclipse.tracecompass.incubator.internal.inandout.core.config',
+    'My special configuration', 
+    param);
+
+    const query = new OutputConfigurationQuery('My new InAndOut',
+      'org.eclipse.tracecompass.incubator.internal.inandout.core.config',
+      'My special configuration', 
+      param);
+
+    expect(test).toEqual(query);
   });
 });
