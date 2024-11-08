@@ -49,17 +49,17 @@ export class OutputConfigurationQuery extends ConfigurationQuery {
      * The configuration source type ID
      */
     // @ts-expect-error TS doesn't like unused private fields.
-    private typeId: string;
+    private sourceTypeId: string;
 
     /**
      * Constructor
      * @param name Name of the configuration
      * @param description Optional description of the configuraiton
-     * @param typeId The ID of the configuration source type
+     * @param sourceTypeId The ID of the configuration source type
      * @param parameters Object used to send parameters to the server
      */
-    constructor(name: string, description: string | undefined,  typeId: string, parameters: Object) {
+    constructor(name: string, description: string | undefined, sourceTypeId: string, parameters: Object) {
         super(name, description, parameters);
-        this.typeId = typeId;
+        this.sourceTypeId = sourceTypeId;
     }
 }
