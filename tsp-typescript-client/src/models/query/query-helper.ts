@@ -59,6 +59,14 @@ export class QueryHelper {
         return new Query({ ...timeObj, ...additionalProperties });
     }
 
+    public static selectionQuery(items: number[], additionalProperties?: { [key: string]: any }): Query {
+        const selectionObj = {
+            [this.REQUESTED_ITEMS_KEY]: items
+        };
+
+        return new Query({ ...selectionObj, ...additionalProperties });
+    }
+
     /**
      * Build a simple time query with selected items
      * @param requestedTimes Array of requested times
