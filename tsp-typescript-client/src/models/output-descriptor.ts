@@ -1,5 +1,6 @@
 import { createNormalizer } from '../protocol/serialization';
 import { Configuration } from './configuration';
+import { OutputCapabilities } from './output-capabilities';
 
 export const OutputDescriptor = createNormalizer<OutputDescriptor>({
     end: BigInt,
@@ -98,4 +99,9 @@ export interface OutputDescriptor {
      * Configuration used to create this data provider.
      */
     configuration?: Configuration;
+
+    /**
+     * The output (data provider) capabilities instance. If absent all capabilities are false.
+     */
+    capabilities?: OutputCapabilities;
 }
