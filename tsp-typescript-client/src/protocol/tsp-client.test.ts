@@ -125,8 +125,21 @@ describe('HttpTspClient Deserialization', () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('experiment-outputs-0.json'));
     const response = await client.experimentOutputs('not-relevant');
     const outputs = response.getModel()!;
+    expect(outputs).toHaveLength(6);
 
-    expect(outputs).toHaveLength(5);
+    let output = outputs.find((item) => item.id === 'timegraph.output.id1');
+    expect(output).toBeDefined();
+    expect(output?.capabilities).toBeDefined();
+    expect(output?.capabilities?.canCreate).toBeTruthy();
+    expect(output?.capabilities?.canDelete).toBeFalsy();
+    expect(output?.configuration).toBeUndefined();
+
+    output = outputs.find((item) => item.id === 'timegraph.output.id2');
+    expect(output).toBeDefined();
+    expect(output?.capabilities).toBeDefined();
+    expect(output?.capabilities?.canCreate).toBeFalsy();
+    expect(output?.capabilities?.canDelete).toBeTruthy();
+    expect(output?.configuration).toBeDefined();
   });
 
   it('fetchAnnotationsCategories', async () => {

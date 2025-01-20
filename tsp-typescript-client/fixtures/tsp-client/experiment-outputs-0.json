@@ -24,11 +24,21 @@
 		"type": "TIME_GRAPH"
 	},
 	{
+		"id": "timegraph.output.id1",
+		"name": "Output name (Config)",
+		"description": "Output description (Config)",
+		"type": "TIME_GRAPH",
+		"capabilities": {
+			"canCreate": true,
+			"canDelete": false
+		}
+	},
+	{
 		"id": "timegraph.output.id2",
 		"name": "Output name (Config)",
 		"description": "Output description (Config)",
 		"type": "TIME_GRAPH",
-		"parentId": "timegraph.output.id",
+		"parentId": "timegraph.output.id1",
 		"configuration" : {
 			"id": "my-config-1-id",
 			"name": "My configuration 1",
@@ -37,6 +47,10 @@
 			"parameters": {
 				"path": "/home/user/tmp"
 			}
+		},
+		"capabilities": {
+			"canCreate": false,
+			"canDelete": true
 		}
 	}
 ]
