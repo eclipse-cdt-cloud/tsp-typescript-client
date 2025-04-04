@@ -144,6 +144,18 @@ export class HttpTspClient implements ITspClient {
     }
 
     /**
+     * Close an experiment
+     * @param expUUID Experiment UUID to close
+     * @returns The closed experiment
+     */
+    closeExperiment(
+        expUUID: string
+    ): Promise<TspClientResponse<Experiment>> {
+        const url = this.baseUrl + "/experiments/" + expUUID + ":close";
+        return RestClient.put(url, new Query({}), Experiment);
+    }
+
+    /**
      * Delete an experiment on the server
      * @param expUUID Experiment UUID to delete
      * @returns The deleted experiment
