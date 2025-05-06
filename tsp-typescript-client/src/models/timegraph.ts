@@ -29,8 +29,9 @@ export interface TimeGraphEntry extends Entry {
 const TimeGraphState = createNormalizer<TimeGraphState>({
     end: BigInt,
     start: BigInt,
+    label: assertNumber,
     tags: assertNumber,
-    style: OutputElementStyle,
+    style: assertNumber,
 });
 
 /**
@@ -50,7 +51,7 @@ export interface TimeGraphState {
     /**
      * Label to apply to the state
      */
-    label?: string;
+    label?: number;
 
     /**
      * Tags for the state, used when the state pass a filter
@@ -60,11 +61,13 @@ export interface TimeGraphState {
     /**
      * Optional information on the style to format this state
      */
-    style?: OutputElementStyle;
+    style?: number;
 }
 
 export const TimeGraphRow = createNormalizer<TimeGraphRow>({
+    styles: array(OutputElementStyle),
     entryId: assertNumber,
+    startTime: BigInt,
     states: array(TimeGraphState),
 });
 
@@ -73,9 +76,24 @@ export const TimeGraphRow = createNormalizer<TimeGraphRow>({
  */
 export interface TimeGraphRow {
     /**
+     * Labels for the row
+     */
+    labels: string[];
+
+    /**
+     * Styles for the row
+     */
+    styles: OutputElementStyle[]
+    
+    /**
      * Entry Id associated to the state array
      */
     entryId: number;
+
+    /**
+     * Start time of the row
+     */
+    startTime: bigint;
 
     /**
      * Array of states
