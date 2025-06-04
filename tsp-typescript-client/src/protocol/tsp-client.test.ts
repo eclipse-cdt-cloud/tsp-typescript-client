@@ -303,6 +303,7 @@ describe('HttpTspClient Deserialization', () => {
     const genericResponse = response.getModel()!;
     const model = genericResponse.model;
 
+    expect(model.autoExpandLevel).toEqual(-1);
     expect(model.entries).toHaveLength(1);
     expect(model.headers).toHaveLength(0);
     for (const entry of model.entries) {
@@ -373,7 +374,8 @@ describe('HttpTspClient Deserialization', () => {
                                { name: 'Total', tooltip: '', },
                                { name: 'Min Time Range', tooltip: '', dataType: DataType.TIME_RANGE },
                                { name: 'Max Time Range', tooltip: '', dataType: DataType.TIME_RANGE }];
-
+    
+    expect(model.autoExpandLevel).toEqual(-1);
     expect(model.entries).toHaveLength(4);
     expect(model.headers).toHaveLength(9);
 
@@ -399,6 +401,7 @@ describe('HttpTspClient Deserialization', () => {
     const genericResponse = response.getModel()!;
     const model = genericResponse.model;
 
+    expect(model.autoExpandLevel).toEqual(-1);
     expect(model.entries).toHaveLength(1);
     expect(model.headers).toHaveLength(4);
     for (const entry of model.entries) {

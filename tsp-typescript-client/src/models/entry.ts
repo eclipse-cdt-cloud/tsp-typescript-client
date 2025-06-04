@@ -7,7 +7,7 @@ export const Entry = createNormalizer<Entry>({
     style: {
         values: undefined,
     },
-    metadata: undefined,
+    metadata: undefined
 });
 
 /**
@@ -44,6 +44,7 @@ export interface Entry {
      * Metadata
      */
     metadata?: { [key: string]: any };
+
 }
 
 /**
@@ -68,6 +69,7 @@ export interface EntryHeader {
 export function EntryModel<T extends Entry>(normalizer: Normalizer<T>): Normalizer<EntryModel<T>> {
     return createNormalizer<EntryModel<any>>({
         entries: array(normalizer),
+        autoExpandLevel: assertNumber,
     });
 }
 
@@ -84,4 +86,16 @@ export interface EntryModel<T extends Entry> {
      * Array of entry
      */
     entries: T[];
+
+    /**
+     * Optional auto-expand level to be used for the input of the tree. If omitted value -1 is assumed.
+     * 
+     * Values:
+     * - -1 → All subtrees should be expanded
+     * - 0 → No auto-expand
+     * - 1 → Top-level elements are expanded, but not their children
+     * - 2 → Top-level elements and their children are expanded, but not grand-children
+     */
+    autoExpandLevel?: number;
+
 }
