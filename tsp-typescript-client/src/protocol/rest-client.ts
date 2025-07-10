@@ -103,7 +103,7 @@ export class RestClient {
         url: string,
         body?: any,
         normalizer?: Normalizer<T>,
-    ): Promise<TspClientResponse<Deserialized<T>>> {
+    ): Promise<TspClientResponse<Deserialized<T|undefined>>> {
         let response: HttpResponse;
         try {
             response = await this.httpRequest({
@@ -125,6 +125,11 @@ export class RestClient {
         if (response.headers?.get('Content-Type') === 'application/json') {
             try {
                 const parsed = this.jsonParse(response.text);
+
+                // Check if the server sent an error
+                if (response.status >= 400) {
+                     return new TspClientResponse(response.text, response.status, response.statusText, undefined, parsed);
+                }
                 try {
                     const responseModel = normalizer ? normalizer(parsed) : parsed;
                     return new TspClientResponse(response.text, response.status, response.statusText, responseModel);

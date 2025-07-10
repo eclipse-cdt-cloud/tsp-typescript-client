@@ -1,3 +1,5 @@
+import { ErrorResponse } from "../models/error-response";
+
 /**
  * Trace Server Protocol response.
  * The response includes the response model from the server if available,
@@ -17,6 +19,7 @@ export class TspClientResponse<T> {
         private readonly statusCode: number,
         private readonly statusMessage: string,
         private readonly responseModel?: T,
+        private readonly errorResponse?: ErrorResponse
     ) {}
 
     /**
@@ -45,6 +48,13 @@ export class TspClientResponse<T> {
      */
     public getText(): string {
         return this.text;
+    }
+
+    /**
+     * Returns the error response from the server in an error case 
+     */
+    public getErrorResponse(): ErrorResponse | undefined {
+        return this.errorResponse;
     }
 
     /**

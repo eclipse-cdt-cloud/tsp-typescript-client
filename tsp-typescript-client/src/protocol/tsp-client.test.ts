@@ -574,4 +574,15 @@ describe('HttpTspClient Deserialization', () => {
     const output = response.getModel()!;
     expect(output).toBeDefined();
   });
+
+  it('postTrace-failure', async () => {
+    httpRequestMock.mockResolvedValueOnce({ status: 404, statusText: 'Not Found', text: '{"title": "No trace at /some/path"}', headers: new Headers({ 'Content-Type': 'application/json' }) });
+    const response = await client.openTrace(new Query({}));
+
+    expect(response.getStatusCode()).toEqual(404);
+    expect(response.getStatusMessage()).toEqual('Not Found');
+    expect(response.getText()).toEqual('{"title": "No trace at /some/path"}');
+    expect(response.getModel()).toBeUndefined();
+    expect(response.getErrorResponse()).toEqual({ title: 'No trace at /some/path' });
+  });
 });
