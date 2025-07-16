@@ -1,40 +1,44 @@
-import { createNormalizer } from '../protocol/serialization';
-import { Configuration } from './configuration';
-import { OutputCapabilities } from './output-capabilities';
+import { createNormalizer } from "../protocol/serialization";
+import { Configuration } from "./configuration";
+import { OutputCapabilities } from "./output-capabilities";
 
 export const OutputDescriptor = createNormalizer<OutputDescriptor>({
     end: BigInt,
     queryParameters: undefined,
     start: BigInt,
-    configuration: Configuration
+    configuration: Configuration,
 });
 
 /**
- * Provider type 
+ * Provider type
  */
 export enum ProviderType {
     /**
      * A provider for a table data structure implemented as virtual table.
      */
-    TABLE = 'TABLE',
+    TABLE = "TABLE",
     /**
      * A provider for a tree, whose entries have XY series. The x-series is time.
      */
-    TREE_TIME_XY = 'TREE_TIME_XY',
+    TREE_TIME_XY = "TREE_TIME_XY",
     /**
      * A provider for a Time Graph model, which has entries with a start and end
      * time, each entry has a series of states, arrows link from one series to
      * another
      */
-    TIME_GRAPH = 'TIME_GRAPH',
+    TIME_GRAPH = "TIME_GRAPH",
     /**
      * A provider for a data tree, which has entries (rows) and columns.
      */
-    DATA_TREE = 'DATA_TREE',
+    DATA_TREE = "DATA_TREE",
     /**
      * A provider with no data. Can be used for grouping purposes and/or as data provider configurator.
      */
-    NONE = 'NONE'
+    NONE = "NONE",
+    /**
+     * A provider for a gantt chart (abitrary x-axis). E.g. flame graph.
+     */
+    GANTT_CHART = "GANTT_CHART",
 }
 
 /**
@@ -64,7 +68,7 @@ export interface OutputDescriptor {
     /**
      * Type of data returned by this output.
      * Serve as a hint to determine what kind of view should be use for this output (ex. XY, Time Graph, Table, etc..)
-     * 
+     *
      * See {@link ProviderType} for supported strings.
      */
     type: string;
