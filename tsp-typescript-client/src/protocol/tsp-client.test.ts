@@ -6,6 +6,7 @@ import { HttpTspClient } from './http-tsp-client';
 import { DataType } from '../models/data-type';
 import { ConfigurationParameterDescriptor } from '../models/configuration-source';
 import { QueryHelper } from '../models/query/query-helper';
+import { isAxisDomainCategorical, isAxisDomainRange } from '../models/axis-domain';
 
 describe('HttpTspClient Deserialization', () => {
 
@@ -358,6 +359,93 @@ describe('HttpTspClient Deserialization', () => {
     }
   });
 
+  it('fetchGenericXY', async () => {
+    // Test response with ranged sampling
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-generic-xy-0.json'));
+    const response = await client.fetchGenericXY('not-relevant', 'not-relevant', new Query({}));
+    const genericResponse = response.getModel()!;
+    const xy = genericResponse.model;
+
+    expect(xy.series).toHaveLength(4);
+    for (const serie of xy.series) {
+      expect(typeof serie.seriesId).toEqual('number');
+      expect(serie.xValues).toHaveLength(5);
+      expect(serie.yValues).toHaveLength(5);
+      for (const xValue of serie.xValues) {
+        if (Array.isArray(xValue) && xValue.length === 2) {
+          const [start, end] = xValue;
+          expect(typeof start).toBe('bigint');
+          expect(typeof end).toBe('bigint');
+        } else {
+          fail('xValues is not RangeSampling ([start,end] tuple)');
+        }
+      }
+
+      for (const yValue of serie.yValues) {
+        expect(typeof yValue).toEqual('number');
+      }
+
+      const xValuesDescription = serie.xValuesDescription;
+      expect(typeof xValuesDescription.dataType).toBe('string');
+      expect(typeof xValuesDescription.unit).toBe('string');
+      expect(typeof xValuesDescription.label).toBe('string');
+      const xAxisDomain = serie.xValuesDescription.axisDomain;
+      if (isAxisDomainRange(xAxisDomain)) {
+        expect(typeof xAxisDomain.start).toBe('bigint');
+        expect(typeof xAxisDomain.end).toBe('bigint');
+      } else {
+        fail('xAxisDomain is not AxisDomainTimeRange');
+      }
+
+      const yValuesDescription = serie.yValuesDescription;
+      expect(typeof yValuesDescription.dataType).toBe('string');
+      expect(typeof yValuesDescription.unit).toBe('string');
+      expect(typeof yValuesDescription.label).toBe('string');
+      const yAxisDomain = yValuesDescription.axisDomain;
+      expect(yAxisDomain).toBe(null);
+    }
+
+    // Test response with categorized sampling
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-generic-xy-1.json'));
+    const response_categorized = await client.fetchGenericXY('not-relevant', 'not-relevant', new Query({}));
+    const genericResponse_categorized = response_categorized.getModel()!;
+    const xy_categorized = genericResponse_categorized.model;
+
+    expect(xy_categorized.series).toHaveLength(1);
+    for (const serie of xy_categorized.series) {
+      expect(typeof serie.seriesId).toEqual('number');
+      expect(serie.xValues).toHaveLength(5);
+      expect(serie.yValues).toHaveLength(5);
+      for (const xValue of serie.xValues) {
+        expect(typeof xValue).toEqual('string');
+      }
+
+      for (const yValue of serie.yValues) {
+        expect(typeof yValue).toEqual('number');
+      }
+
+      const xValuesDescription = serie.xValuesDescription;
+      expect(typeof xValuesDescription.dataType).toBe('string');
+      expect(typeof xValuesDescription.unit).toBe('string');
+      expect(typeof xValuesDescription.label).toBe('string');
+      const xAxisDomain = serie.xValuesDescription.axisDomain;
+      if (isAxisDomainCategorical(xAxisDomain)) {
+        for (const category of xAxisDomain.categories) {
+          expect(typeof category).toBe('string');
+        }
+      } else {
+        fail('xAxisDomain is not AxisDomainTimeRange');
+      }
+
+      const yValuesDescription = serie.yValuesDescription;
+      expect(typeof yValuesDescription.dataType).toBe('string');
+      expect(typeof yValuesDescription.unit).toBe('string');
+      expect(typeof yValuesDescription.label).toBe('string');
+      const yAxisDomain = yValuesDescription.axisDomain;
+      expect(yAxisDomain).toBe(null);
+    }
+  });
+
   it('fetchDataTree', async () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-data-tree-0.json'));
     const response = await client.fetchDataTree('not-relevant', 'not-relevant', new Query({}));
@@ -404,6 +492,20 @@ describe('HttpTspClient Deserialization', () => {
     expect(model.autoExpandLevel).toEqual(-1);
     expect(model.entries).toHaveLength(1);
     expect(model.headers).toHaveLength(4);
+    for (const entry of model.entries) {
+      expect(typeof entry.id).toEqual('number');
+    }
+  });
+
+  it('fetchGenericXYTree', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-generic-xy-tree-0.json'));
+    const response = await client.fetchGenericXYTree('not-relevant', 'not-relevant', new Query({}));
+    const genericResponse = response.getModel()!;
+    const model = genericResponse.model;
+
+    expect(model.autoExpandLevel).toEqual(-1);
+    expect(model.entries).toHaveLength(5);
+    expect(model.headers).toHaveLength(0);
     for (const entry of model.entries) {
       expect(typeof entry.id).toEqual('number');
     }

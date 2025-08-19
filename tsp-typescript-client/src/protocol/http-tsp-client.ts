@@ -242,6 +242,54 @@ export class HttpTspClient implements ITspClient {
     }
 
     /**
+     * Fetch generic XY tree with non-time x-axis
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic entry response with entries
+     */
+    public async fetchGenericXYTree(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<EntryModel<XyEntry>>>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/genericXY/" +
+            outputID +
+            "/tree";
+        return RestClient.post(
+            url,
+            parameters,
+            GenericResponse(EntryModel(Entry))
+        );
+    }
+
+    /**
+     * Fetch generic XY with non-time x-axis. model extends XYModel
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns XY model response with the model
+     */
+    public async fetchGenericXY(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<XYModel>>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/genericXY/" +
+            outputID +
+            "/xy";
+        return RestClient.post(url, parameters, GenericResponse(XYModel));
+    }
+
+    /**
      * Fetch XY tooltip
      * @param expUUID Experiment UUID
      * @param outputID Output ID

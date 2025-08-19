@@ -22,6 +22,10 @@ export enum ProviderType {
      */
     TREE_TIME_XY = "TREE_TIME_XY",
     /**
+     * A provider for a tree, whose entries have XY series. The x-series can be categorical.
+     */
+    TREE_GENERIC_XY = "TREE_GENERIC_XY",
+    /**
      * A provider for a Time Graph model, which has entries with a start and end
      * time, each entry has a series of states, arrows link from one series to
      * another
