@@ -1,13 +1,22 @@
-import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { AxisDomain } from './axis-domain';
+import { DataType } from './data-type';
 import { Entry } from './entry';
+import { Sampling } from './sampling';
 import { OutputElementStyle } from "./styles";
+
+export const XYAxisDescription = createNormalizer<XYAxisDescription>({
+  axisDomain: AxisDomain,
+});
 
 export const XYSeries = createNormalizer<XYSeries>({
     seriesId: assertNumber,
-    xValues: array(toBigInt),
+    xValues: Sampling,
     yValues: array(assertNumber),
     tags: array(assertNumber),
     style: OutputElementStyle,
+    xValuesDescription: XYAxisDescription,
+    yValuesDescription: XYAxisDescription,
 });
 
 export interface XyEntry extends Entry {
@@ -34,17 +43,17 @@ export interface XYSeries {
     /**
      * Description of the X axis
      */
-    xAxis: XYAxis;
+    xValuesDescription: XYAxisDescription;
 
     /**
      * Description of the Y axis
      */
-    yAxis: XYAxis;
+    yValuesDescription: XYAxisDescription;
 
     /**
      * Series' X values
      */
-    xValues: bigint[];
+    xValues: Sampling;
 
     /**
      * Series' Y values
@@ -84,7 +93,7 @@ export interface XYModel {
 /**
  * Description of an axis for XY chart
  */
-export interface XYAxis {
+export interface XYAxisDescription {
     /**
      * Label of the axis
      */
@@ -98,5 +107,10 @@ export interface XYAxis {
     /**
      * Type of data for this axis, to give hint on number formatting
      */
-    dataType: string;
+    dataType: DataType;
+
+    /**
+     * Selection range for this axis
+     */
+    axisDomain?: AxisDomain;
 }

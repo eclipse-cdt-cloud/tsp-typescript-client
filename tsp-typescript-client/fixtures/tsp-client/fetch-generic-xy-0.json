@@ -1,0 +1,229 @@
+{
+  "model": {
+    "title": "Function Density View",
+    "series": [
+      {
+        "seriesId": 3,
+        "seriesName": "15652",
+        "xValues": [
+          [
+            0,
+            604229397
+          ],
+          [
+            604229398,
+            1208458795
+          ],
+          [
+            1208458796,
+            1812688193
+          ],
+          [
+            1812688194,
+            2416917590
+          ],
+          [
+            2416917591,
+            3021146988
+          ]
+        ],
+        "yValues": [
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "style": {
+          "parentKey": null,
+          "values": {
+            "series-type": "bar"
+          }
+        },
+        "xValuesDescription": {
+          "dataType": "DURATION",
+          "unit": "ns",
+          "axisDomain": {
+            "type": "range",
+            "start": 0,
+            "end": 3021146988
+          },
+          "label": "Execution Time"
+        },
+        "yValuesDescription": {
+          "dataType": "NUMBER",
+          "unit": "",
+          "axisDomain": null,
+          "label": "Number of Executions"
+        }
+      },
+      {
+        "seriesId": 4,
+        "seriesName": "15653",
+        "xValues": [
+          [
+            0,
+            604229397
+          ],
+          [
+            604229398,
+            1208458795
+          ],
+          [
+            1208458796,
+            1812688193
+          ],
+          [
+            1812688194,
+            2416917590
+          ],
+          [
+            2416917591,
+            3021146988
+          ]
+        ],
+        "yValues": [
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "style": {
+          "parentKey": null,
+          "values": {
+            "series-type": "bar"
+          }
+        },
+        "xValuesDescription": {
+          "dataType": "DURATION",
+          "unit": "ns",
+          "axisDomain": {
+            "type": "range",
+            "start": 0,
+            "end": 3021146988
+          },
+          "label": "Execution Time"
+        },
+        "yValuesDescription": {
+          "dataType": "NUMBER",
+          "unit": "",
+          "axisDomain": null,
+          "label": "Number of Executions"
+        }
+      },
+      {
+        "seriesId": 2,
+        "seriesName": "15646",
+        "xValues": [
+          [
+            0,
+            604229397
+          ],
+          [
+            604229398,
+            1208458795
+          ],
+          [
+            1208458796,
+            1812688193
+          ],
+          [
+            1812688194,
+            2416917590
+          ],
+          [
+            2416917591,
+            3021146988
+          ]
+        ],
+        "yValues": [
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "style": {
+          "parentKey": null,
+          "values": {
+            "series-type": "bar"
+          }
+        },
+        "xValuesDescription": {
+          "dataType": "DURATION",
+          "unit": "ns",
+          "axisDomain": {
+            "type": "range",
+            "start": 0,
+            "end": 3021146988
+          },
+          "label": "Execution Time"
+        },
+        "yValuesDescription": {
+          "dataType": "NUMBER",
+          "unit": "",
+          "axisDomain": null,
+          "label": "Number of Executions"
+        }
+      },
+      {
+        "seriesId": 1,
+        "seriesName": "15647",
+        "xValues": [
+          [
+            0,
+            604229397
+          ],
+          [
+            604229398,
+            1208458795
+          ],
+          [
+            1208458796,
+            1812688193
+          ],
+          [
+            1812688194,
+            2416917590
+          ],
+          [
+            2416917591,
+            3021146988
+          ]
+        ],
+        "yValues": [
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "style": {
+          "parentKey": null,
+          "values": {
+            "series-type": "bar"
+          }
+        },
+        "xValuesDescription": {
+          "dataType": "DURATION",
+          "unit": "ns",
+          "axisDomain": {
+            "type": "range",
+            "start": 0,
+            "end": 3021146988
+          },
+          "label": "Execution Time"
+        },
+        "yValuesDescription": {
+          "dataType": "NUMBER",
+          "unit": "",
+          "axisDomain": null,
+          "label": "Number of Executions"
+        }
+      }
+    ]
+  },
+  "statusMessage": "Completed",
+  "status": "COMPLETED"
+}

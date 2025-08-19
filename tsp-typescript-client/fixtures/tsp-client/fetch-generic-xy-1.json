@@ -1,0 +1,54 @@
+{
+  "model": {
+    "title": "Function Density View",
+    "series": [
+      {
+        "seriesId": 3,
+        "seriesName": "15652",
+        "xValues": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "black"
+        ],
+        "yValues": [
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "style": {
+          "parentKey": null,
+          "values": {
+            "series-type": "bar"
+          }
+        },
+        "xValuesDescription": {
+          "dataType": "STRING",
+          "unit": "",
+          "axisDomain": {
+            "type": "categorical",
+            "categories": [
+              "red",
+              "blue",
+              "green",
+              "yellow",
+              "black"
+            ]
+          },
+          "label": "Execution Time"
+        },
+        "yValuesDescription": {
+          "dataType": "NUMBER",
+          "unit": "",
+          "axisDomain": null,
+          "label": "Number of Executions"
+        }
+      }
+    ]
+  },
+  "statusMessage": "Completed",
+  "status": "COMPLETED"
+}

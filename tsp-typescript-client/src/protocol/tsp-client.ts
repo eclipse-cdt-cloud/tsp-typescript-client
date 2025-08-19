@@ -168,6 +168,32 @@ export interface ITspClient {
     ): Promise<TspClientResponse<GenericResponse<{ [key: string]: string }>>>;
 
     /**
+     * Fetch generic XY tree with non-time x-axis.
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic entry response with entries
+     */
+    fetchGenericXYTree(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<EntryModel<XyEntry>>>>;
+
+    /**
+     * Fetch generic XY with non-time x-axis. model extends XYModel
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns XY model response with the model
+     */
+    fetchGenericXY(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<XYModel>>>;
+
+    /**
      * Fetch Time Graph tree, Model extends TimeGraphEntry
      * @param expUUID Experiment UUID
      * @param outputID Output ID

@@ -126,13 +126,31 @@ export class QueryHelper {
      */
     public static selectionTimeRangeQuery(start: bigint, end: bigint, nbTimes: number, items: number[], additionalProperties?: { [key: string]: any }): Query
 
-    public static selectionTimeRangeQuery(start: bigint, end: bigint, third: number | number[], fourth: number[] | { [key: string]: any }, fifth?: { [key: string]: any }): Query {
+    /**
+     * Build a sampled time range query with selected items
+     * @param start Start time
+     * @param end End time
+     * @param nbTimes Number of time samples
+     * @param items Array of item IDs
+     * @param additionalProperties Use this optional parameter to add custom properties to your query
+     * @param nbSamples For sampling points that are not time-based, nbSamples is used as key instead
+     *                  of nbTimes. This flag configures whether to use nbTimes as key. The key default
+     *                  to be nbTimes.
+     */
+    public static selectionTimeRangeQuery(start: bigint, end: bigint, nbTimes: number, items: number[], additionalProperties: { [key: string]: any } | undefined, nbSamples: boolean): Query;
+
+    public static selectionTimeRangeQuery(start: bigint, end: bigint, third: number | number[], fourth: number[] | { [key: string]: any }, fifth?: { [key: string]: any }, nbSamples: boolean = false): Query {
         if (typeof third === 'number') {
-            const nbTimes = third;
+            const count = third;
             const items = fourth;
             const additionalProperties = fifth;
+            const range =
+                nbSamples
+                    ? { start, end, nbSamples: count }
+                    : { start, end, nbTimes:   count };
+
             const selectionTimeObj = {
-                [this.REQUESTED_TIMERANGE_KEY]: { start, end, nbTimes },
+                [this.REQUESTED_TIMERANGE_KEY]: range,
                 [this.REQUESTED_ITEMS_KEY]: items
             };
             return new Query({ ...selectionTimeObj, ...additionalProperties });
