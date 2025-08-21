@@ -26,7 +26,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "node-fetch": "^2.5.0"
+    "node-fetch": "^2.6.0"
   },
   "workspaces": [
     "tsp-typescript-client"
