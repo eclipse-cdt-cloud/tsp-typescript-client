@@ -48,7 +48,7 @@ export interface ConfigurationParameterDescriptor {
     description?: string;
 
     /**
-     * The data type string, e.g. use NUMBER for numbers, or STRING as strings
+     * The data type string, e.g. use NUMBER for numbers, or STRING as strings. Default is STRING.
      */
     dataType?: string;
 
