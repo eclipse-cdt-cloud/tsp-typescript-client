@@ -34,28 +34,3 @@ export interface Configuration {
      */
     parameters?: Record<string, any>;
 }
-
-/**
- * Model of a configuration parameter descriptor
- */
-export interface ConfigParamDescriptor {
-    /**
-     * The unique name of the key
-     */
-    keyName: string;
-
-    /**
-     * A short description.
-     */
-    description?: string;
-
-    /**
-     * The data type string, e.g. use NUMBER for numbers, or STRING as strings
-     */
-    dataType?: string;
-
-    /**
-     * If parameter needs to in the query parameters or not. Default is false. 
-     */
-    isRequired?: boolean;
-}
