@@ -25,7 +25,7 @@ export interface Annotation {
     /**
      * Label of the annotation
      */
-    label: string;
+    label?: string;
 
     /**
      * Time of the annotation

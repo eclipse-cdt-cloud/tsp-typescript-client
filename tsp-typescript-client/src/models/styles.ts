@@ -14,7 +14,7 @@ export interface OutputElementStyle {
     /**
      * Parent style key
      */
-    parentKey: string;
+    parentKey?: string;
 
     /**
      * Style values to override or define properties
