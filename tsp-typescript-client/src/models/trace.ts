@@ -3,8 +3,7 @@ import { assertNumber, createNormalizer } from '../protocol/serialization';
 export const Trace = createNormalizer<Trace>({
     end: BigInt,
     nbEvents: assertNumber,
-    start: BigInt,
-    properties: undefined,
+    start: BigInt
 });
 
 /**
@@ -44,7 +43,7 @@ export interface Trace {
     /**
      * Trace's properties
      */
-    properties: Record<string, any>;
+    properties: Record<string, string>;
 
     /**
      * Indicate if the indexing of the trace is completed or still running.
