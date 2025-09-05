@@ -1,8 +1,8 @@
 import { createNormalizer } from '../protocol/serialization';
 
 export const Bookmark = createNormalizer<Bookmark>({
-    endTime: BigInt,
-    startTime: BigInt,
+    end: BigInt,
+    start: BigInt,
 });
 
 /**
@@ -22,15 +22,10 @@ export interface Bookmark {
     /**
      * Start time for the bookmark
      */
-    startTime: bigint;
+    start: bigint;
 
     /**
      * End time for the bookmark
      */
-    endTime: bigint;
-
-    /**
-     * Type of the bookmark
-     */
-    type: string;
+    end: bigint;
 }
