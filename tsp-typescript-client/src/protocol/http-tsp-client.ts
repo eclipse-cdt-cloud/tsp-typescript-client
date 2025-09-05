@@ -303,6 +303,28 @@ export class HttpTspClient implements ITspClient {
     }
 
     /**
+     * Fetch Time Graph tree, Model extends TimeGraphEntry
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Time graph entry response with entries of type TimeGraphEntry
+     */
+    public async fetchTimeGraphTreeContext(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<{ [key: string]: unknown }>>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/timeGraph/" +
+            outputID +
+            "/tree:context";
+        return RestClient.post(url, parameters);    
+    }
+
+    /**
      * Fetch Time Graph states. Model extends TimeGraphModel
      * @param expUUID Experiment UUID
      * @param outputID Output ID
