@@ -1,14 +1,25 @@
-import { toBigInt } from '../protocol/serialization';
+import { createNormalizer, toBigInt } from '../protocol/serialization';
 
-export type StartEndRange = [bigint, bigint];
+export const StartEndRange = createNormalizer<StartEndRange>({
+    start: BigInt,
+    end: BigInt,
+});
 
-export const StartEndRange = (v: unknown): StartEndRange => {
-  if (!Array.isArray(v) || v.length !== 2) {
-    throw new Error('StartEndRange: expected [start,end]');
-  }
-  const [s, e] = v;
-  return [toBigInt(s as any), toBigInt(e as any)];
-};
+/**
+ * Represents a closed interval {start, end} as an object.
+ */
+export interface StartEndRange {
+  /**
+   * Start time of the range
+   */
+  start: bigint;
+
+  /**
+   * End time of the range
+   */
+  end: bigint;
+}
+
 
 /**
  * Represent sampling on a list of timestamps.
@@ -30,8 +41,21 @@ export type RangeSampling     = StartEndRange[];
  */
 export type Sampling          = TimestampSampling | CategorySampling | RangeSampling;
 
-export const isRangeSampling = (s: Sampling): s is [bigint, bigint][] =>
-  Array.isArray(s) && Array.isArray(s[0]);
+export const isRangeSampling = (s: Sampling): s is StartEndRange[] => {
+  if (!Array.isArray(s)) {
+    return false;
+  }
+  if (s.length === 0) {
+    return true;
+  }
+  const firstElement = s[0];
+  return (
+    typeof firstElement === 'object' &&
+    firstElement !== null &&
+    'start' in firstElement &&
+    'end' in firstElement
+  );
+};
 
 export const isTimestampSampling = (s: Sampling): s is bigint[] =>
   Array.isArray(s) && typeof s[0] === 'bigint';
@@ -57,9 +81,9 @@ export const Sampling = (v: unknown): Sampling => {
     return arr.map(toBigInt) as bigint[];
   }
 
-  // ranges → array of [bigint, bigint]
-  if (Array.isArray(first) && first.length === 2) {
-    return (v as unknown[]).map(StartEndRange);
+  // Range sampling (array of {start, end} objects)
+  if (typeof first === 'object' && first !== null && 'start' in first && 'end' in first) {
+    return v.map(StartEndRange);
   }
 
   // Category sampling → strings; leave as-is

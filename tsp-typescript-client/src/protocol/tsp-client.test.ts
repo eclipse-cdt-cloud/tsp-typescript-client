@@ -7,6 +7,7 @@ import { DataType } from '../models/data-type';
 import { ConfigurationParameterDescriptor } from '../models/configuration-source';
 import { QueryHelper } from '../models/query/query-helper';
 import { isAxisDomainCategorical, isAxisDomainRange } from '../models/axis-domain';
+import { StartEndRange } from '../models/sampling';
 
 describe('HttpTspClient Deserialization', () => {
 
@@ -372,12 +373,16 @@ describe('HttpTspClient Deserialization', () => {
       expect(serie.xValues).toHaveLength(5);
       expect(serie.yValues).toHaveLength(5);
       for (const xValue of serie.xValues) {
-        if (Array.isArray(xValue) && xValue.length === 2) {
-          const [start, end] = xValue;
-          expect(typeof start).toBe('bigint');
-          expect(typeof end).toBe('bigint');
+        if (
+          typeof xValue === 'object' &&
+          xValue !== null &&
+          !Array.isArray(xValue)
+        ) {
+          const rangeObject = xValue as StartEndRange;
+          expect(typeof rangeObject.start).toBe('bigint');
+          expect(typeof rangeObject.end).toBe('bigint');
         } else {
-          fail('xValues is not RangeSampling ([start,end] tuple)');
+          throw new Error('xValue is not a valid StartEndRange object ({start, end})');
         }
       }
 
