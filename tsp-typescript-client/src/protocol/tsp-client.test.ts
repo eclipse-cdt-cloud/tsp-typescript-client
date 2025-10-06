@@ -539,12 +539,12 @@ describe('HttpTspClient Deserialization', () => {
     expect(paramDesc[0].keyName).toEqual('path');
     expect(paramDesc[0].description).toEqual('path description');
     expect(paramDesc[0].dataType).toEqual('STRING');
-    expect(paramDesc[0].isRequired).toBeTruthy();
+    expect(paramDesc[0].required).toBeTruthy();
 
     expect(paramDesc[1].keyName).toEqual('test1');
     expect(paramDesc[1].description).toBeUndefined();
     expect(paramDesc[1].dataType).toBeUndefined();
-    expect(paramDesc[1].isRequired).toBeUndefined();
+    expect(paramDesc[1].required).toBeUndefined();
     expect(sourceTypes[0].schema).toBeUndefined();
 
     expect(sourceTypes[1].parameterDescriptors).toBeUndefined();

@@ -55,5 +55,5 @@ export interface ConfigurationParameterDescriptor {
     /**
      * If parameter needs to in the query parameters or not. Default is false. 
      */
-    isRequired?: boolean;
+    required?: boolean;
 }

@@ -8,7 +8,7 @@
 				"keyName": "path",
 				"description": "path description",
 				"dataType": "STRING",
-				"isRequired": "True"
+				"required": "True"
  			},
 			{
 				"keyName": "test1"
