@@ -1,0 +1,16 @@
+{
+	"model": {
+		"object": {
+				"fooNumber": 1234567890123456789,
+				"fooString": "foo",
+				"fooObj": { "fooA": { "A1key": "A1val", "A2key": 1 },
+							"fooB": { "B1key": "B1val", "B2key": 2 } },
+				"fooNumArray": [1, 2, 3],
+				"fooObjArray": [{"k": "v1"}, {"k": "v2"}, {"k": "v3"}]
+			},
+		"next": 9876543210987654321,
+		"previous": { "rank": 0 }
+	},
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

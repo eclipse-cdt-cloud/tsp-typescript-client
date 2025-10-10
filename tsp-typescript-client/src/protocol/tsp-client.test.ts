@@ -126,7 +126,7 @@ describe('HttpTspClient Deserialization', () => {
     httpRequestMock.mockReturnValueOnce(fixtures.asResponse('experiment-outputs-0.json'));
     const response = await client.experimentOutputs('not-relevant');
     const outputs = response.getModel()!;
-    expect(outputs).toHaveLength(6);
+    expect(outputs).toHaveLength(7);
 
     let output = outputs.find((item) => item.id === 'timegraph.output.id1');
     expect(output).toBeDefined();
@@ -141,6 +141,11 @@ describe('HttpTspClient Deserialization', () => {
     expect(output?.capabilities?.canCreate).toBeFalsy();
     expect(output?.capabilities?.canDelete).toBeTruthy();
     expect(output?.configuration).toBeDefined();
+
+    output = outputs.find((item) => item.id === 'data.output.id');
+    expect(output).toBeDefined();
+    expect(output?.capabilities).toBeDefined();
+    expect(output?.capabilities?.selectionRange).toBeTruthy();
   });
 
   it('fetchAnnotationsCategories', async () => {
@@ -208,6 +213,27 @@ describe('HttpTspClient Deserialization', () => {
     expect(identifier.cpuCount).toBeDefined();
     expect(identifier.maxMemory).toBeDefined();
     expect(identifier.productId).toBeDefined();
+  });
+
+  it('fetchObject', async () => {
+    httpRequestMock.mockReturnValueOnce(fixtures.asResponse('fetch-object-0.json'));
+    const response = await client.fetchObject('not-relevant', 'not-relevant', new Query({}));
+    const genericResponse = response.getModel()!;
+    const object = genericResponse.model.object;
+    const next = genericResponse.model.next;
+    const previous = genericResponse.model.previous;
+
+    expect(object).toBeDefined();
+    expect(object['fooNumber']).toEqual(BigInt('1234567890123456789'));
+    expect(object['fooString']).toEqual('foo');
+    expect(object['fooObj']['fooA']).toEqual({ "A1key": "A1val", "A2key": 1 });
+    expect(object['fooObj']['fooB']).toEqual({ "B1key": "B1val", "B2key": 2 });
+    expect(object['fooNumArray']).toEqual([1, 2, 3]);
+    expect(object['fooObjArray']).toEqual([{"k": "v1"}, {"k": "v2"}, {"k": "v3"}]);
+    expect(next).toBeDefined();
+    expect(next).toEqual(BigInt('9876543210987654321'));
+    expect(previous).toBeDefined();
+    expect(previous).toEqual({ "rank": 0 });
   });
 
   it('fetchMarkerSets', async () => {
