@@ -13,6 +13,7 @@ import { MarkerSet } from "../models/markerset";
 import { OutputDescriptor } from "../models/output-descriptor";
 import { ConfigurationQuery, OutputConfigurationQuery, Query } from "../models/query/query";
 import { GenericResponse } from "../models/response/responses";
+import { ObjectModel } from "../models/object";
 import { OutputStyleModel } from "../models/styles";
 import { ColumnHeaderEntry, TableModel } from "../models/table";
 import {
@@ -165,6 +166,32 @@ export class HttpTspClient implements ITspClient {
     ): Promise<TspClientResponse<OutputDescriptor[]>> {
         const url = this.baseUrl + "/experiments/" + expUUID + "/outputs";
         return RestClient.get(url, undefined, array(OutputDescriptor));
+    }
+
+    /**
+     * Fetch object
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic object response
+     */
+    public async fetchObject(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<ObjectModel>>> {
+        const url =
+            this.baseUrl +
+            "/experiments/" +
+            expUUID +
+            "/outputs/data/" +
+            outputID +
+            "/obj";
+        return RestClient.post(
+            url,
+            parameters,
+            GenericResponse(ObjectModel)
+        );
     }
 
     /**
