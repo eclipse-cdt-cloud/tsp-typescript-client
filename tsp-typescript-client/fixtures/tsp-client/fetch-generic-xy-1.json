@@ -5,7 +5,7 @@
       {
         "seriesId": 3,
         "seriesName": "15652",
-        "xValues": [
+        "xCategories": [
           "red",
           "blue",
           "green",
