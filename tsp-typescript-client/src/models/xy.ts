@@ -1,8 +1,8 @@
-import { array, assertNumber, createNormalizer } from '../protocol/serialization';
+import { array, assertNumber, createNormalizer, toBigInt } from '../protocol/serialization';
 import { AxisDomain } from './axis-domain';
 import { DataType } from './data-type';
 import { Entry } from './entry';
-import { Sampling } from './sampling';
+import { StartEndRange } from './sampling';
 import { OutputElementStyle } from "./styles";
 
 export const XYAxisDescription = createNormalizer<XYAxisDescription>({
@@ -11,7 +11,8 @@ export const XYAxisDescription = createNormalizer<XYAxisDescription>({
 
 export const XYSeries = createNormalizer<XYSeries>({
     seriesId: assertNumber,
-    xValues: Sampling,
+    xValues: array(toBigInt),
+    xRanges: array(StartEndRange),
     yValues: array(assertNumber),
     tags: array(assertNumber),
     style: OutputElementStyle,
@@ -53,8 +54,11 @@ export interface XYSeries {
     /**
      * Series' X values
      */
-    xValues: Sampling;
+    xValues?: bigint[];
 
+    xRanges?: StartEndRange[];
+
+    xCategories?: string[];
     /**
      * Series' Y values
      */

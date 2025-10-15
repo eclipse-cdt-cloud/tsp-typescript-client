@@ -7,7 +7,6 @@ import { DataType } from '../models/data-type';
 import { ConfigurationParameterDescriptor } from '../models/configuration-source';
 import { QueryHelper } from '../models/query/query-helper';
 import { isAxisDomainCategorical, isAxisDomainRange } from '../models/axis-domain';
-import { StartEndRange } from '../models/sampling';
 
 describe('HttpTspClient Deserialization', () => {
 
@@ -349,11 +348,17 @@ describe('HttpTspClient Deserialization', () => {
     expect(xy.series).toHaveLength(1);
     for (const serie of xy.series) {
       expect(typeof serie.seriesId).toEqual('number');
+      expect(serie.xValues).toBeDefined();
+      expect(serie.xRanges).toBeUndefined();
+      expect(serie.xCategories).toBeUndefined();
       expect(serie.xValues).toHaveLength(3);
       expect(serie.yValues).toHaveLength(3);
-      for (const xValue of serie.xValues) {
-        expect(typeof xValue).toEqual('bigint');
-      }
+      if (serie.xValues) {
+        for (const xValue of serie.xValues) {
+          expect(typeof xValue).toEqual('bigint');
+        }
+    }
+      
       for (const yValue of serie.yValues) {
         expect(typeof yValue).toEqual('number');
       }
@@ -370,21 +375,18 @@ describe('HttpTspClient Deserialization', () => {
     expect(xy.series).toHaveLength(4);
     for (const serie of xy.series) {
       expect(typeof serie.seriesId).toEqual('number');
-      expect(serie.xValues).toHaveLength(5);
+      expect(serie.xValues).toBeUndefined();
+      expect(serie.xRanges).toBeDefined();
+      expect(serie.xCategories).toBeUndefined();
+      expect(serie.xRanges).toHaveLength(5);
       expect(serie.yValues).toHaveLength(5);
-      for (const xValue of serie.xValues) {
-        if (
-          typeof xValue === 'object' &&
-          xValue !== null &&
-          !Array.isArray(xValue)
-        ) {
-          const rangeObject = xValue as StartEndRange;
-          expect(typeof rangeObject.start).toBe('bigint');
-          expect(typeof rangeObject.end).toBe('bigint');
-        } else {
-          throw new Error('xValue is not a valid StartEndRange object ({start, end})');
+
+      if (serie.xRanges) {
+        for (const xValue of serie.xRanges) {
+          expect(typeof xValue.start).toBe('bigint');
+          expect(typeof xValue.end).toBe('bigint');
         }
-      }
+    }
 
       for (const yValue of serie.yValues) {
         expect(typeof yValue).toEqual('number');
@@ -419,10 +421,16 @@ describe('HttpTspClient Deserialization', () => {
     expect(xy_categorized.series).toHaveLength(1);
     for (const serie of xy_categorized.series) {
       expect(typeof serie.seriesId).toEqual('number');
-      expect(serie.xValues).toHaveLength(5);
+      expect(serie.xValues).toBeUndefined();
+      expect(serie.xRanges).toBeUndefined();
+      expect(serie.xCategories).toBeDefined();
+
+      expect(serie.xCategories).toHaveLength(5);
       expect(serie.yValues).toHaveLength(5);
-      for (const xValue of serie.xValues) {
-        expect(typeof xValue).toEqual('string');
+      if (serie.xCategories) {
+        for (const xValue of serie.xCategories) {
+          expect(typeof xValue).toEqual('string');
+        }
       }
 
       for (const yValue of serie.yValues) {
