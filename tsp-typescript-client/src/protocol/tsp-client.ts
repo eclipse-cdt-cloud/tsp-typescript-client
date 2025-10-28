@@ -16,6 +16,7 @@ import { Experiment } from "../models/experiment";
 import { OutputDescriptor } from "../models/output-descriptor";
 import { EntryModel } from "../models/entry";
 import { TspClientResponse } from "./tsp-client-response";
+import { ObjectModel } from "../models/object";
 import { OutputStyleModel } from "../models/styles";
 import { HealthStatus } from "../models/health";
 import { MarkerSet } from "../models/markerset";
@@ -110,6 +111,19 @@ export interface ITspClient {
     experimentOutputs(
         expUUID: string
     ): Promise<TspClientResponse<OutputDescriptor[]>>;
+
+    /**
+     * Fetch object
+     * @param expUUID Experiment UUID
+     * @param outputID Output ID
+     * @param parameters Query object
+     * @returns Generic object response
+     */
+    fetchObject(
+        expUUID: string,
+        outputID: string,
+        parameters: Query
+    ): Promise<TspClientResponse<GenericResponse<ObjectModel>>>;
 
     /**
      * Fetch Data tree
