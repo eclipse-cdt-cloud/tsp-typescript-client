@@ -12,7 +12,7 @@
 		"type": "TABLE"
 	},
 	{
-		"id": "data.output.id",
+		"id": "datatree.output.id",
 		"name": "Output name",
 		"description": "Output description",
 		"type": "DATA_TREE"
@@ -51,6 +51,15 @@
 		"capabilities": {
 			"canCreate": false,
 			"canDelete": true
+		}
+	},
+	{
+		"id": "data.output.id",
+		"name": "Output name",
+		"description": "Output description",
+		"type": "DATA",
+		"capabilities": {
+			"selectionRange": true
 		}
 	}
 ]

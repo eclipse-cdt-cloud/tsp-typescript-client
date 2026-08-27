@@ -43,6 +43,10 @@ export enum ProviderType {
      * A provider for a gantt chart (abitrary x-axis). E.g. flame graph.
      */
     GANTT_CHART = "GANTT_CHART",
+    /**
+     * A provider of generic data objects.
+     */
+    DATA = "DATA",
 }
 
 /**

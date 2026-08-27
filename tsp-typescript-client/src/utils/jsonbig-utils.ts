@@ -42,7 +42,7 @@ export class JSONBigUtils {
     /**
      * Stringify JS objects. Can stringify `BigInt` values.
      */
-    public static stringify(data: any): string {
-        return JSONBig.stringify(data);
+    public static stringify(value: any, replacer?: (number | string)[] | null, space?: string | number): string {
+        return JSONBig.stringify(value, replacer, space);
     }
 }
